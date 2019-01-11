@@ -1,0 +1,19 @@
+
+// partials
+@import 'reset';
+@import 'variables';
+@import 'splash';
+
+.App {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+}
+
+@media(max-width: 700px) {
+	.App {
+		flex-direction: column;
+		justify-content: flex-start;
+	}
+}
