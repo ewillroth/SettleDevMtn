@@ -17,4 +17,4 @@ const Splash = () => {
 	)
 }
 
-export default Splash
+export default Splash;

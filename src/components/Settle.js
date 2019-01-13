@@ -10,4 +10,4 @@ class Settle extends Component {
 	}
 }
 
-export default Settle
+export default Settle;
