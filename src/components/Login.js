@@ -6,12 +6,12 @@ import Header from './Header';
 
 class Login extends Component {
 
+	//redirects to dashboard if there is a user on session already
 	componentDidMount() {
 		this.props.getUser()
 		.then(()=>this.props.history.push('/dashboard'))
-		.catch(err=>console.log(err))
+		.catch(err=>{console.log(err)})
 	}
-
 
 	onSubmit = (e) => {
 		e.preventDefault()

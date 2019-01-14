@@ -6,6 +6,7 @@ import axios from 'axios';
 
 class Register extends Component {
 	
+	//redirects to dashboard if there is a user on session already
 	componentDidMount() {
 		this.props.getUser()
 		.then(() => this.props.history.push('/dashboard'))

@@ -16,6 +16,11 @@ const getSettle = (req,res) => {
 	})
 }
 
+const updateStage = (req,res) => {
+	req.app.get('db').update_status([req.body.status,req.params.id])
+	.then(response=>res.status(200).json(response))
+}
+
 const addSuggestions = (req,res) => {
 	req.app.get('db').add_suggestions([req.body.user_id, req.params.id, req.body.suggestion1, req.body.suggestion2, req.body.suggestion3])
 	.then(response=>{
@@ -26,5 +31,6 @@ const addSuggestions = (req,res) => {
 module.exports = {
 	create,
 	getSettle,
-	addSuggestions
+	addSuggestions,
+	updateStage
 };

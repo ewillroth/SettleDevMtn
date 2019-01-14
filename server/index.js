@@ -32,6 +32,7 @@ app.post('/auth/register', auth.register);
 
 app.post('/api/settle', settle.create)
 app.get('/api/settle/:id', settle.getSettle)
+app.put('/api/settle/:id/stage', settle.updateStage)
 app.put('/api/settle/:id', settle.addSuggestions)
 
 app.listen(port, ()=>console.log(`listening on ${port}`))
