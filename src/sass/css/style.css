@@ -1,51 +1,132 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
+* {
+  text-decoration: none;
+  font-size: 1em;
+  outline: none;
   padding: 0;
-  border: 0;
-  font-size: 100%;
+  margin: 0;
+}
+
+code, kbd, samp, pre, tt, var, textarea,
+input, select, isindex, listing, xmp, plaintext {
+  white-space: normal;
+  font-size: 1em;
   font: inherit;
-  vertical-align: baseline;
 }
 
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
+dfn, i, cite, var, address, em {
+  font-style: normal;
 }
 
-body {
-  line-height: 1;
+th, b, strong, h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
 }
 
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: "";
-  content: none;
+a, img, a img, iframe, form, fieldset,
+abbr, acronym, object, applet, table {
+  border: none;
 }
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+caption, th, td, center {
+  vertical-align: top;
+  text-align: left;
+}
+
+body {
+  background: white;
+  line-height: 1;
+  color: black;
+}
+
+q {
+  quotes: "" "";
+}
+
+ul, ol, dir, menu {
+  list-style: none;
+}
+
+sub, sup {
+  vertical-align: baseline;
+}
+
+a {
+  color: inherit;
+}
+
+hr {
+  display: none;
+}
+
+font {
+  color: inherit !important;
+  font: inherit !important;
+  color: inherit !important;
+}
+
+marquee {
+  overflow: inherit !important;
+  -moz-binding: none;
+}
+
+blink {
+  text-decoration: none;
+}
+
+nobr {
+  white-space: normal;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+}
+.header h1 {
+  font-family: SignPainter;
+  font-size: 100px;
+  color: #08B2E3;
+}
+
+.login {
+  position: relative;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+.login button {
+  margin: 10px 0px;
+}
+
+.newsettle {
+  width: 190px;
+  height: 50px;
+  margin: 30px;
+  padding: 8px 10px;
+  border-radius: 10%;
+  font-family: serif;
+  font-size: 20px;
+  background: #57A773;
+  cursor: pointer;
+}
+
+.newsettle:hover {
+  background: #509869;
+}
+
+.register {
+  position: relative;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+.register button {
+  margin: 10px 0px;
 }
 
 .splash-main {
@@ -67,7 +148,7 @@ table {
   margin: 100px 0;
   font-family: inconsolata;
 }
-.splash-main button {
+.splash-main a {
   width: 85px;
   margin: 30px;
   padding: 8px 10px;
@@ -77,7 +158,7 @@ table {
   background: #57A773;
   cursor: pointer;
 }
-.splash-main button:hover {
+.splash-main a:hover {
   background: #509869;
 }
 
@@ -94,7 +175,7 @@ table {
   align-items: center;
   width: 200px;
 }
-.splash-nav button {
+.splash-nav a {
   width: 85px;
   margin: 30px;
   padding: 8px 10px;
@@ -104,11 +185,11 @@ table {
   background: #57A773;
   cursor: pointer;
 }
-.splash-nav button:hover {
+.splash-nav a:hover {
   background: #509869;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 763px) {
   .splash-line {
     height: 0px;
     margin: 20px 30px;
@@ -118,7 +199,7 @@ table {
     flex-direction: row;
     width: 100%;
   }
-  .splash-nav button {
+  .splash-nav a {
     margin: 30px 10px 0px 10px;
     font-size: 16px;
   }
@@ -135,7 +216,7 @@ table {
     line-height: 1.5;
     margin: 30px 0;
   }
-  .splash-main button {
+  .splash-main a {
     margin: 0px;
     font-size: 16px;
   }
@@ -154,9 +235,10 @@ table {
   display: flex;
   justify-content: center;
   height: 100vh;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 763px) {
   .App {
     flex-direction: column;
     justify-content: flex-start;

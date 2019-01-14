@@ -5,6 +5,7 @@ class Settle extends Component {
 	render() {
 		return (
 			<>
+			<div>Settle</div>
 			</>
 		)
 	}

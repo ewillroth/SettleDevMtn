@@ -1,0 +1,11 @@
+@import 'variables';
+
+.header {
+	position: fixed;
+	top: 0;
+	h1 {
+		font-family: $logo-font;
+		font-size: 100px;
+		color: $blue;
+	}
+}

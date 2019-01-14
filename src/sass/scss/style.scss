@@ -2,6 +2,10 @@
 // partials
 @import 'reset';
 @import 'variables';
+@import 'header';
+@import 'login';
+@import 'newsettle';
+@import 'register';
 @import 'splash';
 
 .App {
@@ -9,9 +13,10 @@
 	display: flex;
 	justify-content: center;
 	height: 100vh;
+	flex-wrap: wrap;
 }
 
-@media(max-width: 700px) {
+@media(max-width: 763px) {
 	.App {
 		flex-direction: column;
 		justify-content: flex-start;

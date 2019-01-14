@@ -3,6 +3,8 @@ const express = require('express');
 const massive = require('massive');
 const { json } = require('body-parser');
 const session = require('express-session');
+const auth = require('./controllers/authController');
+const settle = require('./controllers/settleController');
 const app = express()
 const port = process.env.PORT || 3001
 
@@ -23,6 +25,10 @@ app.use(session({
 }))
 
 // ENDPOINTS
+app.get('/auth/me', auth.auth);
+app.post('/auth/login', auth.login);
+app.post('/auth/register', auth.register);
 
+app.post('/api/settle', settle.create)
 
 app.listen(port, ()=>console.log(`listening on ${port}`))
