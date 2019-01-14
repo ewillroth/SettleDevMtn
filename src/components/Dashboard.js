@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { getUser } from '../redux/reducers/userReducer';
 import {connect} from 'react-redux';
-import NewSettle from './NewSettle';
+import NewSettleButton from './NewSettleButton';
 
 class Dashboard extends Component {
 
+	//checks if there is a user on session and redirects to '/' if there is not
 	componentDidMount() {
 		this.props.getUser()
-		.catch(() => this.props.history.push('/login'))
+		.catch(() => this.props.history.push('/'))
 	}
 
 	render() {
@@ -18,7 +19,7 @@ class Dashboard extends Component {
 				<p>Name: {this.props.user.name}</p>
 				<p>Email: {this.props.user.email}</p>
 			</div>
-			<NewSettle reroute={(str)=>this.props.history.push(str)}/>
+			<NewSettleButton reroute={(str)=>this.props.history.push(str)}/>
 			</>
 		)
 	}

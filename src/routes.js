@@ -11,7 +11,7 @@ export default (
 		<Route path="/login" component={Login}></Route>
 		<Route path="/register" component={Register}></Route>
 		<Route path="/dashboard" component={Dashboard}></Route>
-		<Route path="/settle" component={Settle}></Route>
+		<Route path="/settle/:id" component={Settle}></Route>
 		<Route path="/" component={Splash}></Route>
 	</Switch>
 )

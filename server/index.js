@@ -25,10 +25,13 @@ app.use(session({
 }))
 
 // ENDPOINTS
+
 app.get('/auth/me', auth.auth);
 app.post('/auth/login', auth.login);
 app.post('/auth/register', auth.register);
 
 app.post('/api/settle', settle.create)
+app.get('/api/settle/:id', settle.getSettle)
+app.put('/api/settle/:id', settle.addSuggestions)
 
 app.listen(port, ()=>console.log(`listening on ${port}`))

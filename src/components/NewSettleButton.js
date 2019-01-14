@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {createSettle} from '../redux/reducers/settleReducer'
 
-class NewSettle extends Component {
+class NewSettleButton extends Component {
 	render(){
 		return (
 			<button 
@@ -22,4 +22,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, {createSettle})(NewSettle);
+export default connect(mapStateToProps, {createSettle})(NewSettleButton);

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import NewSettle from './NewSettle';
+import NewSettleButton from './NewSettleButton';
 
 const Splash = (props) => {
 	return (
@@ -13,7 +13,7 @@ const Splash = (props) => {
 		<div className="splash-main">
 			<h1 className="logo">Settle!</h1>
 			<p>Settle is a tool to help groups make decisions. Each person writes down three unique suggestions, suggestions are crossed off one at a time, and the last suggestion remaining is the winner.</p>
-		<NewSettle reroute={(str) => props.history.push(str)} />
+		<NewSettleButton reroute={(str) => props.history.push(str)} />
 		</div>
 		</>
 	)

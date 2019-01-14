@@ -230,6 +230,15 @@ nobr {
     min-width: 200px;
   }
 }
+.settlecontainer {
+  position: relative;
+  top: 100px;
+  display: flex;
+  background: #57A773;
+  width: 100%;
+  height: 10vh;
+}
+
 .App {
   text-align: center;
   display: flex;

@@ -27,6 +27,7 @@ class Login extends Component {
 
 	render(){
 		return (
+			this.props.user.user_id?<></>:
 			<>
 			<Header/>
 			<form className="login" onSubmit={this.onSubmit}>

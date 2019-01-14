@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
-import {updateName, updateEmail, updatePassword, resetForm} from '../redux/reducers/userReducer';
+import {updateName, updateEmail, updatePassword, resetForm, getUser} from '../redux/reducers/userReducer';
 import axios from 'axios';
 
 class Register extends Component {
-
+	
+	componentDidMount() {
+		this.props.getUser()
+		.then(() => this.props.history.push('/dashboard'))
+		.catch(err => console.log(err))
+	}
+	
 	onSubmit = (e) => {
 		e.preventDefault()
 		const { email, name, password } = this.props
@@ -16,9 +22,10 @@ class Register extends Component {
 		})
 		.catch(err => { alert(err.response.request.response) })
 	}
-
+	
 	render() {
 		return (
+			this.props.user.user_id !== 0 ? <></> :
 			<>
 			<Header/>
 			<form className="register" onSubmit={this.onSubmit}>
@@ -34,12 +41,14 @@ class Register extends Component {
 		)
 	}
 }
+
 const mapStateToProps = (state) => {
 	return {
+		user: state.userRdcr.user,
 		name: state.userRdcr.name,
 		email: state.userRdcr.email,
 		password: state.userRdcr.password
 	}
 }
 
-export default connect(mapStateToProps, {updateName,updateEmail, updatePassword, resetForm})(Register);
+export default connect(mapStateToProps, {updateName,updateEmail, updatePassword, resetForm, getUser})(Register);
