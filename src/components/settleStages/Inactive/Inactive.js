@@ -9,7 +9,8 @@ class Inactive extends Component {
 		this.state = {
 			suggestion1: "",
 			suggestion2: "",
-			suggestion3: ""
+			suggestion3: "",
+			update: true
 		};
 	}
 	componentDidMount() {
@@ -47,7 +48,7 @@ class Inactive extends Component {
 			<div className="settlecontainer">
 				<Header />
 				<div className="inactivecontainer">
-					<Participants id={this.props.id}/>
+					<Participants update={this.state.update} id={this.props.id}/>
 					<form className="submitlist" onSubmit={this.submitForm}>
 						<p>Add your suggestions:</p>
 						<input name="suggestion1" value={this.state.suggestion1} />

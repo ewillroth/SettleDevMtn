@@ -5,7 +5,7 @@ import {updateName, updateEmail, updatePassword, resetForm, getUser} from '../re
 import axios from 'axios';
 
 class Register extends Component {
-	
+
 	//redirects to dashboard if there is a non-guest user on session already
 	componentDidMount() {
 		this.props
@@ -33,7 +33,7 @@ class Register extends Component {
 	};
 
 	render() {
-		return this.props.user.user_id !== 0 ? (
+		return this.props.user.name !== 'guest' ? (
 			<></>
 		) : (
 			<>
