@@ -41,8 +41,6 @@ class Settle extends Component {
 			})
 	}
 
-
-
 	changeStage = (stage) =>{
 		this.setState({
 			settle: {...this.state.settle, stage}
@@ -61,7 +59,7 @@ class Settle extends Component {
 			? <Inactive id={id} changeStage={this.changeStage} /> 
 			: stage === 'new' ? <New id={id} url={url} changeStage={this.changeStage}/> 
 			: stage === 'inactive' ? <Inactive id={id} changeStage={this.changeStage}/> 
-			: stage === 'active' ? <Active /> 
+			: stage === 'active' ? <Active id={id} changeStage={this.changeStage}/> 
 			: stage === 'completed' ? <Completed /> 
 			: <></> }
 			</>

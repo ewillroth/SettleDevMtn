@@ -17,7 +17,7 @@
 		margin: 10px 0px;
 	}
 
-	ul {
+	.invitelist {
 		border: 1px solid black;
 		width: 300px;
 		min-height: 300px;
@@ -39,5 +39,10 @@
 		display: flex;
 		justify-content: space-evenly;
 		align-items: center;
+	}
+
+	.thelist {
+		width: 300px;
+		min-height: 300px
 	}
 }

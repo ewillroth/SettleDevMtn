@@ -48,11 +48,18 @@ const addSuggestions = (req,res) => {
 		.catch(err => console.log(err));
 }
 
+const removeSuggestion = (req,res) => {
+	req.app.get('db').remove_suggestion([req.body.suggestion, req.body.user_id, req.params.id])
+	.then()
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
 	updateStage,
 	addUser,
 	getParticipants,
-	addSuggestions
+	addSuggestions,
+	removeSuggestion
 };

@@ -263,7 +263,7 @@ nobr {
   width: 220px;
   margin: 10px 0px;
 }
-.settlecontainer ul {
+.settlecontainer .invitelist {
   border: 1px solid black;
   width: 300px;
   min-height: 300px;
@@ -282,6 +282,10 @@ nobr {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+.settlecontainer .thelist {
+  width: 300px;
+  min-height: 300px;
 }
 
 .App {

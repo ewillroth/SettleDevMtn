@@ -52,7 +52,7 @@ class New extends Component{
 						<p>Invite friends via email:</p>
 						<input name="email" value={this.state.email} onChange={this.onChange}></input>
 						<button onClick={() => { this.setState({ emails: [...this.state.emails, this.state.email] }, this.setState({email: ''})) }}>+</button>
-						<ul>
+						<ul className="invitelist">
 							{emails}
 						</ul>
 					</div>
@@ -60,7 +60,7 @@ class New extends Component{
 						<p>Invite friends via text:</p>
 						<input name="number" value={this.state.number} onChange={this.onChange}></input>
 						<button onClick={() => { this.setState({ numbers: [...this.state.numbers, this.state.number] }, this.setState({ number: '' })) }}>+</button>
-						<ul>
+						<ul className="invitelist">
 							{numbers}
 						</ul>
 					</div>
