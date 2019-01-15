@@ -50,7 +50,7 @@ const logout = (req, res) => {
 
 const auth = (req, res) => {
 	if (!req.session.user) {
-		res.status(400).json('Please log in')
+		res.sendStatus(401)
 	} else {
 		res.status(200).json(req.session.user)
 	}

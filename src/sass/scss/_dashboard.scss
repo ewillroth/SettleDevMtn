@@ -1,0 +1,65 @@
+.userpanel {
+	position: fixed;
+	left: 0;
+	height: 100vh;
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+
+	img {
+		width: 200px;
+		border: .5px solid black;
+		border-radius: 50%;
+		margin: 20px 0;
+	}
+
+	.userinfo {
+		display: flex;
+		flex-direction: column;
+	}
+
+	p {
+		font-size: 24px;
+		margin: 10px 0;
+		text-align: left;
+	}
+}
+.dashpanel{
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	left: 300px;
+	width: 800px;
+	height: 900px;
+	.dashnav {
+		display: flex;
+		justify-content: space-between;
+		height: 100px;
+		width: 100%;
+		.logo {
+			font-family: $logo-font;
+			font-size: 100px;
+			color: $blue;
+		}
+	}
+	.dashmain {
+		width: 100%;
+		height: 800px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		.friends{
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+		}
+
+		.stats {
+			width: 200px;
+			height: 200px;
+			border: 1px solid black;
+		}
+	}
+}

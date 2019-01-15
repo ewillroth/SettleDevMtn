@@ -134,6 +134,22 @@ nobr {
   background: #509869;
 }
 
+.activesettles {
+  width: 190px;
+  height: 50px;
+  margin: 30px;
+  padding: 8px 10px;
+  border-radius: 10%;
+  font-family: serif;
+  font-size: 20px;
+  background: #57A773;
+  cursor: pointer;
+}
+
+.activesettles:hover {
+  background: #509869;
+}
+
 .register {
   position: relative;
   top: 100px;
@@ -288,6 +304,55 @@ nobr {
   min-height: 300px;
 }
 
+.userpanel {
+  position: fixed;
+  left: 0;
+  height: 100vh;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.userpanel img {
+  width: 200px;
+  border: 0.5px solid black;
+  border-radius: 50%;
+  margin: 20px 0;
+}
+.userpanel .userinfo {
+  display: flex;
+  flex-direction: column;
+}
+.userpanel p {
+  font-size: 24px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.dashpanel {
+  position: fixed;
+  left: 300px;
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+}
+.dashpanel .dashnav {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  width: 100%;
+}
+.dashpanel .dashnav .logo {
+  font-family: SignPainter;
+  font-size: 100px;
+  color: #08B2E3;
+}
+.dashpanel .dashmain {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
 .App {
   text-align: center;
   display: flex;
