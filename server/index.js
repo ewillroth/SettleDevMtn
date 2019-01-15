@@ -30,6 +30,7 @@ app.get('/auth/me', auth.auth);
 app.post('/auth/login', auth.login);
 app.post('/auth/register', auth.register);
 app.get('/auth/logout', auth.logout)
+app.delete('/auth/me', auth.deleteUser)
 
 app.post('/api/settle', settle.create)
 app.get('/api/settle/:id', settle.getSettle)

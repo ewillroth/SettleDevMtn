@@ -53,6 +53,7 @@ class Register extends Component {
 					<input
 						onChange={e => this.props.updatePassword(e.target.value)}
 						value={this.props.password}
+						type="password"
 					/>
 					<button>Submit</button>
 				</form>

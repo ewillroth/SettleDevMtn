@@ -56,9 +56,19 @@ const auth = (req, res) => {
 	}
 }
 
+const deleteUser = (req, res) => {
+	req.app.get('db').users.delete_user(req.session.user.user_id)
+	.then(()=>{
+		req.session.destroy()
+		res.sendStatus(200)
+	})
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	login,
 	register,
 	logout,
-	auth
+	auth,
+	deleteUser
 }

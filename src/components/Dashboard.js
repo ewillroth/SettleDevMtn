@@ -5,6 +5,7 @@ import NewSettleButton from './NewSettleButton';
 import LogoutButton from './LogoutButton';
 import Stats from './dashboard/Stats';
 import Friends from './dashboard/Friends';
+import axios from 'axios';
 
 class Dashboard extends Component {
 	constructor(){
@@ -40,6 +41,7 @@ class Dashboard extends Component {
 					<p>Name: {this.props.user.name}</p>
 					<p>Email: {this.props.user.email}</p>
 				</div>
+				<button onClick={() => { axios.delete('/auth/me').then(() => { this.props.history.push('/') }).catch(err => console.log(err)) }}>Delete account</button>
 			<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 			</div>
 			:
@@ -50,6 +52,7 @@ class Dashboard extends Component {
 					<input placeholder="insert url?"></input>
 					<button>Submit</button>
 				</form>
+			<button onClick={()=>{axios.delete('/auth/me').then(()=>{this.props.history.push('/')}).catch(err=>console.log(err))}}>Delete account</button>
 			<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 			</div>
 			}
