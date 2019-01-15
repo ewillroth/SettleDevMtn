@@ -8,7 +8,7 @@ class NewSettleButton extends Component {
 			<button 
 			className='newsettle'
 			onClick={()=>{
-				this.props.createSettle(this.props.user_id)
+				this.props.createSettle()
 				.then(response => this.props.reroute(`/settle/${response.value.data.settle_id}`))
 				.catch(err=>console.log(err))}}
 			>Create Settle</button>

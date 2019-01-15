@@ -34,6 +34,7 @@ app.get('/auth/logout', auth.logout)
 app.post('/api/settle', settle.create)
 app.get('/api/settle/:id', settle.getSettle)
 app.put('/api/settle/:id/stage', settle.updateStage)
-app.put('/api/settle/:id', settle.addSuggestions)
+app.put('/api/settle/:id/adduser', settle.addUser)
+app.get('/api/settle/:id/participants', settle.getParticipants)
 
 app.listen(port, ()=>console.log(`listening on ${port}`))

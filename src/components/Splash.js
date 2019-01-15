@@ -10,7 +10,6 @@ class Splash extends Component{
 	//checks if there is a user on session 
 		//redirects to dashboard if user is logged in
 		//creates a guest user in db if no user
-	
 	componentDidMount() {
 		this.props.getUser()
 		.then((response)=>{

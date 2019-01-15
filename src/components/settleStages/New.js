@@ -13,6 +13,13 @@ class New extends Component{
 		}
 	}
 
+	componentDidMount(){
+		//adds user to user_settles
+		axios.put(`/api/settle/${this.props.id}/adduser`)
+		.then()
+		.catch(err=>console.log(err))
+	}
+
 	onChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value
