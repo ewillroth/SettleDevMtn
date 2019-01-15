@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
+import {connect} from 'react-redux';
 import New from './settleStages/New';
 import Inactive from './settleStages/Inactive/Inactive';
 import Active from './settleStages/Active';
 import Completed from './settleStages/Completed';
+import {getUser} from '../redux/reducers/userReducer';
 
 class Settle extends Component {
 	constructor(){
@@ -12,8 +15,8 @@ class Settle extends Component {
 			settle: {}
 		}
 	}
-	//retrieves the settle from the db using the id from the url and adds it to state- redirects to '/' if the settle doesnt exist in db
 	componentDidMount(){
+		//retrieves the settle from db adds it to state- redirects to '/' if the settle doesnt exist in db
 		axios.get(`/api/settle/${this.props.match.params.id}`)
 		.then(response=>{
 			if(response.data){
@@ -26,7 +29,19 @@ class Settle extends Component {
 			}
 		})
 		.catch(()=>this.props.history.push('/'))
+
+		//checks if there is a user on session and creates a guest user in db if not
+		this.props.getUser()
+			.then()
+			.catch(() => {
+				const guestemail = bcrypt.hashSync('email', 4)
+				axios.post('/auth/register', { email: guestemail, name: 'guest', password: 'doesntmatter' })
+					.then()
+					.catch()
+			})
 	}
+
+
 
 	changeStage = (stage) =>{
 		this.setState({
@@ -52,4 +67,11 @@ class Settle extends Component {
 	}
 }
 
-export default Settle;
+
+const mapStateToProps = state => {
+	return {
+		user: state.userRdcr.user
+	}
+}
+
+export default connect(mapStateToProps, { getUser })(Settle);

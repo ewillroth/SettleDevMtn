@@ -34,6 +34,7 @@ const register = async (req, res) => {
 			name: user.name,
 			profilepic: user.profilepic
 		}
+		console.log('user created:', req.session.user)
 		res.status(200).json(req.session.user)
 	} catch (e) {
 		console.log('e', e)
