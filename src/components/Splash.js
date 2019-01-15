@@ -7,13 +7,17 @@ import NewSettleButton from './NewSettleButton';
 import {getUser} from '../redux/reducers/userReducer';
 
 class Splash extends Component{
-	constructor(props){
-		super(props)
-	}
-	//checks if there is a user on session and creates a guest user in db if not
+	//checks if there is a user on session 
+		//redirects to dashboard if user is logged in
+		//creates a guest user in db if no user
+	
 	componentDidMount() {
 		this.props.getUser()
-		.then()
+		.then((response)=>{
+			if(response.action.payload.data.name!=='guest'){
+				this.props.history.push('/dashboard')
+			}
+		})
 		.catch(()=>{
 			const guestemail = bcrypt.hashSync('email', 4)
 			axios.post('/auth/register', {email: guestemail, name: 'guest', password: 'doesntmatter'})

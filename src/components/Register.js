@@ -6,40 +6,58 @@ import axios from 'axios';
 
 class Register extends Component {
 	
-	//redirects to dashboard if there is a user on session already
+	//redirects to dashboard if there is a non-guest user on session already
 	componentDidMount() {
-		this.props.getUser()
-		.then(() => this.props.history.push('/dashboard'))
-		.catch(err => console.log(err))
+		this.props
+			.getUser()
+			.then(response => {
+				if (response.action.payload.data.name !== "guest") {
+					this.props.history.push("/dashboard");
+				}
+			})
+			.catch(err => console.log(err));
 	}
-	
-	onSubmit = (e) => {
-		e.preventDefault()
-		const { email, name, password } = this.props
-		axios.post('/auth/register', { email, name, password })
-		.then((response) => {
-			this.props.resetForm(response)
-			this.props.history.push('/dashboard')
-		})
-		.catch(err => { alert(err.response.request.response) })
-	}
-	
+
+	onSubmit = e => {
+		e.preventDefault();
+		const { email, name, password } = this.props;
+		axios
+			.post("/auth/register", { email, name, password })
+			.then(response => {
+				this.props.resetForm(response);
+				this.props.history.push("/dashboard");
+			})
+			.catch(err => {
+				alert(err.response.request.response);
+			});
+	};
+
 	render() {
-		return (
-			this.props.user.user_id !== 0 ? <></> :
+		return this.props.user.user_id !== 0 ? (
+			<></>
+		) : (
 			<>
-			<Header/>
-			<form className="register" onSubmit={this.onSubmit}>
-				<p>Name</p>
-				<input onChange={(e)=>this.props.updateName(e.target.value)} value={this.props.name}></input>
-				<p>Email</p>
-				<input onChange={(e)=>this.props.updateEmail(e.target.value)} value={this.props.email}></input>
-				<p>Password</p>
-				<input onChange={(e)=>this.props.updatePassword(e.target.value)} value={this.props.password}></input>
-				<button>Submit</button>
-			</form>
+				<Header />
+				<form className="register" onSubmit={this.onSubmit}>
+					<p>Name</p>
+					<input
+						onChange={e => this.props.updateName(e.target.value)}
+						value={this.props.name}
+					/>
+					<p>Email</p>
+					<input
+						onChange={e => this.props.updateEmail(e.target.value)}
+						value={this.props.email}
+					/>
+					<p>Password</p>
+					<input
+						onChange={e => this.props.updatePassword(e.target.value)}
+						value={this.props.password}
+					/>
+					<button>Submit</button>
+				</form>
 			</>
-		)
+		);
 	}
 }
 

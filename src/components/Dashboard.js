@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getUser } from '../redux/reducers/userReducer';
 import {connect} from 'react-redux';
 import NewSettleButton from './NewSettleButton';
+import LogoutButton from './LogoutButton';
 
 class Dashboard extends Component {
 
@@ -20,6 +21,7 @@ class Dashboard extends Component {
 				<p>Email: {this.props.user.email}</p>
 			</div>
 			<NewSettleButton reroute={(str)=>this.props.history.push(str)}/>
+			<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 			</>
 		)
 	}

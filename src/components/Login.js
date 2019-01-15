@@ -6,10 +6,14 @@ import Header from './Header';
 
 class Login extends Component {
 
-	//redirects to dashboard if there is a user on session already
+	//redirects to dashboard if there is a non-guest user on session already
 	componentDidMount() {
 		this.props.getUser()
-		.then(()=>this.props.history.push('/dashboard'))
+		.then((response)=>{
+			if(response.action.payload.data.name!=='guest'){
+				this.props.history.push('/dashboard')
+			}
+		})
 		.catch(err=>{console.log(err)})
 	}
 
@@ -27,7 +31,6 @@ class Login extends Component {
 
 	render(){
 		return (
-			this.props.user.user_id?<></>:
 			<>
 			<Header/>
 			<form className="login" onSubmit={this.onSubmit}>

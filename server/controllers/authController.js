@@ -44,6 +44,7 @@ const register = async (req, res) => {
 
 const logout = (req, res) => {
 	req.session.destroy()
+	console.log('logged out')
 	res.sendStatus(200)
 }
 
