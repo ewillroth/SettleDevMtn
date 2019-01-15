@@ -27,9 +27,10 @@ class Inactive extends Component {
 		});
 	};
 
-	submitForm = () => {
+	submitForm = (e) => {
+		e.preventDefault()
 		axios
-			.put("/api/settle/submit", {
+			.put(`/api/settle/${this.props.id}/submit`, {
 				suggestion1: this.state.suggestion1,
 				suggestion2: this.state.suggestion2,
 				suggestion3: this.state.suggestion3
@@ -51,9 +52,9 @@ class Inactive extends Component {
 					<Participants update={this.state.update} id={this.props.id}/>
 					<form className="submitlist" onSubmit={this.submitForm}>
 						<p>Add your suggestions:</p>
-						<input name="suggestion1" value={this.state.suggestion1} />
-						<input name="suggestion2" value={this.state.suggestion2} />
-						<input name="suggestion3" value={this.state.suggestion3} />
+						<input onChange={this.onChange} name="suggestion1" value={this.state.suggestion1} />
+						<input onChange={this.onChange} name="suggestion2" value={this.state.suggestion2} />
+						<input onChange={this.onChange} name="suggestion3" value={this.state.suggestion3} />
 						<button>Submit</button>
 					</form>
 				</div>

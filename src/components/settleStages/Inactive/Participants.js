@@ -37,7 +37,16 @@ class Participants extends Component {
 	render() {
 		const map = this.state.participants.length > 0 ? this.state.participants.map(
 					(e, i) => {
-						return <p key={i}>{e.user_id}</p>;
+						return (
+						<div key={i}>
+								<p>User ID</p>
+								<p>{e.user_id}</p>
+								<p>Suggestions:</p>
+								<p>{e.suggestion1}</p>
+								<p>{e.suggestion2}</p>
+								<p>{e.suggestion3}</p>
+						</div>
+						)
 					}
 				) : <></>;
 			return(

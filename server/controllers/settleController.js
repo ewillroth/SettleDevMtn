@@ -33,10 +33,26 @@ const getParticipants = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
+const addSuggestions = (req,res) => {
+	req.app
+		.get("db")
+		.settles
+		.add_suggestions([
+			req.body.suggestion1,
+			req.body.suggestion2,
+			req.body.suggestion3,
+			req.session.user.user_id,
+			req.params.id
+		])
+		.then()
+		.catch(err => console.log(err));
+}
+
 module.exports = {
 	create,
 	getSettle,
 	updateStage,
 	addUser,
-	getParticipants
+	getParticipants,
+	addSuggestions
 };
