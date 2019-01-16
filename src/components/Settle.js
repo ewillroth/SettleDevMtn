@@ -51,15 +51,20 @@ class Settle extends Component {
 		const stage = this.state.settle.stage
 		const url = this.props.match.url
 		const id = this.props.match.params.id
+		const creator = this.state.settle.creator_id
 		//return a different component depending on the stage of the current settle
 		return (
 			<>{
 			//only allows creator of the settle to see the New component
 			stage === 'new' && this.props.user.user_id !== this.state.settle.creator_id 
 			? <Inactive id={id} changeStage={this.changeStage} /> 
+			//new component is where the creator invites others to the settle
 			: stage === 'new' ? <New id={id} url={url} changeStage={this.changeStage}/> 
-			: stage === 'inactive' ? <Inactive id={id} changeStage={this.changeStage}/> 
+			//inactive component allows users to submit their suggestions
+			: stage === 'inactive' ? <Inactive creator={creator} id={id} changeStage={this.changeStage}/> 
+			//active component is where users settle
 			: stage === 'active' ? <Active id={id} changeStage={this.changeStage}/> 
+			//completed displays the winning suggestion
 			: stage === 'completed' ? <Completed /> 
 			: <></> }
 			</>

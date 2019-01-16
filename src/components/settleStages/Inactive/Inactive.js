@@ -10,7 +10,9 @@ class Inactive extends Component {
 			suggestion1: "",
 			suggestion2: "",
 			suggestion3: "",
-			update: true
+			update: true,
+			user: {},
+			creator: false
 		};
 	}
 	componentDidMount() {
@@ -19,6 +21,22 @@ class Inactive extends Component {
 			.put(`/api/settle/${this.props.id}/adduser`)
 			.then()
 			.catch(err => console.log(err));
+		//gets user from session- used to verify if user is creator
+		axios.get('/auth/me')
+		.then(response=>{
+			this.setState({user:response.data})
+			if(response.data.user_id===this.props.creator){
+				this.setState({
+					creator: true
+				})
+			}
+			else{
+				this.setState({
+					creator: false
+				})
+			}
+		})
+		.catch(err=>console.log(err))
 	}
 
 	onChange = e => {
@@ -62,7 +80,12 @@ class Inactive extends Component {
 						<button>Submit</button>
 					</form>
 				</div>
-				<button onClick={this.onClick}>Submit</button>
+				{this.state.creator
+				?
+				<button onClick={this.onClick}>Start Settle</button>
+				:
+				<></>
+				}
 			</div>
 		);
 	}

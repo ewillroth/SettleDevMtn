@@ -19,6 +19,7 @@ CREATE TABLE settles (
 settle_id serial PRIMARY KEY NOT NULL,
 creator_id integer REFERENCES users(user_id),
 winning_suggestion varchar(200),
+winner_id integer REFERENCES users(user_id),
 stage varchar(10) DEFAULT 'inactive'
 );
 

@@ -11,29 +11,27 @@ class Dashboard extends Component {
 	constructor(){
 		super()
 		this.state={
-			update: false
+			edit: false
 		}
 	}
-
 	//checks if there is a user on session and redirects to '/' if there is not
 	componentDidMount() {
 		this.props.getUser()
 		.then()
 		.catch(() => this.props.history.push('/'))
 	}
-
+	//changes the userpanel view to allow users to edit their profile picture
 	onClick=()=>{
 		this.setState({
-			update: !this.state.update
+			edit: !this.state.edit
 		})
 	}
-
 	render() {
 		return (
 			<>
 			{//change user info panel view when updating profile picture
-			!this.state.update
-			?
+			!this.state.edit
+			?//user panel standard view
 			<div className="userpanel">
 				<img src={this.props.user.profilepic} alt="profile"></img>
 				<button onClick={this.onClick}>Edit profile picture</button>
@@ -44,7 +42,7 @@ class Dashboard extends Component {
 				<button onClick={() => { axios.delete('/auth/me').then(() => { this.props.history.push('/') }).catch(err => console.log(err)) }}>Delete account</button>
 			<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 			</div>
-			:
+			://user panel view when editing profile picture
 			<div className="userpanel">
 				<img src={this.props.user.profilepic} alt="profile"></img>
 				<button onClick={this.onClick}>Cancel</button>
