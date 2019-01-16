@@ -1,32 +1,29 @@
 import React, { Component } from "react";
-import axios from "axios";
+import {connect} from 'react-redux';
+import {getParticipants} from '../../../redux/reducers/settleReducer';
 
 class Participants extends Component {
 	constructor(){
 		super()
 		this.state={
-			participants: [],
-			map: [],
 			update: true
 		}
 	}
 	//triggers rerender after participants are updated
 	componentDidMount(){
-		axios.get(`/api/settle/${this.props.id}/participants/`)
-		.then(response=>{
+		this.props.getParticipants(this.props.id)
+		.then(()=>{
 			this.setState({
-			participants: response.data,
 			update: !this.state.update
 		})})
 		.catch(err=>console.log(err))
 	}
 	//gets participants again if parent adds a participant to db
 	componentDidUpdate(prevProps){
-		if(this.propsate!==prevProps){
-			axios.get(`/api/settle/${this.props.id}/participants/`)
-				.then(response => {
+		if(this.props!==prevProps){
+			this.props.getParticipants(this.props.id)
+				.then(()=> {
 					this.setState({
-						participants: response.data,
 						update: !this.state.update
 					})
 				})
@@ -35,16 +32,13 @@ class Participants extends Component {
 	}
 
 	render() {
-		const map = this.state.participants.length > 0 ? this.state.participants.map(
+		const participants = this.props.participants
+		const map = participants.length > 0 ? participants.map(
 					(e, i) => {
 						return (
-						<div key={i}>
-								<p>User ID</p>
-								<p>{e.user_id}</p>
-								<p>Suggestions:</p>
-								<p>{e.suggestion1}</p>
-								<p>{e.suggestion2}</p>
-								<p>{e.suggestion3}</p>
+						<div className="participant" key={i}>
+							<img src={e.profilepic} alt="user"/>
+							<img src={e.done ? "https://image.flaticon.com/icons/svg/291/291201.svg" :"https://image.flaticon.com/icons/svg/291/291202.svg"} alt="user status"/>
 						</div>
 						)
 					}
@@ -58,4 +52,10 @@ class Participants extends Component {
 	}
 };
 
-export default Participants;
+const mapStateToProps = (state) => {
+	return {
+		participants: state.settleRdcr.participants
+	}
+}
+
+export default connect(mapStateToProps, {getParticipants})(Participants);

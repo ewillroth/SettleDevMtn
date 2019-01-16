@@ -1,18 +1,22 @@
 import React, {Component} from "react";
+import {connect} from 'react-redux'
+import axios from "axios";
 import Header from "../../Header";
 import Participants from '../Inactive/Participants';
-import axios from "axios";
+import {getUser} from '../../../redux/reducers/userReducer';
+import {getParticipants} from '../../../redux/reducers/settleReducer';
 
 class Inactive extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			suggestion1: "",
 			suggestion2: "",
 			suggestion3: "",
-			update: true,
-			user: {},
-			creator: false
+			creator: false,
+			alldone: false,
+			usersuggestions: {},
+			update: false,
 		};
 	}
 	componentDidMount() {
@@ -21,11 +25,11 @@ class Inactive extends Component {
 			.put(`/api/settle/${this.props.id}/adduser`)
 			.then()
 			.catch(err => console.log(err));
+		
 		//gets user from session- used to verify if user is creator
-		axios.get('/auth/me')
-		.then(response=>{
-			this.setState({user:response.data})
-			if(response.data.user_id===this.props.creator){
+		this.props.getUser()
+		.then(()=>{
+			if(this.props.user.user_id===this.props.creator){
 				this.setState({
 					creator: true
 				})
@@ -37,6 +41,36 @@ class Inactive extends Component {
 			}
 		})
 		.catch(err=>console.log(err))
+
+		//gets participants from user_settles - used to verify if user has submitted all suggestions
+		this.props.getParticipants(this.props.id)
+		.then(()=>{
+			let userindex = this.props.participants.findIndex(i=>i.user_id === this.props.user.user_id)
+			let usersuggestions = this.props.participants[userindex]
+			let alldone = this.props.participants.findIndex(i=>i.done===false)===-1?true:false
+			this.setState({
+				usersuggestions,
+				alldone
+			})
+		})
+		.catch(err=>console.log(err))
+	}
+
+	componentDidUpdate(prevProps){
+		//gets participants again if they are updated
+		if(prevProps.participants!==this.props.participants){
+			this.props.getParticipants(this.props.id)
+				.then(() => {
+					let userindex = this.props.participants.findIndex(i => i.user_id === this.props.user.user_id)
+					let usersuggestions = this.props.participants[userindex]
+					let alldone = this.props.participants.findIndex(i => i.done === false) === -1 ? true : false
+					this.setState({
+						usersuggestions,
+						alldone
+					})
+				})
+				.catch(err => console.log(err))
+		}
 	}
 
 	onChange = e => {
@@ -53,8 +87,10 @@ class Inactive extends Component {
 				suggestion2: this.state.suggestion2,
 				suggestion3: this.state.suggestion3
 			})
-			.then()
-			.catch();
+			.then(()=>{this.setState({
+				update:!this.state.update
+			})})
+			.catch(err=>console.log(err));
 	};
 
 	onClick = e => {
@@ -67,11 +103,20 @@ class Inactive extends Component {
 	};
 
 	render() {
-		return (
-			<div className="settlecontainer">
+		return <div className="settlecontainer">
 				<Header />
 				<div className="inactivecontainer">
-					<Participants update={this.state.update} id={this.props.id}/>
+					<Participants id={this.props.id} />
+					{//removes the form once user has submitted all suggestions
+					this.state.usersuggestions&&
+					this.state.usersuggestions.suggestion1 && this.state.usersuggestions.suggestion2 && this.state.usersuggestions.suggestion3 
+					? 
+					<ul>
+						<li>{this.state.usersuggestions.suggestion1}</li>
+						<li>{this.state.usersuggestions.suggestion2}</li>
+						<li>{this.state.usersuggestions.suggestion3}</li>
+					</ul> 
+					: //displays form if user has submitted all suggestions
 					<form className="submitlist" onSubmit={this.submitForm}>
 						<p>Add your suggestions:</p>
 						<input onChange={this.onChange} name="suggestion1" value={this.state.suggestion1} />
@@ -79,16 +124,32 @@ class Inactive extends Component {
 						<input onChange={this.onChange} name="suggestion3" value={this.state.suggestion3} />
 						<button>Submit</button>
 					</form>
+					}
 				</div>
-				{this.state.creator
+				{//only displays the Start Settle button for the creator && if all participants have submitted their suggestions
+				this.state.creator && this.state.alldone !== false 
+				? 
+				<button onClick={this.onClick}> Start Settle </button> 
+				: 
+				this.state.creator && this.state.alldone === false 
 				?
-				<button onClick={this.onClick}>Start Settle</button>
+				<p>Waiting until everyone is ready</p>
+				:
+				this.state.alldone !== false
+				?
+				<p>Waiting for creator to begin the settle</p>
 				:
 				<></>
 				}
-			</div>
-		);
+			</div>;
 	}
 };
 
-export default Inactive;
+const mapStateToProps = (state) => {
+	return {
+		user: state.userRdcr.user,
+		participants: state.settleRdcr.participants
+	}
+}
+
+export default connect(mapStateToProps, {getUser, getParticipants})(Inactive);

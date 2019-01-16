@@ -46,6 +46,7 @@ CREATE TABLE user_settles (
 	suggestion1 varchar(200), 
 	suggestion2 varchar(200), 
 	suggestion3 varchar(200), 
+	done boolean DEFAULT false,
 	PRIMARY KEY (user_id, settle_id)
 );
 
