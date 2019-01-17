@@ -35,13 +35,14 @@ class Active extends Component{
 	render(){
 		return (
 			<div className="active">
-				<div>
+				<div className="userpanel">
 					<h1 className="logo">Settle!</h1>
 					<img src={this.props.user.profilepic} alt="profile"></img>
-					<Participants id={this.props.id}/>
+					<p>{this.props.user.name}</p>
+					<Participants stage="active" id={this.props.id}/>
 				</div>
-				<div></div>
-				<div></div>
+				<div className="thelist"></div>
+				<div className="chat"></div>
 			</div>
 		)
 	}

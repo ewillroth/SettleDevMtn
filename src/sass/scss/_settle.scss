@@ -100,7 +100,31 @@
 		}
 	}
 	.active{
-
+		.participants {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			.participant{
+				img {
+					width: 80px;
+					height: 80px;
+				}
+			}
+		}
+		.userpanel {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			h1 {
+				font-family: $logo-font;
+				font-size: 100px;
+			}
+			img {
+				width: 100px;
+				height: 100px;
+			}
+		}
 	}
 	.completed{
 

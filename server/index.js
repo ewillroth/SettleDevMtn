@@ -8,8 +8,9 @@ const settle = require('./controllers/settleController');
 const app = express()
 const port = process.env.PORT || 3001
 
-// const http = require('http')
-// const server = http.createServer(app)
+
+const server = require('http').createServer(app)
+const io = require('socket.io')();
 
 app.use(json())
 
@@ -44,22 +45,21 @@ app.get('/api/settle/:id/participants', settle.getParticipants)
 app.put('/api/settle/:id/submit', settle.addSuggestions)
 app.put('/api/settle/:id/remove', settle.removeSuggestion)
 
-app.listen(port, ()=>console.log(`listening on ${port}`))
 
-// io.on('connection', socket=> {
-// 	console.log('user connected'),
-// 		socket.emit('hello', {greeting: 'hello world'})
+io.on('connection', socket=> {
+	console.log('user connected'),
+	socket.emit('hello', {greeting: 'hello world'})
+	
+	socket.on('disconnect', ()=>{
+		console.log('user disconnected')
+	})
+	
+	socket.on('name of event', data => {
+		console.log('socket hears the event')
+		socket.emit() //sends things to the person that gives you the event
+		// socket.broadcast() //sends things to everyone
+		// socket.broadcast.to('room1', 'whats up yall')
+	})
+})
 
-// 		socket.on('disconnect', ()=>{
-// 			console.log('user disconnected')
-// 		})
-
-// 		socket.on('name of event', data => {
-// 			console.log('socket hears the event')
-// 			socket.emit() //sends things to the person that gives you the event
-// 			socket.broadcast() //sends things to everyone
-// 			socket.broadcast.to('room1', 'whats up yall')
-// 		})
-// })
-
-//server.listen instead
+server.listen(port, ()=>console.log(`listening on ${port}`))

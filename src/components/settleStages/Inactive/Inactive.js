@@ -106,7 +106,7 @@ class Inactive extends Component {
 		return <div className="inactive">
 				<Header />
 				<div className="inactivecontainer">
-					<Participants id={this.props.id} />
+					<Participants stage="inactive" id={this.props.id} />
 					{//removes the form once user has submitted all suggestions
 					this.state.usersuggestions&&
 					this.state.usersuggestions.suggestion1 && this.state.usersuggestions.suggestion2 && this.state.usersuggestions.suggestion3 

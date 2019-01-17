@@ -26,7 +26,15 @@ class Participants extends Component {
 						return (
 						<div className="participant" key={i}>
 							<img src={e.profilepic} alt="user"/>
+							{this.props.stage==="inactive"
+							?
 							<img className="donesubmitting" src={e.done ? "https://image.flaticon.com/icons/svg/291/291201.svg" :"https://image.flaticon.com/icons/svg/291/291202.svg"} alt="user status"/>
+							:
+							this.props.stage==="active"
+							?
+							<div>Add as a freind</div>
+							: <></>
+							}
 						</div>
 						)
 					}

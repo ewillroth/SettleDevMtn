@@ -265,6 +265,9 @@ nobr {
     min-width: 200px;
   }
 }
+.settlecontainer {
+  width: 100%;
+}
 .settlecontainer .new {
   display: flex;
   flex-direction: column;
@@ -327,10 +330,13 @@ nobr {
   justify-content: center;
   align-items: center;
   height: 800px;
+  width: 100%;
 }
 .settlecontainer .inactive .inactivecontainer {
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 }
 .settlecontainer .inactive .inactivecontainer .usersuggestions {
   display: flex;
@@ -347,6 +353,29 @@ nobr {
 .settlecontainer .inactive .inactivecontainer .participants .participant img {
   width: 80px;
   height: 80px;
+}
+.settlecontainer .active .participants {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.settlecontainer .active .participants .participant img {
+  width: 80px;
+  height: 80px;
+}
+.settlecontainer .active .userpanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.settlecontainer .active .userpanel h1 {
+  font-family: SignPainter;
+  font-size: 100px;
+}
+.settlecontainer .active .userpanel img {
+  width: 100px;
+  height: 100px;
 }
 .userpanel {
   position: fixed;
