@@ -3,8 +3,6 @@ import {FIREBASE_API} from './apikey'
 
 var firebase = require('firebase/app')
 
-console.log(FIREBASE_API)
-
 var config = {
 	apiKey: FIREBASE_API,
 	authDomain: "tacotracker2019.firebaseapp.com",
