@@ -1,11 +1,12 @@
-import dotenv from 'dotenv'
 import 'firebase/storage'
-dotenv.config()
+import {FIREBASE_API} from './apikey'
+
 var firebase = require('firebase/app')
 
+console.log(FIREBASE_API)
 
 var config = {
-	apiKey: process.env.FIREBASE_API,
+	apiKey: FIREBASE_API,
 	authDomain: "tacotracker2019.firebaseapp.com",
 	databaseURL: "https://tacotracker2019.firebaseio.com",
 	projectId: "tacotracker2019",
