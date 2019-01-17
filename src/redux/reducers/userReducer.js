@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //initial state
 const initialState = {
-	user: { user_id: 0, name: 'guest', email: 'guest' },
+	user: { user_id: 1, name: 'guest', email: 'guest', profilepic: '' },
 	email: '',
 	name: '',
 	password: '',
@@ -14,6 +14,7 @@ const UPDATE_EMAIL = 'UPDATE_EMAIL'
 const UPDATE_NAME= 'UPDATE_NAME'
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 const RESET_FORM = 'RESET_FORM'
+const UPDATE_PICTURE = 'UPDATE_PICTURE'
 
 //action creators
 export const getUser = () => {
@@ -47,6 +48,13 @@ export const resetForm = (user) => {
 	}
 }
 
+export const updatePicture = (picture) => {
+	return {
+		type: UPDATE_PICTURE,
+		payload: axios.put('/auth/picture', {picture})
+	}
+}
+
 //reducer
 export default function userReducer(state = initialState, action) {
 	switch (action.type) {
@@ -57,8 +65,7 @@ export default function userReducer(state = initialState, action) {
 			}
 		case `${GET_USER}_REJECTED`:
 			return {
-				...state,
-				user: {user_id: 0, name: 'guest', email: 'guest'}
+				...state
 			}
 		case UPDATE_EMAIL:
 			return {
@@ -74,6 +81,15 @@ export default function userReducer(state = initialState, action) {
 			return {
 				...state,
 				password: action.payload
+			}
+		case `${UPDATE_PICTURE}_FULFILLED`:
+			return {
+				...state,
+				user: {...state.user, profilepic:action.payload}
+			}
+		case `${UPDATE_PICTURE}_REJECTED`:
+			return {
+				...state
 			}
 		case RESET_FORM:
 			return {

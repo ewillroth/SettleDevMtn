@@ -20,6 +20,7 @@ class New extends Component{
 		.catch(err=>console.log(err))
 	}
 
+
 	onChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value
@@ -37,15 +38,36 @@ class New extends Component{
 		.catch(err=>console.log(err))
 	}
 
+	copy = () => {
+		/* Get the text field */
+		var copyText = document.getElementById("settlelink");
+		/* Select the text field */
+		copyText.select();
+		/* Copy the text inside the text field */
+		document.execCommand("copy");
+		/* Alert the copied text */
+		alert("Copied the text: " + copyText.value);
+	}
+	
+
 	render(){
-		const emails = this.state.emails.map((e,i)=> <li key={i}>{e}</li>)
-		const numbers = this.state.numbers.map((e,i)=><li key={i}>{e}</li>)
+		const displayemails = this.state.emails.map((e,i)=> (<li key={i}>{e}<button onClick={()=>{
+			let emails = this.state.emails.slice()
+			emails.splice(i,1)
+			this.setState({emails})
+			}}>X</button></li>))
+		const displaynumbers = this.state.numbers.map((e,i)=><li key={i}>{e}<button onClick={()=>{
+			let numbers = this.state.numbers.slice()
+			numbers.splice(i,1)
+			this.setState({numbers})
+			}}>X</button></li>)
 		return (
-			<div className="settlecontainer">
+			<div className="new">
 				<Header/>
 				<div className="settlelink" >
 					<p>Invite friends via link:</p>
-					<input readOnly value={`http://localhost:3334${this.props.url}`}></input>
+					<input id="settlelink" readOnly value={`http://localhost:3334${this.props.url}`}></input>
+					<button onClick={this.copy} className="copybutton">copy</button>
 				</div>
 				<div className="inviteboxes">
 					<div className="emailcontainer">
@@ -53,7 +75,7 @@ class New extends Component{
 						<input name="email" value={this.state.email} onChange={this.onChange}></input>
 						<button onClick={() => { this.setState({ emails: [...this.state.emails, this.state.email] }, this.setState({email: ''})) }}>+</button>
 						<ul className="invitelist">
-							{emails}
+							{displayemails}
 						</ul>
 					</div>
 					<div className="numbercontainer">
@@ -61,7 +83,7 @@ class New extends Component{
 						<input name="number" value={this.state.number} onChange={this.onChange}></input>
 						<button onClick={() => { this.setState({ numbers: [...this.state.numbers, this.state.number] }, this.setState({ number: '' })) }}>+</button>
 						<ul className="invitelist">
-							{numbers}
+							{displaynumbers}
 						</ul>
 					</div>
 				</div>

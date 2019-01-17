@@ -1,8 +1,10 @@
-@import 'variables';
 
 .header {
 	position: fixed;
 	top: 0;
+	display: flex;
+	justify-content: center;
+	width: 100%;
 	h1 {
 		font-family: $logo-font;
 		font-size: 100px;

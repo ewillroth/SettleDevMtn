@@ -18,18 +18,6 @@ class Participants extends Component {
 		})})
 		.catch(err=>console.log(err))
 	}
-	//gets participants again if parent adds a participant to db
-	componentDidUpdate(prevProps){
-		if(this.props!==prevProps){
-			this.props.getParticipants(this.props.id)
-				.then(()=> {
-					this.setState({
-						update: !this.state.update
-					})
-				})
-				.catch(err => console.log(err))
-		}
-	}
 
 	render() {
 		const participants = this.props.participants
@@ -38,7 +26,7 @@ class Participants extends Component {
 						return (
 						<div className="participant" key={i}>
 							<img src={e.profilepic} alt="user"/>
-							<img src={e.done ? "https://image.flaticon.com/icons/svg/291/291201.svg" :"https://image.flaticon.com/icons/svg/291/291202.svg"} alt="user status"/>
+							<img className="donesubmitting" src={e.done ? "https://image.flaticon.com/icons/svg/291/291201.svg" :"https://image.flaticon.com/icons/svg/291/291202.svg"} alt="user status"/>
 						</div>
 						)
 					}

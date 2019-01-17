@@ -65,10 +65,15 @@ const deleteUser = (req, res) => {
 	.catch(err=>console.log(err))
 }
 
+const updatePicture = (req,res) => {
+	req.app.get('db').users.update_picture([req.body.picture, req.session.user.user_id]).then(response=>{res.status(200).json(response[0])}).catch(err=>console.log('updateerror',err))
+}
+
 module.exports = {
 	login,
 	register,
 	logout,
 	auth,
-	deleteUser
+	deleteUser,
+	updatePicture
 }

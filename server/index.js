@@ -8,6 +8,9 @@ const settle = require('./controllers/settleController');
 const app = express()
 const port = process.env.PORT || 3001
 
+// const http = require('http')
+// const server = http.createServer(app)
+
 app.use(json())
 
 massive(process.env.CONNECTION_STRING).then(db=>{
@@ -31,6 +34,7 @@ app.post('/auth/login', auth.login);
 app.post('/auth/register', auth.register);
 app.get('/auth/logout', auth.logout)
 app.delete('/auth/me', auth.deleteUser)
+app.put('/auth/picture', auth.updatePicture)
 
 app.post('/api/settle', settle.create)
 app.get('/api/settle/:id', settle.getSettle)
@@ -41,3 +45,21 @@ app.put('/api/settle/:id/submit', settle.addSuggestions)
 app.put('/api/settle/:id/remove', settle.removeSuggestion)
 
 app.listen(port, ()=>console.log(`listening on ${port}`))
+
+// io.on('connection', socket=> {
+// 	console.log('user connected'),
+// 		socket.emit('hello', {greeting: 'hello world'})
+
+// 		socket.on('disconnect', ()=>{
+// 			console.log('user disconnected')
+// 		})
+
+// 		socket.on('name of event', data => {
+// 			console.log('socket hears the event')
+// 			socket.emit() //sends things to the person that gives you the event
+// 			socket.broadcast() //sends things to everyone
+// 			socket.broadcast.to('room1', 'whats up yall')
+// 		})
+// })
+
+//server.listen instead

@@ -3,7 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {getParticipants} from '../../redux/reducers/settleReducer';
 import {getUser} from '../../redux/reducers/userReducer';
-import Header from "../Header";
+import Participants from './Inactive/Participants';
 
 class Active extends Component{
 	componentDidMount(){
@@ -34,9 +34,14 @@ class Active extends Component{
 
 	render(){
 		return (
-			<div className="settlecontainer">
-			<Header />
-				Active
+			<div className="active">
+				<div>
+					<h1 className="logo">Settle!</h1>
+					<img src={this.props.user.profilepic} alt="profile"></img>
+					<Participants id={this.props.id}/>
+				</div>
+				<div></div>
+				<div></div>
 			</div>
 		)
 	}

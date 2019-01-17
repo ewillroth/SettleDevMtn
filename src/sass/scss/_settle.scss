@@ -1,63 +1,108 @@
 .settlecontainer {
 	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-
-	.inviteboxes {
-		width: 100%;
+	//page where settle creator sends invitations
+	.new{
 		display: flex;
-		justify-content: space-evenly;
-	}
-
-	.inactivecontainer{
-		width: 100%;
-		display: flex;
-		justify-content: space-evenly;
+		flex-direction: column;
 		align-items: center;
-		
-		.participants {
+		justify-content: center;
+		height: 800px;
+		width: 100%;
+		.settlelink {
+			input{
+				width: 220px;
+			}
+		}
+
+		.inviteboxes {
+			width: 100%;
 			display: flex;
-			flex-direction: column;
 
-			.participant {
+			.emailcontainer {
+				width: 400px;
+				height: 400px;
 				display: flex;
-
-				img{
-					width: 50px;
-					height: 50px;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				.invitelist{
+					border: 1px solid black;
+					width: 300px;
+					height: 300px;
 				}
 			}
-
+			.numbercontainer {
+				width: 400px;
+				height: 400px;
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				align-items: center;
+				.invitelist{
+					border: 1px solid black;
+					width: 300px;
+					height: 300px;
+				}
+			}
+			button {
+				width: 22px;
+				height: 22px
+			}
+			p {
+				width: 400px;
+			}
 		}
+		button {
+			width: 100px;
+			height: 30px;
+		}
+		.copybutton {
+			width: 40px;
+			height: 22px;
+		}
+	}
+	//page where users submit their suggestions
+	.inactive{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items:center;
+		height: 800px;
+		width: 100%;
 
-		.submitlist {
+		.inactivecontainer {
+			width: 100%;
 			display: flex;
-			flex-direction: column;
-			justify-content: center;
+			justify-content: space-evenly;
 			align-items: center;
+
+			.usersuggestions {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.submitlist {
+				display: flex;
+				flex-direction: column;
+			}
+			ul {
+				display: flex;
+				flex-direction: column;
+			}
+			.participants {
+				.participant{
+					img {
+						width: 80px;
+						height: 80px;
+					}
+				}
+			}
 		}
 	}
+	.active{
 
-	input {
-		height: 1.1em;
-		width: 220px;
-		margin: 10px 0px;
 	}
+	.completed{
 
-	.invitelist {
-		border: 1px solid black;
-		width: 300px;
-		min-height: 300px;
-	}
-
-	button {
-		padding: 1px 5px;
-	}
-
-	.thelist {
-		width: 300px;
-		min-height: 300px
 	}
 }

@@ -54,7 +54,7 @@ class Settle extends Component {
 		const creator = this.state.settle.creator_id
 		//return a different component depending on the stage of the current settle
 		return (
-			<>{
+			<div className="settlecontainer">{
 			//only allows creator of the settle to see the New component
 			stage === 'new' && this.props.user.user_id !== this.state.settle.creator_id 
 			? <Inactive id={id} changeStage={this.changeStage} /> 
@@ -67,7 +67,7 @@ class Settle extends Component {
 			//completed displays the winning suggestion
 			: stage === 'completed' ? <Completed /> 
 			: <></> }
-			</>
+			</div>
 		)
 	}
 }

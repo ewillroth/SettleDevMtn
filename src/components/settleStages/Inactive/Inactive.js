@@ -103,7 +103,7 @@ class Inactive extends Component {
 	};
 
 	render() {
-		return <div className="settlecontainer">
+		return <div className="inactive">
 				<Header />
 				<div className="inactivecontainer">
 					<Participants id={this.props.id} />
@@ -111,7 +111,7 @@ class Inactive extends Component {
 					this.state.usersuggestions&&
 					this.state.usersuggestions.suggestion1 && this.state.usersuggestions.suggestion2 && this.state.usersuggestions.suggestion3 
 					? 
-					<ul>
+					<ul className="usersuggestions">
 						<li>{this.state.usersuggestions.suggestion1}</li>
 						<li>{this.state.usersuggestions.suggestion2}</li>
 						<li>{this.state.usersuggestions.suggestion3}</li>

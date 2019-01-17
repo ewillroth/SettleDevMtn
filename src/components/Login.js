@@ -24,9 +24,8 @@ class Login extends Component {
 		.then((response) => {
 			this.props.resetForm(response)
 			this.props.history.push('/dashboard')
-		}
-		)
-		.catch(err => { alert(err.response.request.response) })
+		})
+		.catch(err => { alert(err)})
 	}
 
 	render(){
