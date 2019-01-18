@@ -18,6 +18,7 @@ class Inactive extends Component {
 			alldone: false,
 			done: false,
 			update: false,
+			suggestions: []
 		};
 	}
 	componentDidMount() {
@@ -83,11 +84,16 @@ class Inactive extends Component {
 				suggestion3: this.state.suggestion3
 			})
 			.then(response=>{
-				console.log(response.data)
 				this.setState({
 					update:!this.state.update,
 					done: response.data.donesubmitting
 				})
+				axios.get(`/api/settle/${this.props.id}/usersuggestions`)
+				.then(response=>{
+					let suggestions = response.data.map((e,i)=>e.suggestion)
+					this.setState({suggestions})
+				})
+				.catch(err=>console.log(err))
 			})
 			.catch(err=>alert(err.response.request.response));
 	};
@@ -110,9 +116,9 @@ class Inactive extends Component {
 					this.state.done
 					? 
 					<ul className="usersuggestions">
-						<li>{this.state.usersuggestions.suggestion1}</li>
-						<li>{this.state.usersuggestions.suggestion2}</li>
-						<li>{this.state.usersuggestions.suggestion3}</li>
+						<li>{this.state.suggestions[0]}</li>
+						<li>{this.state.suggestions[1]}</li>
+						<li>{this.state.suggestions[2]}</li>
 					</ul> 
 					: //displays form if user has submitted all suggestions
 					<form className="submitlist" onSubmit={this.submitForm}>

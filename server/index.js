@@ -45,6 +45,7 @@ app.get('/api/settle/:id/participants', settle.getParticipants)
 app.put('/api/settle/:id/submit', settle.addSuggestions)
 app.put('/api/settle/:id/remove', settle.removeSuggestion)
 app.get('/api/settle/:id/suggestions', settle.getSuggestions)
+app.get('/api/settle/:id/usersuggestions', settle.getUserSuggestions)
 
 
 io.on('connection', socket=> {

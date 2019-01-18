@@ -34,16 +34,7 @@ const getParticipants = (req,res) => {
 }
 
 const addSuggestions = (req,res) => {
-	req.app
-		.get("db")
-		.settles
-		.add_suggestions([
-			req.session.user.user_id,
-			req.params.id,
-			req.body.suggestion1,
-			req.body.suggestion2,
-			req.body.suggestion3
-		])
+	req.app.get("db").settles.add_suggestions([req.session.user.user_id, req.params.id, req.body.suggestion1, req.body.suggestion2, req.body.suggestion3])
 		.then(()=>{
 			req.session.user.donesubmitting=true
 			res.status(200).json(req.session.user)
@@ -63,6 +54,12 @@ const getSuggestions = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
+const getUserSuggestions = (req,res) => {
+	req.app.get('db').settles.get_user_suggestions([req.session.user.user_id,req.params.id])
+	.then(response=>res.status(200).json(response))
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
@@ -71,5 +68,6 @@ module.exports = {
 	getParticipants,
 	addSuggestions,
 	removeSuggestion,
-	getSuggestions
+	getSuggestions,
+	getUserSuggestions
 };
