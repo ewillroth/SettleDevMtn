@@ -18,14 +18,18 @@ class Inactive extends Component {
 			alldone: false,
 			done: false,
 			update: false,
-			suggestions: []
+			suggestions: [],
+			participants: 0,
+			numberofsuggestions: 0
 		};
 	}
 	componentDidMount() {
 		//adds user to user_settles
 		axios
 			.put(`/api/settle/${this.props.id}/adduser`)
-			.then()
+			.then(()=>{
+				this.setState({update:!this.state.update})
+			})
 			.catch(err => console.log(err));
 		
 		//gets user from session- used to verify if user is creator
@@ -44,28 +48,44 @@ class Inactive extends Component {
 		})
 		.catch(err=>console.log(err))
 
-		//gets participants from user_settles - used to verify if user has submitted all suggestions
+		//gets participants from user_settles
 		this.props.getParticipants(this.props.id)
 		.then(()=>{
-			let userindex = this.props.participants.findIndex(i=>i.user_id === this.props.user.user_id)
-			let usersuggestions = this.props.participants[userindex]
-			let alldone = this.props.participants.findIndex(i=>i.done===false)===-1?true:false
 			this.setState({
-				usersuggestions,
-				alldone
+				participants: this.props.participants.length
+			})
+		})
+		.catch(err=>console.log(err))
+
+		//gets suggestions = used to verify if all users have submitted their suggestions
+		axios.get(`/api/settle/${this.props.id}/suggestions`)
+		.then(response=>{
+			this.setState({
+				numberofsuggestions: response.data.length
 			})
 		})
 		.catch(err=>console.log(err))
 	}
 
-	componentDidUpdate(prevProps){
-		//gets participants again if they are updated
-		if(prevProps.participants!==this.props.participants){
+	componentDidUpdate(prevProps,prevState){
+		if(prevState.done !== this.state.done){
 			this.props.getParticipants(this.props.id)
 				.then(() => {
-					
+					this.setState({
+						participants: this.props.participants.length
+					})
 				})
 				.catch(err => console.log(err))
+			
+			//gets suggestions = used to verify if all users have submitted their suggestions
+			axios.get(`/api/settle/${this.props.id}/suggestions`)
+				.then(response => {
+					this.setState({
+						numberofsuggestions: response.data.length
+					})
+				})
+				.catch(err => console.log(err))
+			
 		}
 	}
 
@@ -111,7 +131,7 @@ class Inactive extends Component {
 		return <div className="inactive">
 				<Header />
 				<div className="inactivecontainer">
-					<Participants stage="inactive" id={this.props.id} />
+					<Participants number={this.state.participants} stage="inactive" id={this.props.id} />
 					{//removes the form once user has submitted all suggestions
 					this.state.done
 					? 
@@ -131,17 +151,21 @@ class Inactive extends Component {
 					}
 				</div>
 				{//only displays the Start Settle button for the creator && if all participants have submitted their suggestions
-				this.state.creator && this.state.alldone !== false 
+				this.state.creator && this.state.numberofsuggestions / this.state.participants === 3
 				? 
 				<button onClick={this.onClick}> Start Settle </button> 
 				: 
-				this.state.creator && this.state.alldone === false 
+				this.state.creator && this.state.numberofsuggestions / this.state.participants !== 3
 				?
 				<p>Waiting until everyone is ready</p>
 				:
-				this.state.alldone !== false
+				this.state.numberofsuggestions / this.state.participants !== 3
 				?
-				<p>Waiting for creator to begin the settle</p>
+				<p>Waiting for all participants to submit suggestions</p>
+				:
+				this.state.numberofsuggestions / this.state.participants === 3
+				?
+				<p>Waiting for the creator to begin the settle</p>
 				:
 				<></>
 				}

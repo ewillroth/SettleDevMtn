@@ -23,31 +23,14 @@ class Active extends Component{
 		.then(response=>{
 			let arr = response.data
 			let suggestions = []
-			arr.map((e,i)=>{
-				suggestions = suggestions.concat(Object.values(e))
-				return suggestions
-			})
+			arr.forEach((e,i)=>{suggestions.push(e.suggestion)})
 			this.setState({suggestions})
 		})
 		.catch(err=>console.log(err))
 		}
 
-	removeSuggestion = () => {
-		axios.put(`/api/settle/${this.props.id}/remove`, {suggestion: '', user_id: ''})
-		.then(()=>{
-			axios.get(`/api/settle/${this.props.id}/participants`)
-			.then(response=>{
-				this.setState({
-					participants: response.data,
-					update: !this.state.update
-				})
-			}).catch(err=>console.log(err))
-		})
-		.catch(err=>console.log(err))
-	}
-
 	render(){
-		const list = this.state.suggestions.map((e,i)=>{return <>{e}</>})
+		const list = this.state.suggestions.map((e,i)=>{return <li key={i}>{e}</li>})
 		return (
 			<div className="active">
 				<div className="userpanel">
@@ -57,7 +40,9 @@ class Active extends Component{
 					<Participants stage="active" id={this.props.id}/>
 				</div>
 				<div className="thelist"></div>
-				{list}
+					<ul>
+						{list}
+					</ul>
 				<div className="chat"></div>
 			</div>
 		)
