@@ -38,19 +38,28 @@ const addSuggestions = (req,res) => {
 		.get("db")
 		.settles
 		.add_suggestions([
+			req.session.user.user_id,
+			req.params.id,
 			req.body.suggestion1,
 			req.body.suggestion2,
-			req.body.suggestion3,
-			req.session.user.user_id,
-			req.params.id
+			req.body.suggestion3
 		])
-		.then()
-		.catch(err => console.log(err));
+		.then(()=>{
+			req.session.user.donesubmitting=true
+			res.status(200).json(req.session.user)
+		})
+		.catch(err => res.status(403).json("No duplicate suggestions"));
 }
 
 const removeSuggestion = (req,res) => {
-	req.app.get('db').remove_suggestion([req.body.suggestion, req.body.user_id, req.params.id])
-	.then()
+	req.app.get('db').settles.remove_suggestion([req.body.suggestion, req.body.user_id, req.params.id])
+	.then(response=>res.status(200).json(response))
+	.catch(err=>console.log(err))
+}
+
+const getSuggestions = (req,res) => {
+	req.app.get('db').settles.get_suggestions([req.params.id])
+	.then(response=> res.status(200).json(response))
 	.catch(err=>console.log(err))
 }
 
@@ -61,5 +70,6 @@ module.exports = {
 	addUser,
 	getParticipants,
 	addSuggestions,
-	removeSuggestion
+	removeSuggestion,
+	getSuggestions
 };

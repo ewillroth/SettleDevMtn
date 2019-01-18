@@ -125,6 +125,12 @@
 				height: 100px;
 			}
 		}
+		.thelist {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
 	}
 	.completed{
 

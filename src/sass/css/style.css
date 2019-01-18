@@ -377,6 +377,12 @@ nobr {
   width: 100px;
   height: 100px;
 }
+.settlecontainer .active .thelist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .userpanel {
   position: fixed;
   left: 0;

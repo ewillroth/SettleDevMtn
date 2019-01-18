@@ -6,16 +6,30 @@ import {getUser} from '../../redux/reducers/userReducer';
 import Participants from './Inactive/Participants';
 
 class Active extends Component{
+	constructor(props){
+		super(props)
+		this.state={
+			suggestions: []
+		}
+	}
 	componentDidMount(){
 		//gets user from session
 		this.props.getUser()
 		.then(()=>console.log('getUser', this.props.user))
 		.catch(err => console.log(err))
 
-		//gets participants from user_settles 
-		this.props.getParticipants(this.props.id)
-		.then(() => console.log('getParticipants', this.props.participants))
-		.catch(err => console.log(err))
+		//gets suggestions and makes the list
+		axios.get(`/api/settle/${this.props.id}/suggestions`)
+		.then(response=>{
+			let arr = response.data
+			let suggestions = []
+			arr.map((e,i)=>{
+				suggestions = suggestions.concat(Object.values(e))
+				return suggestions
+			})
+			this.setState({suggestions})
+		})
+		.catch(err=>console.log(err))
 		}
 
 	removeSuggestion = () => {
@@ -33,6 +47,7 @@ class Active extends Component{
 	}
 
 	render(){
+		const list = this.state.suggestions.map((e,i)=>{return <>{e}</>})
 		return (
 			<div className="active">
 				<div className="userpanel">
@@ -42,6 +57,7 @@ class Active extends Component{
 					<Participants stage="active" id={this.props.id}/>
 				</div>
 				<div className="thelist"></div>
+				{list}
 				<div className="chat"></div>
 			</div>
 		)

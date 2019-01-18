@@ -6,6 +6,7 @@ import Participants from '../Inactive/Participants';
 import {getUser} from '../../../redux/reducers/userReducer';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
 
+
 class Inactive extends Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +16,7 @@ class Inactive extends Component {
 			suggestion3: "",
 			creator: false,
 			alldone: false,
-			usersuggestions: {},
+			done: false,
 			update: false,
 		};
 	}
@@ -61,13 +62,7 @@ class Inactive extends Component {
 		if(prevProps.participants!==this.props.participants){
 			this.props.getParticipants(this.props.id)
 				.then(() => {
-					let userindex = this.props.participants.findIndex(i => i.user_id === this.props.user.user_id)
-					let usersuggestions = this.props.participants[userindex]
-					let alldone = this.props.participants.findIndex(i => i.done === false) === -1 ? true : false
-					this.setState({
-						usersuggestions,
-						alldone
-					})
+					
 				})
 				.catch(err => console.log(err))
 		}
@@ -87,10 +82,14 @@ class Inactive extends Component {
 				suggestion2: this.state.suggestion2,
 				suggestion3: this.state.suggestion3
 			})
-			.then(()=>{this.setState({
-				update:!this.state.update
-			})})
-			.catch(err=>console.log(err));
+			.then(response=>{
+				console.log(response.data)
+				this.setState({
+					update:!this.state.update,
+					done: response.data.donesubmitting
+				})
+			})
+			.catch(err=>alert(err.response.request.response));
 	};
 
 	onClick = e => {
@@ -108,8 +107,7 @@ class Inactive extends Component {
 				<div className="inactivecontainer">
 					<Participants stage="inactive" id={this.props.id} />
 					{//removes the form once user has submitted all suggestions
-					this.state.usersuggestions&&
-					this.state.usersuggestions.suggestion1 && this.state.usersuggestions.suggestion2 && this.state.usersuggestions.suggestion3 
+					this.state.done
 					? 
 					<ul className="usersuggestions">
 						<li>{this.state.usersuggestions.suggestion1}</li>
