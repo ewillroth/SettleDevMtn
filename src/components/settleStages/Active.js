@@ -10,7 +10,8 @@ class Active extends Component{
 	constructor(props){
 		super(props)
 		this.state={
-			suggestions: []
+			suggestions: [],
+			activeuser: ''
 		}
 	}
 	componentDidMount(){
@@ -28,10 +29,35 @@ class Active extends Component{
 			this.setState({suggestions})
 		})
 		.catch(err=>console.log(err))
+		//gets the settle information to determine the starting player
+		axios.get(`/api/settle/${this.props.id}`)
+		.then(response=>{
+			console.log('activeuser:', response.data.active_user)
+			this.setState({activeuser:response.data.active_user})
+		})
+		.catch(err=>console.log(err))
+	}
+
+	componentDidUpdate(prevProps, prevState){
+		if(this.state.activeuser!==prevState.activeuser){
+			this.setState({})
 		}
+	}
+
+	removeSuggestion = (e) => {
+		axios.put(`/api/settle/${this.props.id}/remove`, {suggestion: e, user_id:this.props.user.user_id})
+		.then(response=>console.log(response))
+		.catch(err=>console.log(err))
+	}
 
 	render(){
-		const list = this.state.suggestions.map((e,i)=>{return <li key={i}>{e}</li>})
+		const list = this.state.suggestions.map((e, i) => { return (
+			<div key={i}>
+				<p>{e}</p>
+				<button className={this.state.activeuser==this.props.user.user_id?'removesuggestion':'hide'} onClick={()=>this.removeSuggestion(e)}>X</button>
+			</div>
+		)
+		})
 		return (
 			<div className="active">
 				<div className="userpanel">

@@ -488,10 +488,6 @@ nobr {
   margin-top: 10px;
 }
 
-.hide {
-  display: none;
-}
-
 .App {
   text-align: center;
   display: flex;
@@ -510,6 +506,10 @@ nobr {
   color: #08B2E3;
   font-family: SignPainter;
   font-size: 100px;
+}
+
+.hide {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */

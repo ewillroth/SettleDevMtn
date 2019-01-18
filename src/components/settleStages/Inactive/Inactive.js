@@ -119,12 +119,8 @@ class Inactive extends Component {
 	};
 
 	onClick = e => {
-		//change stage to active
-		axios.put(`/api/settle/${this.props.id}/stage`, { status: 'active' })
-			.then(() => {
-				this.props.changeStage('active')
-			})
-			.catch(err => console.log(err))
+		//randomly assign one of the participants to cross off first and sets the stage to active
+		axios.get(`/api/settle/${this.props.id}/start`).then(()=>this.props.changeStage('active'))
 	};
 
 	render() {

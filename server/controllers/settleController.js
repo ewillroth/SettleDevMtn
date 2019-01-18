@@ -60,6 +60,20 @@ const getUserSuggestions = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
+const beginSettle = (req,res) => {
+	const db = req.app.get('db')
+	db.settles.update_status(['active', req.params.id])
+	db.settles.get_participants(req.params.id).then(response=>{
+		let random = Math.floor(Math.random() * response.length)
+		db.settles.assign_active([response[random].user_id, req.params.id])
+		.then(response=>{
+			console.log('starting player', response)
+			res.status(200).json(response[0].activeuser)
+		})
+	}).catch(err=>console.log(err))
+	
+}
+
 module.exports = {
 	create,
 	getSettle,
@@ -69,5 +83,6 @@ module.exports = {
 	addSuggestions,
 	removeSuggestion,
 	getSuggestions,
-	getUserSuggestions
+	getUserSuggestions,
+	beginSettle
 };
