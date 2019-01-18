@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
+import {getUser} from '../../../redux/reducers/userReducer';
 
 class Participants extends Component {
 	constructor(){
 		super()
 		this.state={
-			update: true
+			update: true,
 		}
 	}
 	//triggers rerender after participants are updated
@@ -24,15 +25,20 @@ class Participants extends Component {
 		const map = participants.length > 0 ? participants.map(
 					(e, i) => {
 						return (
-						<div className="participant" key={i}>
+						//only display current user if settle stage is inactive
+						e.user_id === this.props.user.user_id && this.props.stage==='active' ?
+						<></>
+						:
+						<div className="participant" key={e.user_id}>
+							<p>{e.name}</p>
 							<img src={e.profilepic} alt="user"/>
 							{this.props.stage==="inactive"
-							?
+							?//only display submission status if settle stage is inactive
 							<img className="donesubmitting" src={e.done ? "https://image.flaticon.com/icons/svg/291/291201.svg" :"https://image.flaticon.com/icons/svg/291/291202.svg"} alt="user status"/>
 							:
 							this.props.stage==="active"
-							?
-							<div>Add as a freind</div>
+							?//only show add friend option if settle stage is active
+							<div>Add as a friend</div>
 							: <></>
 							}
 						</div>
@@ -41,7 +47,6 @@ class Participants extends Component {
 				) : <></>;
 			return(
 				<div className="participants">
-					<p>Participants</p>
 					{map}
 				</div>
 			)
@@ -50,8 +55,9 @@ class Participants extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		participants: state.settleRdcr.participants
+		participants: state.settleRdcr.participants,
+		user: state.userRdcr.user
 	}
 }
 
-export default connect(mapStateToProps, {getParticipants})(Participants);
+export default connect(mapStateToProps, {getParticipants, getUser})(Participants);

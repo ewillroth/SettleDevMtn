@@ -5,6 +5,7 @@ const { json } = require('body-parser');
 const session = require('express-session');
 const auth = require('./controllers/authController');
 const settle = require('./controllers/settleController');
+const user = require('./controllers/userController')
 const app = express()
 const port = process.env.PORT || 3001
 
@@ -46,6 +47,9 @@ app.put('/api/settle/:id/submit', settle.addSuggestions)
 app.put('/api/settle/:id/remove', settle.removeSuggestion)
 app.get('/api/settle/:id/suggestions', settle.getSuggestions)
 app.get('/api/settle/:id/usersuggestions', settle.getUserSuggestions)
+
+app.get('/api/user/settles', user.getSettles)
+
 
 
 io.on('connection', socket=> {

@@ -7,6 +7,7 @@ import Stats from './dashboard/Stats';
 import Friends from './dashboard/Friends';
 import axios from 'axios';
 import {storage} from '../firebase'
+import {Link} from 'react-router-dom'
 
 class Dashboard extends Component {
 	constructor(){
@@ -14,7 +15,9 @@ class Dashboard extends Component {
 		this.state={
 			edit: false,
 			picture: '',
-			url: ''
+			url: '',
+			active: false,
+			activesettles: []
 		}
 	}
 	//checks if there is a user on session and redirects to '/' if there is not
@@ -25,7 +28,12 @@ class Dashboard extends Component {
 		}))
 		.catch(() => {
 		this.props.history.push('/')
-	})
+		})
+
+		axios.get(`/api/user/settles`)
+		.then(response=>{this.setState({activesettles: response.data})})
+		.catch(err=>console.log(err))
+
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -36,6 +44,10 @@ class Dashboard extends Component {
 				url: this.props.user.profilepic
 			})})
 			.catch(err=>console.log('error'))
+		}
+		if(this.state.activeSettles!==prevState.activeSettles){
+			console.log('updating')
+			this.setState({})
 		}
 	}
 	//changes the userpanel view to allow users to edit their profile picture
@@ -61,6 +73,9 @@ class Dashboard extends Component {
 	}
 
 	render() {
+		const activesettles = this.state.activesettles.length>0?this.state.activesettles.map((e,i)=>{
+			return <Link key={i} to={`/settle/${e.settle_id}`}>{`${e.stage} settle ${e.settle_id}`}</Link>
+		}):<>No Active Settles</>
 		return (
 			<>
 			{//change user info panel view when updating profile picture
@@ -91,13 +106,16 @@ class Dashboard extends Component {
 			<div className="dashpanel">
 				<div className="dashnav">
 					<NewSettleButton reroute={(str)=>this.props.history.push(str)}/>
-					<button className="activesettles">Active Settles</button>
+					<button className="activesettles" onClick={()=>{this.setState({active:!this.state.active})}}>Active Settles</button>
 					<h1 className="logo">Settle</h1>
 				</div>
 				<div className="dashmain">
 					<Stats/>
 					<Friends/>
 				</div>
+			</div>
+			<div className={this.state.active?'activebox':'hide'}>
+				{activesettles}
 			</div>
 			</>
 		)

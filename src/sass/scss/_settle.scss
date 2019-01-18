@@ -1,5 +1,6 @@
 .settlecontainer {
 	width: 100%;
+	display: flex;
 	//page where settle creator sends invitations
 	.new{
 		display: flex;
@@ -13,10 +14,10 @@
 				width: 220px;
 			}
 		}
-
 		.inviteboxes {
 			width: 100%;
 			display: flex;
+			justify-content: center;
 
 			.emailcontainer {
 				width: 400px;
@@ -99,7 +100,12 @@
 			}
 		}
 	}
-	.active{
+	.active {
+		width: 100%;
+		height: 800px;
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
 		.participants {
 			display: flex;
 			flex-direction: column;
@@ -116,10 +122,6 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
-			h1 {
-				font-family: $logo-font;
-				font-size: 100px;
-			}
 			img {
 				width: 100px;
 				height: 100px;
@@ -133,6 +135,6 @@
 		}
 	}
 	.completed{
-
+		display: flex;
 	}
 }

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {getParticipants} from '../../redux/reducers/settleReducer';
 import {getUser} from '../../redux/reducers/userReducer';
 import Participants from './Inactive/Participants';
+import {Link} from 'react-router-dom'
 
 class Active extends Component{
 	constructor(props){
@@ -37,13 +38,17 @@ class Active extends Component{
 					<h1 className="logo">Settle!</h1>
 					<img src={this.props.user.profilepic} alt="profile"></img>
 					<p>{this.props.user.name}</p>
+					{this.props.user.name!=="guest"?<Link to="/dashboard">Dashboard</Link>:<></>}
 					<Participants stage="active" id={this.props.id}/>
 				</div>
-				<div className="thelist"></div>
+				<div className="thelist">
 					<ul>
 						{list}
 					</ul>
-				<div className="chat"></div>
+				</div>
+				<div className="chat">
+
+				</div>
 			</div>
 		)
 	}
