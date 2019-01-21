@@ -33,7 +33,7 @@ class Active extends Component{
 		axios.get(`/api/settle/${this.props.id}`)
 		.then(response=>{
 			console.log('activeuser:', response.data.active_user)
-			this.setState({activeuser:response.data.active_user})
+			this.setState({activeuser: response.data.active_user})
 		})
 		.catch(err=>console.log(err))
 	}
@@ -45,18 +45,39 @@ class Active extends Component{
 	}
 
 	removeSuggestion = (e) => {
-		axios.put(`/api/settle/${this.props.id}/remove`, {suggestion: e, user_id:this.props.user.user_id})
-		.then(response=>console.log(response))
+		axios.put(`/api/settle/${this.props.id}/remove`, {suggestion: e, activeuser: this.state.activeuser})
+		.then(response=>{
+			console.log('suggestion removed')
+			axios.get(`/api/settle/${this.props.id}/suggestions`)
+				.then(response => {
+					//changes stage to complete if there is only one suggestion remaining
+					if(response.data.length===1){
+						axios.put(`/api/settle/${this.props.id}/stage`, { status: 'completed' })
+							.then(() => {
+								this.props.changeStage('completed')
+							})
+							.catch(err => console.log(err))
+					} else {
+						let arr = response.data
+						let suggestions = []
+						arr.forEach((e, i) => { suggestions.push(e.suggestion) })
+						this.setState({ suggestions })
+					}
+				})
+				.catch(err => console.log(err))
+			this.setState({activeuser:response.data})
+		})
 		.catch(err=>console.log(err))
 	}
 
 	render(){
-		const list = this.state.suggestions.map((e, i) => { return (
-			<div key={i}>
-				<p>{e}</p>
-				<button className={this.state.activeuser==this.props.user.user_id?'removesuggestion':'hide'} onClick={()=>this.removeSuggestion(e)}>X</button>
-			</div>
-		)
+		const list = this.state.suggestions.map((e, i) => { 
+			return (
+				<div key={i}>
+					<p>{e}</p>
+					<button className={this.state.activeuser===this.props.user.user_id?'removesuggestion':'hide'} onClick={()=>this.removeSuggestion(e)}>X</button>
+				</div>
+			)
 		})
 		return (
 			<div className="active">
@@ -68,9 +89,7 @@ class Active extends Component{
 					<Participants stage="active" id={this.props.id}/>
 				</div>
 				<div className="thelist">
-					<ul>
 						{list}
-					</ul>
 				</div>
 				<div className="chat">
 

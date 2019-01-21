@@ -29,10 +29,10 @@ PRIMARY KEY (user_id1,user_id2)
 -- SUGGESTIONS
 
 CREATE TABLE suggestions (
+	suggestion_id serial PRIMARY KEY NOT NULL,
 	settle_id integer REFERENCES settles(settle_id),
 	user_id integer REFERENCES users(user_id),
-	suggestion varchar(200),
-	PRIMARY KEY (user_id,settle_id,suggestion)
+	suggestion varchar(200)
 )
 
 --USER_SETTLES

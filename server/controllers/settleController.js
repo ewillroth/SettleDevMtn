@@ -43,9 +43,24 @@ const addSuggestions = (req,res) => {
 }
 
 const removeSuggestion = (req,res) => {
-	req.app.get('db').settles.remove_suggestion([req.body.suggestion, req.body.user_id, req.params.id])
-	.then(response=>res.status(200).json(response))
+	const db = req.app.get('db')
+	db.settles.remove_suggestion([req.body.suggestion, req.params.id])
+	.then(()=>{
+		console.log('suggestion removed')
+		db.settles.get_participants(req.params.id).then(response=>{
+			const participants = response.map((e,i)=>{return e.user_id})
+			const i = participants.indexOf(req.body.activeuser)
+			if(participants[+i+1]){
+				db.settles.assign_active(participants[+i+1], req.params.id)
+				res.status(200).json(participants[+i+1])
+			} else {
+				db.settles.assign_active(participants[0], req.params.id)
+				res.status(200).json(participants[0])
+			}
+		}).catch(err=>console.log(err))
+	})
 	.catch(err=>console.log(err))
+
 }
 
 const getSuggestions = (req,res) => {
