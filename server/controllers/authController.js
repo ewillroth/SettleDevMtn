@@ -38,7 +38,7 @@ const register = async (req, res) => {
 		res.status(200).json(req.session.user)
 	} catch (e) {
 		console.log('e', e)
-		res.status(500).json("email is already registered")
+		res.status(500).json("There is already an account registered with this email.")
 	}
 }
 

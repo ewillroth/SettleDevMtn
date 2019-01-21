@@ -12,10 +12,19 @@ class Settle extends Component {
 	constructor(){
 		super()
 		this.state={
-			settle: {}
+			settle: {},
 		}
 	}
 	componentDidMount(){
+		//checks if there is a user on session and creates a guest user in db if not
+		this.props.getUser()
+			.then()
+			.catch(() => {
+				const guestemail = bcrypt.hashSync('email', 4)
+				axios.post('/auth/register', { email: guestemail, name: 'guest', password: 'doesntmatter' })
+					.then()
+					.catch()
+			})
 		//retrieves the settle from db adds it to state- redirects to '/' if the settle doesnt exist in db
 		axios.get(`/api/settle/${this.props.match.params.id}`)
 		.then(response=>{
@@ -29,16 +38,6 @@ class Settle extends Component {
 			}
 		})
 		.catch(()=>this.props.history.push('/'))
-
-		//checks if there is a user on session and creates a guest user in db if not
-		this.props.getUser()
-			.then()
-			.catch(() => {
-				const guestemail = bcrypt.hashSync('email', 4)
-				axios.post('/auth/register', { email: guestemail, name: 'guest', password: 'doesntmatter' })
-					.then()
-					.catch()
-			})
 	}
 
 	changeStage = (stage) =>{

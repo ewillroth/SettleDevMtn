@@ -1,23 +1,40 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {Link, Redirect} from 'react-router-dom'
 import {getParticipants} from '../../redux/reducers/settleReducer';
 import {getUser} from '../../redux/reducers/userReducer';
 import Participants from './Inactive/Participants';
-import {Link} from 'react-router-dom'
 
 class Active extends Component{
 	constructor(props){
 		super(props)
 		this.state={
 			suggestions: [],
-			activeuser: ''
+			activeuser: '',
+			redirect: false,
+			loaded: false
 		}
 	}
 	componentDidMount(){
 		//gets user from session
 		this.props.getUser()
-		.then(()=>console.log('getUser', this.props.user))
+		.then(()=>{
+			this.props.getParticipants(this.props.id)
+			.then(()=>{
+				//checks if the user is in the settle before loading or redirecting
+				if(this.props.participants.find(e=>e.user_id === this.props.user.user_id)){
+					this.setState({
+						loaded: true
+					})
+				}else{
+					this.setState({
+						redirect: true
+					})
+				}
+			})
+			.catch(err=>console.log(err))
+		})
 		.catch(err => console.log(err))
 
 		//gets suggestions and makes the list
@@ -79,6 +96,8 @@ class Active extends Component{
 			)
 		})
 		return (
+			this.state.redirect ? <Redirect to="/" /> :
+			!this.state.loaded?<></>:
 			<div className="active">
 				<div className="userpanel">
 					<h1 className="logo">Settle!</h1>

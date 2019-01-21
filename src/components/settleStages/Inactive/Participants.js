@@ -27,17 +27,17 @@ class Participants extends Component {
 						return (
 						//only display current user if settle stage is inactive
 						e.user_id === this.props.user.user_id && this.props.stage==='active' ?
-						<></>
+						<span key={e.user_id}></span>
 						:
 						<div className="participant" key={e.user_id}>
-							<p>{e.name}</p>
+							<p>{e.name!=='guest'?e.name:null}</p>
 							<img src={e.profilepic} alt="user"/>
 							{this.props.stage==="inactive"
 							?//only display submission status if settle stage is inactive
 							<img className="donesubmitting" src={e.done ? "https://image.flaticon.com/icons/svg/291/291201.svg" :"https://image.flaticon.com/icons/svg/291/291202.svg"} alt="user status"/>
 							:
-							this.props.stage==="active"
-							?//only show add friend option if settle stage is active
+							this.props.stage==="active" && e.name !== "guest"
+							?//only show add friend option if settle stage is active and user is not a guest
 							<div>Add as a friend</div>
 							: <></>
 							}

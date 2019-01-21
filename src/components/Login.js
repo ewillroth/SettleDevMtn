@@ -2,17 +2,25 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {toast} from 'react-toastify';
-import {updateEmail, updatePassword, resetForm, getUser} from '../redux/reducers/userReducer';
+import {Redirect} from 'react-router-dom';
+import {updateEmail, updatePassword, resetForm, addUser, getUser} from '../redux/reducers/userReducer';
 import Header from './Header';
 
 class Login extends Component {
-
+	constructor(){
+		super()
+		this.state={
+			loaded: false
+		}
+	}
 	//redirects to dashboard if there is a non-guest user on session already
 	componentDidMount() {
 		this.props.getUser()
 		.then((response)=>{
 			if(response.action.payload.data.name!=='guest'){
 				this.props.history.push('/dashboard')
+			}else {
+				this.setState({loaded:true})
 			}
 		})
 		.catch(err=>{console.log(err)})
@@ -23,14 +31,21 @@ class Login extends Component {
 		const {email, password} = this.props
 		axios.post('/auth/login', {email, password})
 		.then((response) => {
-			this.props.resetForm(response)
+			this.props.resetForm()
+			this.props.addUser(response)
 			this.props.history.push('/dashboard')
 		})
-		.catch(err => { toast.error(err.response.request.response)})
+		.catch(err => {
+			this.props.resetForm()
+			toast.error(err.response.request.response, {
+				autoClose: 3500,
+				hideProgressBar: true
+			})})
 	}
 
 	render(){
 		return (
+			!this.state.loaded ? <></> :
 			<>
 			<Header/>
 			<form className="login" onSubmit={this.onSubmit}>
@@ -39,6 +54,7 @@ class Login extends Component {
 				<p>Password:</p>
 				<input name="password" type="password" value={this.props.password} onChange={(e)=>this.props.updatePassword(e.target.value)}></input>
 				<button>Submit</button>
+				{this.props.user.name!=='guest'?<Redirect to="/"/>:<></>}
 			</form>
 			</>
 		)
@@ -53,4 +69,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, {updateEmail, updatePassword, resetForm, getUser})(Login);
+export default connect(mapStateToProps, {updateEmail, addUser, updatePassword, resetForm, getUser})(Login);

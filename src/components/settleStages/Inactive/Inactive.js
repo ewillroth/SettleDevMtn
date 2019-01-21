@@ -20,21 +20,12 @@ class Inactive extends Component {
 			suggestion3done: false,
 			creator: false,
 			done: false,
-			update: false,
 			suggestions: [],
 			participants: 0,
 			numberofsuggestions: 0,
 		};
 	}
 	componentDidMount() {
-		//adds user to user_settles
-		axios
-			.put(`/api/settle/${this.props.id}/adduser`)
-			.then(()=>{
-				this.setState({update:!this.state.update})
-			})
-			.catch(err => console.log(err));
-		
 		//gets user from session- used to verify if user is creator
 		this.props.getUser()
 		.then(()=>{
@@ -48,27 +39,35 @@ class Inactive extends Component {
 					creator: false
 				})
 			}
+			//adds user to user_settles
+			axios
+				.put(`/api/settle/${this.props.id}/adduser`)
+				.then(()=>{
+					this.setState({})
+					//gets participants from user_settles
+					this.props.getParticipants(this.props.id)
+					.then(()=>{
+						this.setState({
+							participants: this.props.participants.length
+						})
+						//gets suggestions = used to verify if all users have submitted their suggestions
+						axios.get(`/api/settle/${this.props.id}/suggestions`)
+						.then(response=>{
+							this.setState({
+								numberofsuggestions: response.data.length
+							})
+						})
+						.catch(err=>{
+							this.setState({})
+							console.log(err)
+						})
+					})
+					.catch(err=>console.log(err))
+				})
+				.catch(err => console.log(err));
 		})
 		.catch(err=>console.log(err))
-
-		//gets participants from user_settles
-		this.props.getParticipants(this.props.id)
-		.then(()=>{
-			this.setState({
-				participants: this.props.participants.length
-			})
-		})
-		.catch(err=>console.log(err))
-
-		//gets suggestions = used to verify if all users have submitted their suggestions
-		axios.get(`/api/settle/${this.props.id}/suggestions`)
-		.then(response=>{
-			this.setState({
-				numberofsuggestions: response.data.length
-			})
-		})
-		.catch(err=>console.log(err))
-
+		
 		//gets user's suggestions for this settle- disables submission form on reloads
 		axios.get(`/api/settle/${this.props.id}/usersuggestions`)
 		.then(response=>{
@@ -80,7 +79,6 @@ class Inactive extends Component {
 					suggestion1done: true,
 					suggestion2done: true,
 					suggestion3done: true,
-					done: true
 				})
 			}else if (response.data.length===2){
 				this.setState({
@@ -93,6 +91,11 @@ class Inactive extends Component {
 				this.setState({ 
 					suggestion1: response.data[0].suggestion,
 					suggestion1done: true
+				})
+			}
+			if(this.props.user.donesubmitting){
+				this.setState({
+					done: true
 				})
 			}
 		})

@@ -18,15 +18,24 @@ class Dashboard extends Component {
 			picture: '',
 			url: '',
 			active: false,
-			activesettles: []
+			activesettles: [],
+			loaded: false
 		}
 	}
-	//checks if there is a user on session and redirects to '/' if there is not
+	//checks if there is a user on session and redirects to '/' if there is not or user is a guest
 	componentDidMount() {
 		this.props.getUser()
-		.then(()=>this.setState({
-			url: this.props.user.profilepic
-		}))
+		.then((response)=>{
+			this.setState({
+				loaded: true
+			})
+			if(response.action.payload.data.name === 'guest'){
+				this.props.history.push('/')
+			}
+			this.setState({
+				url: this.props.user.profilepic
+			})
+		})
 		.catch(() => {
 		this.props.history.push('/')
 		})
@@ -69,6 +78,9 @@ class Dashboard extends Component {
 			return <Link key={i} to={`/settle/${e.settle_id}`}>{`${e.stage} settle ${e.settle_id}`}</Link>
 		}):<>No Active Settles</>
 		return (
+			!this.state.loaded?
+			<></>
+			:
 			<>
 			{//change user info panel view when updating profile picture
 			!this.state.edit

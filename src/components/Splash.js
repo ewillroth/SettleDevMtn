@@ -7,6 +7,12 @@ import NewSettleButton from './NewSettleButton';
 import {getUser} from '../redux/reducers/userReducer';
 
 class Splash extends Component{
+	constructor(){
+		super()
+		this.state={
+			loaded: false
+		}
+	}
 	//checks if there is a user on session 
 		//redirects to dashboard if user is logged in
 		//creates a guest user in db if no user
@@ -15,18 +21,21 @@ class Splash extends Component{
 		.then((response)=>{
 			if(response.action.payload.data.name!=='guest'){
 				this.props.history.push('/dashboard')
+			} else{
+				this.setState({loaded:true})
 			}
 		})
 		.catch(()=>{
 			const guestemail = bcrypt.hashSync('email', 4)
 			axios.post('/auth/register', {email: guestemail, name: 'guest', password: 'doesntmatter'})
-			.then()
-			.catch()
+			.then(()=>{this.setState({loaded:true})})
+			.catch(err=>console.log(err))
 		})
 	}
 
 	render(){
 		return (
+			!this.state.loaded?<></>:
 			<>
 			<div className="splash-nav">
 				<Link to="/login">Login</Link>

@@ -63,14 +63,13 @@ class New extends Component{
 	}
 
 	copy = () => {
-		/* Get the text field */
 		var copyText = document.getElementById("settlelink");
-		/* Select the text field */
 		copyText.select();
-		/* Copy the text inside the text field */
 		document.execCommand("copy");
-		/* Alert the copied text */
-		toast.info("Copied the text: " + copyText.value);
+		toast.info("Copied!", {
+			autoClose: 1300,
+			hideProgressBar: true
+		});
 	}
 	
 

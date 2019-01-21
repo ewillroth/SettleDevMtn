@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
-import {updateName, updateEmail, updatePassword, resetForm, getUser} from '../redux/reducers/userReducer';
+import {updateName, updateEmail, updatePassword, addUser, resetForm, getUser} from '../redux/reducers/userReducer';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 class Register extends Component {
+	constructor(){
+		super()
+		this.state=({
+			loaded: false
+		})
+	}
 
 	//redirects to dashboard if there is a non-guest user on session already
 	componentDidMount() {
@@ -14,6 +20,10 @@ class Register extends Component {
 			.then(response => {
 				if (response.action.payload.data.name !== "guest") {
 					this.props.history.push("/dashboard");
+				}else {
+					this.setState({
+						loaded: true
+					})
 				}
 			})
 			.catch(err => console.log(err));
@@ -25,18 +35,22 @@ class Register extends Component {
 		axios
 			.post("/auth/register", { email, name, password })
 			.then(response => {
-				this.props.resetForm(response);
+				this.props.resetForm();
+				this.props.addUser();
 				this.props.history.push("/dashboard");
 			})
 			.catch(err => {
-				toast.error(err.response.request.response);
+				this.props.resetForm()
+				toast.error(err.response.request.response, {
+					autoClose: 3500,
+					hideProgressBar: true
+				});
 			});
 	};
 
 	render() {
-		return this.props.user.name !== 'guest' ? (
-			<></>
-		) : (
+		return (
+			!this.state.loaded ? <></> :
 			<>
 				<Header />
 				<form className="register" onSubmit={this.onSubmit}>
@@ -72,4 +86,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, {updateName,updateEmail, updatePassword, resetForm, getUser})(Register);
+export default connect(mapStateToProps, {updateName,updateEmail, addUser, updatePassword, resetForm, getUser})(Register);

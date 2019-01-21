@@ -15,6 +15,7 @@ const UPDATE_NAME= 'UPDATE_NAME'
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 const RESET_FORM = 'RESET_FORM'
 const UPDATE_PICTURE = 'UPDATE_PICTURE'
+const ADD_USER = 'ADD_USER'
 
 //action creators
 export const getUser = () => {
@@ -41,10 +42,10 @@ export const updatePassword = (password) => {
 		payload: password
 	}
 }
-export const resetForm = (user) => {
+export const resetForm = () => {
 	return {
 		type: RESET_FORM,
-		payload: user
+		payload: ''
 	}
 }
 
@@ -52,6 +53,13 @@ export const updatePicture = (picture) => {
 	return {
 		type: UPDATE_PICTURE,
 		payload: axios.put('/auth/picture', {picture})
+	}
+}
+
+export const addUser = (user) => {
+	return {
+		type: ADD_USER,
+		payload: user
 	}
 }
 
@@ -94,10 +102,14 @@ export default function userReducer(state = initialState, action) {
 		case RESET_FORM:
 			return {
 				...state,
-				user: action.payload,
 				name: '',
 				email: '',
 				password: ''
+			}
+		case ADD_USER:
+			return {
+				...state,
+				user: action.payload 
 			}
 		default:
 			return state;

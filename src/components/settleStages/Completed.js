@@ -9,11 +9,13 @@ class Completed extends Component{
 			winner: ''
 		}
 	}
+
 	componentDidMount(){
 		axios.get(`/api/settle/${this.props.id}/suggestions`)
 		.then(response=>this.setState({winner:response.data[0].suggestion}))
 		.catch(err=>console.log(err))
 	}
+
 	render(){
 		return (
 			<div className="completed">
