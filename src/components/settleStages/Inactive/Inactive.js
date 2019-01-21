@@ -5,6 +5,7 @@ import Header from "../../Header";
 import Participants from '../Inactive/Participants';
 import {getUser} from '../../../redux/reducers/userReducer';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
+import { toast } from 'react-toastify';
 
 
 class Inactive extends Component {
@@ -12,10 +13,12 @@ class Inactive extends Component {
 		super(props);
 		this.state = {
 			suggestion1: "",
+			suggestion1done: false,
 			suggestion2: "",
+			suggestion2done: false,
 			suggestion3: "",
+			suggestion3done: false,
 			creator: false,
-			alldone: false,
 			done: false,
 			update: false,
 			suggestions: [],
@@ -95,28 +98,39 @@ class Inactive extends Component {
 		});
 	};
 
-	submitForm = (e) => {
+	submitOne = (e) => {
 		e.preventDefault()
 		axios
 			.put(`/api/settle/${this.props.id}/submit`, {
-				suggestion1: this.state.suggestion1,
-				suggestion2: this.state.suggestion2,
-				suggestion3: this.state.suggestion3
+				suggestion:this.state.suggestion1
 			})
-			.then(response=>{
-				this.setState({
-					update:!this.state.update,
-					done: response.data.donesubmitting
-				})
-				axios.get(`/api/settle/${this.props.id}/usersuggestions`)
-				.then(response=>{
-					let suggestions = response.data.map((e,i)=>e.suggestion)
-					this.setState({suggestions})
-				})
-				.catch(err=>console.log(err))
-			})
-			.catch(err=>alert(err.response.request.response));
+			.then(()=>this.setState({suggestion1done: true}))
+			.catch(err=>toast.warn(err.response.request.response));
 	};
+	submitTwo = (e) => {
+		e.preventDefault()
+		axios
+			.put(`/api/settle/${this.props.id}/submit`, {
+				suggestion:this.state.suggestion2
+			})
+			.then(()=>this.setState({suggestion2done: true}))
+			.catch(err=>toast.warn(err.response.request.response));
+	};
+	submitThree = (e) => {
+		e.preventDefault()
+		axios
+			.put(`/api/settle/${this.props.id}/submit`, {
+				suggestion:this.state.suggestion3
+			})
+			.then(()=>this.setState({suggestion3done: true}))
+			.catch(err=>toast.warn(err.response.request.response));
+	};
+
+	doneSubmitting = () => {
+		axios.post(`/api/settle/${this.props.id}/donesubmitting`)
+		.then(()=>{this.setState({done: true})})
+		.catch(err => console.log(err))
+	}
 
 	onClick = e => {
 		//randomly assign one of the participants to cross off first and sets the stage to active
@@ -128,25 +142,45 @@ class Inactive extends Component {
 				<Header />
 				<div className="inactivecontainer">
 					<Participants number={this.state.participants} stage="inactive" id={this.props.id} />
-					{//removes the form once user has submitted all suggestions
-					this.state.done
-					? 
-					<ul className="usersuggestions">
-						<li>{this.state.suggestions[0]}</li>
-						<li>{this.state.suggestions[1]}</li>
-						<li>{this.state.suggestions[2]}</li>
-					</ul> 
-					: //displays form if user has submitted all suggestions
-					<form className="submitlist" onSubmit={this.submitForm}>
-						<p>Add your suggestions:</p>
-						<input onChange={this.onChange} name="suggestion1" value={this.state.suggestion1} />
-						<input onChange={this.onChange} name="suggestion2" value={this.state.suggestion2} />
-						<input onChange={this.onChange} name="suggestion3" value={this.state.suggestion3} />
-						<button>Submit</button>
-					</form>
-					}
+					<div classNane="submitlist">
+						{this.state.suggestion1done
+						?
+						<p>{this.state.suggestion1}</p>
+						:
+						<form className="submitlist" onSubmit={this.submitOne}>
+							<input onChange={this.onChange} name="suggestion1" value={this.state.suggestion1} />
+							<button>+</button>
+						</form>
+						}
+						{this.state.suggestion2done
+						?
+						<p>{this.state.suggestion2}</p>
+						:
+						<form className="submitlist" onSubmit={this.submitTwo}>
+							<input onChange={this.onChange} name="suggestion2" value={this.state.suggestion2} />
+							<button>+</button>
+						</form>
+						}
+						{this.state.suggestion3done
+						?
+						<p>{this.state.suggestion3}</p>
+						:
+						<form className="submitlist" onSubmit={this.submitThree}>
+							<input onChange={this.onChange} name="suggestion3" value={this.state.suggestion3} />
+							<button>+</button>
+						</form>
+						}
+					</div>
 				</div>
 				{//only displays the Start Settle button for the creator && if all participants have submitted their suggestions
+				!this.state.suggestion1done || !this.state.suggestion2done || !this.state.suggestion3done
+				?
+				<></>
+				:
+				this.state.suggestion1done && this.state.suggestion2done && this.state.suggestion3done && !this.state.done
+				?
+				<button onClick={this.doneSubmitting}>Ready</button>
+				:
 				this.state.creator && this.state.numberofsuggestions / this.state.participants === 3
 				? 
 				<button onClick={this.onClick}> Start Settle </button> 

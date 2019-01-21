@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {updateEmail, updatePassword, resetForm, getUser} from '../redux/reducers/userReducer';
 import axios from 'axios';
+import {toast} from 'react-toastify';
+import {updateEmail, updatePassword, resetForm, getUser} from '../redux/reducers/userReducer';
 import Header from './Header';
 
 class Login extends Component {
@@ -25,7 +26,7 @@ class Login extends Component {
 			this.props.resetForm(response)
 			this.props.history.push('/dashboard')
 		})
-		.catch(err => { alert(err)})
+		.catch(err => { toast.error(err.response.request.response)})
 	}
 
 	render(){

@@ -65,7 +65,7 @@ class Settle extends Component {
 			//active component is where users settle
 			: stage === 'active' ? <Active id={id} changeStage={this.changeStage}/> 
 			//completed displays the winning suggestion
-			: stage === 'completed' ? <Completed /> 
+			: stage === 'completed' ? <Completed id={id}/> 
 			: <></> }
 			</div>
 		)

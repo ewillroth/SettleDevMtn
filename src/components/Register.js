@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Header from './Header';
 import {updateName, updateEmail, updatePassword, resetForm, getUser} from '../redux/reducers/userReducer';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 class Register extends Component {
 
@@ -28,7 +29,7 @@ class Register extends Component {
 				this.props.history.push("/dashboard");
 			})
 			.catch(err => {
-				alert(err.response.request.response);
+				toast.error(err.response.request.response);
 			});
 	};
 

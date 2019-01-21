@@ -34,12 +34,12 @@ const getParticipants = (req,res) => {
 }
 
 const addSuggestions = (req,res) => {
-	req.app.get("db").settles.add_suggestions([req.session.user.user_id, req.params.id, req.body.suggestion1, req.body.suggestion2, req.body.suggestion3])
+	req.app.get("db").settles.add_suggestions([req.session.user.user_id, req.params.id, req.body.suggestion])
 		.then(()=>{
 			req.session.user.donesubmitting=true
 			res.status(200).json(req.session.user)
 		})
-		.catch(err => res.status(403).json("No duplicate suggestions"));
+		.catch(err => res.status(403).json("Someone else has already submitted the same suggestion. No duplicates!"));
 }
 
 const removeSuggestion = (req,res) => {
@@ -89,6 +89,12 @@ const beginSettle = (req,res) => {
 	
 }
 
+const doneSubmitting = (req,res) => {
+	req.app.get('db').settles.done_submitting([req.session.user.user_id, req.params.id])
+	.then(()=>res.sendStatus(200))
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
@@ -99,5 +105,6 @@ module.exports = {
 	removeSuggestion,
 	getSuggestions,
 	getUserSuggestions,
-	beginSettle
+	beginSettle,
+	doneSubmitting
 };

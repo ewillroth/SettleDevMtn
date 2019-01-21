@@ -84,7 +84,9 @@
 
 			.submitlist {
 				display: flex;
-				flex-direction: column;
+				button {
+					width: 20px;
+				}
 			}
 			ul {
 				display: flex;
@@ -134,7 +136,12 @@
 			justify-content: center;
 		}
 	}
-	.completed{
+	.completed {
+		width: 100%;
+		height: 100%;
 		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	}
 }

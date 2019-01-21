@@ -352,7 +352,9 @@ nobr {
 }
 .settlecontainer .inactive .inactivecontainer .submitlist {
   display: flex;
-  flex-direction: column;
+}
+.settlecontainer .inactive .inactivecontainer .submitlist button {
+  width: 20px;
 }
 .settlecontainer .inactive .inactivecontainer ul {
   display: flex;
@@ -395,7 +397,12 @@ nobr {
   justify-content: center;
 }
 .settlecontainer .completed {
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .userpanel {
