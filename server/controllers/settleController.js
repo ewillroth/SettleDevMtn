@@ -95,6 +95,12 @@ const doneSubmitting = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
+const recordWinner = (req,res) => {
+	req.app.get('db').settles.record_winner([req.body.winner,req.body.winnerId,req.params.id])
+	.then(()=>{res.sendStatus(200)})
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
@@ -106,5 +112,6 @@ module.exports = {
 	getSuggestions,
 	getUserSuggestions,
 	beginSettle,
-	doneSubmitting
+	doneSubmitting,
+	recordWinner
 };

@@ -52,6 +52,7 @@ app.get('/api/settle/:id/suggestions', settle.getSuggestions)
 app.get('/api/settle/:id/usersuggestions', settle.getUserSuggestions)
 app.get('/api/settle/:id/start', settle.beginSettle)
 app.post('/api/settle/:id/donesubmitting', settle.doneSubmitting)
+app.put('/api/settle/:id/recordwinner', settle.recordWinner)
 
 app.get('/api/user/settles', user.getSettles)
 
