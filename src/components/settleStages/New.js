@@ -21,7 +21,6 @@ class New extends Component{
 		.catch(err=>console.log(err))
 	}
 
-
 	onChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value
@@ -31,12 +30,29 @@ class New extends Component{
 	onClick = () => {
 		//send email invites
 		//send text invites
+		if(this.state.numbers.length>0){
+			this.state.numbers.forEach((e,i)=>{
+				axios.post('/api/twilio', { link: `http://localhost:3334${this.props.url}`, number: '+1' + e})
+				.then(response=>console.log(response))
+				.catch(err=>console.log(err))
+			})
+		}
 		//change stage of settle to inactive in db and parent state
 		axios.put(`/api/settle/${this.props.id}/stage`, {status:'inactive'})
 		.then(()=>{
 			this.props.changeStage('inactive')
 		})
 		.catch(err=>console.log(err))
+	}
+
+	addEmail = (e) => {
+		e.preventDefault()
+		this.setState({ emails: [...this.state.emails, this.state.email] }, this.setState({ email: '' }))
+	}
+
+	addNumber = (e) => {
+		e.preventDefault()
+		this.setState({ numbers: [...this.state.numbers, this.state.number] }, this.setState({ number: '' }))
 	}
 
 	copy = () => {
@@ -73,16 +89,20 @@ class New extends Component{
 				<div className="inviteboxes">
 					<div className="emailcontainer">
 						<p>Invite friends via email:</p>
-						<input name="email" value={this.state.email} onChange={this.onChange}></input>
-						<button onClick={() => { this.setState({ emails: [...this.state.emails, this.state.email] }, this.setState({email: ''})) }}>+</button>
+						<form onSubmit={this.addEmail}>
+							<input type="email" name="email" value={this.state.email} onChange={this.onChange}></input>
+							<button>+</button>
+						</form>
 						<ul className="invitelist">
 							{displayemails}
 						</ul>
 					</div>
 					<div className="numbercontainer">
 						<p>Invite friends via text:</p>
-						<input name="number" value={this.state.number} onChange={this.onChange}></input>
-						<button onClick={() => { this.setState({ numbers: [...this.state.numbers, this.state.number] }, this.setState({ number: '' })) }}>+</button>
+						<form onSubmit={this.addNumber}>
+							<input type="tel" maxlength="10" minlength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
+							<button>+</button>
+						</form>
 						<ul className="invitelist">
 							{displaynumbers}
 						</ul>

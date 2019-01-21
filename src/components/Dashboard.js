@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getUser, updatePicture } from '../redux/reducers/userReducer';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom'
 import NewSettleButton from './NewSettleButton';
 import LogoutButton from './LogoutButton';
 import Stats from './dashboard/Stats';
@@ -33,18 +34,9 @@ class Dashboard extends Component {
 		axios.get(`/api/user/settles`)
 		.then(response=>{this.setState({activesettles: response.data})})
 		.catch(err=>console.log(err))
-
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(!this.props.user.profilepic){
-			this.props.getUser()
-			.then(()=>{this.setState({
-				picture: '',
-				url: this.props.user.profilepic
-			})})
-			.catch(err=>console.log('error'))
-		}
 		if(this.state.activeSettles!==prevState.activeSettles){
 			console.log('updating')
 			this.setState({})
@@ -117,6 +109,7 @@ class Dashboard extends Component {
 			<div className={this.state.active?'activebox':'hide'}>
 				{activesettles}
 			</div>
+			{this.props.user.name === 'guest'?<Redirect to='/'/>:null}
 			</>
 		)
 	}

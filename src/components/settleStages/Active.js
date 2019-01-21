@@ -32,7 +32,6 @@ class Active extends Component{
 		//gets the settle information to determine the starting player
 		axios.get(`/api/settle/${this.props.id}`)
 		.then(response=>{
-			console.log('activeuser:', response.data.active_user)
 			this.setState({activeuser: response.data.active_user})
 		})
 		.catch(err=>console.log(err))

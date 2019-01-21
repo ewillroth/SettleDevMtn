@@ -23,7 +23,7 @@ class Inactive extends Component {
 			update: false,
 			suggestions: [],
 			participants: 0,
-			numberofsuggestions: 0
+			numberofsuggestions: 0,
 		};
 	}
 	componentDidMount() {
@@ -66,6 +66,35 @@ class Inactive extends Component {
 			this.setState({
 				numberofsuggestions: response.data.length
 			})
+		})
+		.catch(err=>console.log(err))
+
+		//gets user's suggestions for this settle- disables submission form on reloads
+		axios.get(`/api/settle/${this.props.id}/usersuggestions`)
+		.then(response=>{
+			if(response.data.length===3){
+				this.setState({
+					suggestion1: response.data[0].suggestion,
+					suggestion2: response.data[1].suggestion,
+					suggestion3: response.data[2].suggestion,
+					suggestion1done: true,
+					suggestion2done: true,
+					suggestion3done: true,
+					done: true
+				})
+			}else if (response.data.length===2){
+				this.setState({
+					suggestion1: response.data[0].suggestion,
+					suggestion2: response.data[1].suggestion,
+					suggestion1done: true,
+					suggestion2done: true
+				})
+			}else if (response.data.length===1){
+				this.setState({ 
+					suggestion1: response.data[0].suggestion,
+					suggestion1done: true
+				})
+			}
 		})
 		.catch(err=>console.log(err))
 	}
@@ -142,7 +171,7 @@ class Inactive extends Component {
 				<Header />
 				<div className="inactivecontainer">
 					<Participants number={this.state.participants} stage="inactive" id={this.props.id} />
-					<div classNane="submitlist">
+					<div>
 						{this.state.suggestion1done
 						?
 						<p>{this.state.suggestion1}</p>

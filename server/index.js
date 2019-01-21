@@ -5,11 +5,12 @@ const { json } = require('body-parser');
 const session = require('express-session');
 const auth = require('./controllers/authController');
 const settle = require('./controllers/settleController');
-const user = require('./controllers/userController')
+const user = require('./controllers/userController');
+const twilio = require('./controllers/twilioController');
 const app = express()
 const port = process.env.PORT || 3001
 
-
+//Socket.io
 const server = require('http').createServer(app)
 const io = require('socket.io')();
 
@@ -51,6 +52,8 @@ app.get('/api/settle/:id/start', settle.beginSettle)
 app.post('/api/settle/:id/donesubmitting', settle.doneSubmitting)
 
 app.get('/api/user/settles', user.getSettles)
+
+app.post('/api/twilio', twilio.sendMessage)
 
 
 io.on('connection', socket=> {
