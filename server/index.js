@@ -7,6 +7,7 @@ const auth = require('./controllers/authController');
 const settle = require('./controllers/settleController');
 const user = require('./controllers/userController');
 const twilio = require('./controllers/twilioController');
+const nodemlr = require('./controllers/nodemailerController');
 const app = express()
 const port = process.env.PORT || 3001
 
@@ -53,7 +54,8 @@ app.post('/api/settle/:id/donesubmitting', settle.doneSubmitting)
 
 app.get('/api/user/settles', user.getSettles)
 
-app.post('/api/twilio', twilio.sendMessage)
+app.post('/api/twilio', twilio.sendInvite)
+app.post('/api/nodemailer', nodemlr.sendInvite)
 
 
 io.on('connection', socket=> {

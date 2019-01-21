@@ -29,6 +29,13 @@ class New extends Component{
 
 	onClick = () => {
 		//send email invites
+		if(this.state.emails.length>0){
+			this.state.emails.forEach((e,i)=>{
+				axios.post('/api/nodemailer', { link: `http://localhost:3334${this.props.url}`, email: e })
+					.then(response => console.log(response))
+					.catch(err => console.log(err))
+			})
+		}
 		//send text invites
 		if(this.state.numbers.length>0){
 			this.state.numbers.forEach((e,i)=>{
@@ -100,7 +107,7 @@ class New extends Component{
 					<div className="numbercontainer">
 						<p>Invite friends via text:</p>
 						<form onSubmit={this.addNumber}>
-							<input type="tel" maxlength="10" minlength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
+							<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
 							<button>+</button>
 						</form>
 						<ul className="invitelist">

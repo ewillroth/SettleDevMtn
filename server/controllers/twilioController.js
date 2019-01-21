@@ -4,7 +4,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const phoneNumber = process.env.TWILIO_FROM_NUMBER;
 const client = require("twilio")(accountSid, authToken);
 
-const sendMessage = (req,res) => {
+const sendInvite = (req,res) => {
 	client.messages
 		.create({
 			body: `Someone has invited you to a Settle! ${req.body.link}}`,
@@ -16,5 +16,5 @@ const sendMessage = (req,res) => {
 }
 
 module.exports = {
-	sendMessage
+	sendInvite
 }
