@@ -23,7 +23,7 @@ async function sendInvite(req, res) {
 	await transporter.sendMail(mailOptions)
 }
 
-sendInvite().catch(console.error);
+// sendInvite().catch(console.error);
 
 module.exports = {
 	sendInvite

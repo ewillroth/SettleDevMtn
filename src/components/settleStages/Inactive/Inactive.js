@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import axios from "axios";
 import Header from "../../Header";
 import Participants from '../Inactive/Participants';
+import List from '../Active/List';
 import {getUser} from '../../../redux/reducers/userReducer';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
 import { toast } from 'react-toastify';
@@ -23,22 +24,35 @@ class Inactive extends Component {
 			suggestions: [],
 			participants: 0,
 			numberofsuggestions: 0,
+			settle: {}
 		};
 	}
 	componentDidMount() {
-		//gets user from session- used to verify if user is creator
-		this.props.getUser()
-		.then(()=>{
-			if(this.props.user.user_id===this.props.creator){
-				this.setState({
-					creator: true
+		//gets the settle from db and adds it to state
+		axios.get(`/api/settle/${this.props.id}`)
+			.then(response => {
+				if (response.data) {
+					this.setState({
+						settle: response.data
+					})
+				}
+				//gets user from session- used to verify if user is creator
+				this.props.getUser()
+				.then((response)=>{
+					console.log('gotuser', response)
+					if(response.value.data.user_id===this.state.settle.creator_id){
+						this.setState({
+							creator: true
+						})
+						console.log('creator', this.state.settle.creator_id)
+					}
+					else{
+						this.setState({
+							creator: false
+						})
+					}
 				})
-			}
-			else{
-				this.setState({
-					creator: false
-				})
-			}
+			
 			//adds user to user_settles
 			axios
 				.put(`/api/settle/${this.props.id}/adduser`)
@@ -103,23 +117,29 @@ class Inactive extends Component {
 	}
 
 	componentDidUpdate(prevProps,prevState){
-		if(prevState.done !== this.state.done){
+		if(prevState.suggestion1done !== this.state.suggestion1done 
+		|| prevState.suggestion2done !== this.state.suggestion2done 
+		|| prevState.suggestion3done !== this.state.suggestion3done 
+		|| prevState.done !== this.state.done){
+			console.log('componentDidUpdate')
 			this.props.getParticipants(this.props.id)
 				.then(() => {
+					console.log('got participants', this.props.participants.length)
 					this.setState({
 						participants: this.props.participants.length
 					})
+					//gets suggestions = used to verify if all users have submitted their suggestions
+					axios.get(`/api/settle/${this.props.id}/suggestions`)
+						.then(response => {
+							console.log('got suggestions', response.data.length)
+							this.setState({
+								numberofsuggestions: response.data.length
+							})
+						})
+						.catch(err => console.log(err))
 				})
 				.catch(err => console.log(err))
 			
-			//gets suggestions = used to verify if all users have submitted their suggestions
-			axios.get(`/api/settle/${this.props.id}/suggestions`)
-				.then(response => {
-					this.setState({
-						numberofsuggestions: response.data.length
-					})
-				})
-				.catch(err => console.log(err))
 			
 		}
 	}
@@ -157,6 +177,21 @@ class Inactive extends Component {
 			.then(()=>this.setState({suggestion3done: true}))
 			.catch(err=>toast.warn(err.response.request.response));
 	};
+	editOne = () => {
+		axios.put(`/api/settle/${this.props.id}/delete`, {suggestion: this.state.suggestion1})
+			.then(() => { this.setState({ suggestion1done: false })})
+			.catch(err=>console.log(err))
+	}
+	editTwo = () => {
+		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion2 })
+			.then(() => { this.setState({ suggestion2done: false })})
+			.catch(err=>console.log(err))
+	}
+	editThree = () => {
+		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion3 })
+			.then(() => { this.setState({ suggestion3done: false })})
+			.catch(err=>console.log(err))
+	}
 
 	doneSubmitting = () => {
 		axios.post(`/api/settle/${this.props.id}/donesubmitting`)
@@ -174,10 +209,14 @@ class Inactive extends Component {
 				<Header />
 				<div className="inactivecontainer">
 					<Participants number={this.state.participants} stage="inactive" id={this.props.id} />
+					<List id={this.props.id} suggestions={this.state.numberofsuggestions}/>
 					<div>
 						{this.state.suggestion1done
 						?
-						<p>{this.state.suggestion1}</p>
+						<div>
+							<p>{this.state.suggestion1}</p>
+							{this.state.done?<></>:<button onClick={this.editOne}>Edit</button>}
+						</div>
 						:
 						<form className="submitlist" onSubmit={this.submitOne}>
 							<input onChange={this.onChange} name="suggestion1" value={this.state.suggestion1} />
@@ -186,7 +225,10 @@ class Inactive extends Component {
 						}
 						{this.state.suggestion2done
 						?
-						<p>{this.state.suggestion2}</p>
+						<div>
+							<p>{this.state.suggestion2}</p>
+							{this.state.done?<></>:<button onClick={this.editTwo}>Edit</button>}
+						</div>
 						:
 						<form className="submitlist" onSubmit={this.submitTwo}>
 							<input onChange={this.onChange} name="suggestion2" value={this.state.suggestion2} />
@@ -195,7 +237,10 @@ class Inactive extends Component {
 						}
 						{this.state.suggestion3done
 						?
-						<p>{this.state.suggestion3}</p>
+						<div>
+							<p>{this.state.suggestion3}</p>
+							{this.state.done?<></>:<button onClick={this.editThree}>Edit</button>}
+						</div>
 						:
 						<form className="submitlist" onSubmit={this.submitThree}>
 							<input onChange={this.onChange} name="suggestion3" value={this.state.suggestion3} />

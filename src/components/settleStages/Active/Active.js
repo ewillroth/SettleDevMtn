@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {Link, Redirect} from 'react-router-dom'
-import {getParticipants} from '../../redux/reducers/settleReducer';
-import {getUser} from '../../redux/reducers/userReducer';
-import Participants from './Inactive/Participants';
+import {getParticipants} from '../../../redux/reducers/settleReducer';
+import {getUser} from '../../../redux/reducers/userReducer';
+import Participants from '../Inactive/Participants';
 
 class Active extends Component{
 	constructor(props){

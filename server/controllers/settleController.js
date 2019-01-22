@@ -101,6 +101,12 @@ const recordWinner = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
+const deleteSuggestion = (req,res) => {
+	req.app.get('db').settles.remove_suggestion([req.body.suggestion, req.params.id])
+	.then(()=>res.sendStatus(200))
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
@@ -113,5 +119,6 @@ module.exports = {
 	getUserSuggestions,
 	beginSettle,
 	doneSubmitting,
-	recordWinner
+	recordWinner,
+	deleteSuggestion
 };

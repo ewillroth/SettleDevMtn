@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import {connect} from 'react-redux';
 import New from './settleStages/New';
 import Inactive from './settleStages/Inactive/Inactive';
-import Active from './settleStages/Active';
+import Active from './settleStages/Active/Active';
 import Completed from './settleStages/Completed';
 import {getUser} from '../redux/reducers/userReducer';
 
@@ -30,7 +30,6 @@ class Settle extends Component {
 		.then(response=>{
 			if(response.data){
 				this.setState({
-					...this.state,
 					settle: response.data
 				})
 			}else{
