@@ -14,7 +14,7 @@ const port = process.env.PORT || 3001
 
 //Socket.io
 const server = require('http').createServer(app)
-const io = require('socket.io')();
+const io = require('socket.io')(server);
 
 app.use(json())
 
@@ -60,20 +60,35 @@ app.get('/api/user/settles', user.getSettles)
 app.post('/api/twilio', twilio.sendInvite)
 app.post('/api/nodemailer', nodemlr.sendInvite)
 
-
 io.on('connection', socket=> {
-	console.log('user connected'),
-	socket.emit('hello', {greeting: 'hello world'})
-	
+	console.log('Socket: user connected'),
+	//console logs when a user disconnects from the server
 	socket.on('disconnect', ()=>{
-		console.log('user disconnected')
+		console.log('Socket: user disconnected')
 	})
-	
-	socket.on('name of event', data => {
-		console.log('socket hears the event')
-		socket.emit() //sends things to the person that gives you the event
-		// socket.broadcast() //sends things to everyone
-		// socket.broadcast.to('room1', 'whats up yall')
+	//adds user to room with given settle id
+	socket.on('join', (data)=>{
+		socket.join(data.room)
+		console.log(`Socket: joined room ${data.room}`)
+	})
+	//leaves the room with given settle id 
+	socket.on('leave', (data)=>{
+		console.log('Socket: left room')
+		socket.leave(data.room)
+	})
+	//when a user adds a suggestion returns a message to given room so clients will update
+	socket.on('suggestion_added', (data)=>{
+		console.log('Socket: suggestion added')
+		socket.to(data.room).broadcast.emit('suggestion_added')
+	})
+	socket.on('suggestion_removed', (data)=>{
+		console.log('Socket: suggestion removed')
+		socket.to(data.room).broadcast.emit('suggestion_removed')
+	})
+	//when a user joins a settle returns a message to given room so clients will update
+	socket.on('user_added', (data) => {
+		console.log('Socket: user added to settle')
+		socket.to(data.room).broadcast.emit('user_added') 
 	})
 })
 

@@ -7,7 +7,9 @@ import List from '../Active/List';
 import {getUser} from '../../../redux/reducers/userReducer';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
 import { toast } from 'react-toastify';
+import socketIOClient from 'socket.io-client';
 
+const socket = socketIOClient('http://localhost:3333')
 
 class Inactive extends Component {
 	constructor(props) {
@@ -24,10 +26,17 @@ class Inactive extends Component {
 			suggestions: [],
 			participants: 0,
 			numberofsuggestions: 0,
-			settle: {}
+			settle: {},
+			update: false
 		};
 	}
 	componentDidMount() {
+		//joins the socket room with the settle id
+		socket.emit('join', {room:this.props.id})
+		//socket listeners
+		socket.on('user_added', ()=>{this.setState({update:!this.state.update})})
+		socket.on('suggestion_added', ()=>{this.setState({update:!this.state.update})})
+		socket.on('suggestion_removed', ()=>{this.setState({update:!this.state.update})})
 		//gets the settle from db and adds it to state
 		axios.get(`/api/settle/${this.props.id}`)
 			.then(response => {
@@ -58,6 +67,7 @@ class Inactive extends Component {
 				.put(`/api/settle/${this.props.id}/adduser`)
 				.then(()=>{
 					this.setState({})
+					socket.emit('user_added', {room:this.props.id})
 					//gets participants from user_settles
 					this.props.getParticipants(this.props.id)
 					.then(()=>{
@@ -120,7 +130,8 @@ class Inactive extends Component {
 		if(prevState.suggestion1done !== this.state.suggestion1done 
 		|| prevState.suggestion2done !== this.state.suggestion2done 
 		|| prevState.suggestion3done !== this.state.suggestion3done 
-		|| prevState.done !== this.state.done){
+		|| prevState.done !== this.state.done
+		|| prevState.update !== this.state.update){
 			console.log('componentDidUpdate')
 			this.props.getParticipants(this.props.id)
 				.then(() => {
@@ -139,9 +150,11 @@ class Inactive extends Component {
 						.catch(err => console.log(err))
 				})
 				.catch(err => console.log(err))
-			
-			
 		}
+	}
+
+	componentWillUnmount(){
+		socket.emit('leave', {room:this.props.id})
 	}
 
 	onChange = e => {
@@ -156,8 +169,14 @@ class Inactive extends Component {
 			.put(`/api/settle/${this.props.id}/submit`, {
 				suggestion:this.state.suggestion1
 			})
-			.then(()=>this.setState({suggestion1done: true}))
-			.catch(err=>toast.warn(err.response.request.response));
+			.then(()=>{
+				socket.emit('suggestion_added', {room:this.props.id})
+				this.setState({suggestion1done: true})
+			})
+			.catch(err=>{
+				this.setState({update: !this.state.update})
+				toast.warn(err.response.request.response)
+			});
 	};
 	submitTwo = (e) => {
 		e.preventDefault()
@@ -165,8 +184,14 @@ class Inactive extends Component {
 			.put(`/api/settle/${this.props.id}/submit`, {
 				suggestion:this.state.suggestion2
 			})
-			.then(()=>this.setState({suggestion2done: true}))
-			.catch(err=>toast.warn(err.response.request.response));
+			.then(()=>{
+				socket.emit('suggestion_added', {room:this.props.id})
+				this.setState({suggestion2done: true})
+			})
+			.catch(err=>{
+				this.setState({update: !this.state.update})
+				toast.warn(err.response.request.response)
+			});
 	};
 	submitThree = (e) => {
 		e.preventDefault()
@@ -174,22 +199,37 @@ class Inactive extends Component {
 			.put(`/api/settle/${this.props.id}/submit`, {
 				suggestion:this.state.suggestion3
 			})
-			.then(()=>this.setState({suggestion3done: true}))
-			.catch(err=>toast.warn(err.response.request.response));
+			.then(()=>{
+				socket.emit('suggestion_added', {room:this.props.id})
+				this.setState({suggestion3done: true})
+			})
+			.catch(err=>{
+				this.setState({update: !this.state.update})
+				toast.warn(err.response.request.response)
+			});
 	};
 	editOne = () => {
 		axios.put(`/api/settle/${this.props.id}/delete`, {suggestion: this.state.suggestion1})
-			.then(() => { this.setState({ suggestion1done: false })})
+			.then(() => {
+				socket.emit('suggestion_removed', {room:this.props.id}) 
+				this.setState({ suggestion1done: false })
+			})
 			.catch(err=>console.log(err))
 	}
 	editTwo = () => {
 		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion2 })
-			.then(() => { this.setState({ suggestion2done: false })})
+			.then(() => {
+				socket.emit('suggestion_removed', {room:this.props.id}) 
+				this.setState({ suggestion2done: false })
+			})
 			.catch(err=>console.log(err))
 	}
 	editThree = () => {
 		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion3 })
-			.then(() => { this.setState({ suggestion3done: false })})
+			.then(() => {
+				socket.emit('suggestion_removed', {room:this.props.id}) 
+				this.setState({ suggestion3done: false })
+			})
 			.catch(err=>console.log(err))
 	}
 
