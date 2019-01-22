@@ -3,9 +3,7 @@
 	left: 0;
 	height: 100vh;
 	width: 300px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	@include flex(column);
 	justify-content: flex-start;
 
 	button {
@@ -43,8 +41,7 @@
 	}
 }
 .dashpanel{
-	display: flex;
-	flex-direction: column;
+	@include flex(column);
 	position: fixed;
 	left: 300px;
 	width: 800px;
@@ -85,8 +82,7 @@
 	position: fixed;
 	top: 81px;
 	left: 585px;
-	display: flex;
-	flex-direction: column;
+	@include flex(column);
 
 	a {
 		margin-top: 10px;

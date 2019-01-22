@@ -85,7 +85,9 @@ nobr {
   position: fixed;
   top: 0;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
   width: 100%;
 }
 .header h1 {
@@ -99,6 +101,8 @@ nobr {
   top: 100px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   align-self: flex-start;
 }
 .login button {
@@ -158,8 +162,9 @@ nobr {
   top: 100px;
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
+  justify-content: center;
   align-items: center;
+  align-self: flex-start;
 }
 .register button {
   margin: 10px 0px;
@@ -172,10 +177,10 @@ nobr {
 
 .splash-main {
   display: flex;
-  text-align: center;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   min-width: 500px;
 }
 .splash-main h1 {
@@ -278,8 +283,8 @@ nobr {
 .settlecontainer .new {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 800px;
   width: 100%;
 }
@@ -295,9 +300,10 @@ nobr {
   width: 400px;
   height: 400px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 .settlecontainer .new .inviteboxes .emailcontainer .invitelist {
   border: 1px solid black;
@@ -308,9 +314,10 @@ nobr {
   width: 400px;
   height: 400px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 .settlecontainer .new .inviteboxes .numbercontainer .invitelist {
   border: 1px solid black;
@@ -383,8 +390,8 @@ nobr {
 .settlecontainer .active .userpanel {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1;
 }
 .settlecontainer .active .userpanel img {
@@ -394,8 +401,8 @@ nobr {
 .settlecontainer .active .thelist {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 2;
 }
 .settlecontainer .completed {
@@ -403,8 +410,8 @@ nobr {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .userpanel {
@@ -414,6 +421,7 @@ nobr {
   width: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   justify-content: flex-start;
 }
@@ -450,6 +458,8 @@ nobr {
 .dashpanel {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   left: 300px;
   width: 800px;
@@ -492,6 +502,8 @@ nobr {
   left: 585px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .activebox a {
   margin-top: 10px;

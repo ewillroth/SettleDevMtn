@@ -2,8 +2,7 @@
 .header {
 	position: fixed;
 	top: 0;
-	display: flex;
-	justify-content: center;
+	@include flex(row);
 	width: 100%;
 	h1 {
 		font-family: $logo-font;

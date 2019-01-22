@@ -3,10 +3,7 @@
 	display: flex;
 	//page where settle creator sends invitations
 	.new{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		@include flex(column);
 		height: 800px;
 		width: 100%;
 		.settlelink {
@@ -22,10 +19,9 @@
 			.emailcontainer {
 				width: 400px;
 				height: 400px;
-				display: flex;
+				@include flex(row);
 				flex-wrap: wrap;
-				justify-content: center;
-				align-items: center;
+
 				.invitelist{
 					border: 1px solid black;
 					width: 300px;
@@ -35,10 +31,9 @@
 			.numbercontainer {
 				width: 400px;
 				height: 400px;
-				display: flex;
+				@include flex(row);
 				flex-wrap: wrap;
-				justify-content: center;
-				align-items: center;
+
 				.invitelist{
 					border: 1px solid black;
 					width: 300px;
@@ -64,10 +59,7 @@
 	}
 	//page where users submit their suggestions
 	.inactive{
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items:center;
+		@include flex(column);
 		height: 800px;
 		width: 100%;
 
@@ -120,10 +112,7 @@
 			}
 		}
 		.userpanel {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
+			@include flex(column);
 			z-index: 1;
 			img {
 				width: 100px;
@@ -131,19 +120,13 @@
 			}
 		}
 		.thelist {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
+			@include flex(column);
 			z-index: 2;
 		}
 	}
 	.completed {
 		width: 100%;
 		height: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+		@include flex(column);
 	}
 }

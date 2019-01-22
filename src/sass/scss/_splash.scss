@@ -1,9 +1,6 @@
 .splash-main {
-	display: flex;
+	@include flex(column);
 	text-align: center;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	min-width: 500px;
 
 	h1 {
@@ -42,10 +39,7 @@
 }
 
 .splash-nav {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	@include flex(column);
 	width: 200px;
 
 	a {

@@ -107,6 +107,12 @@ const deleteSuggestion = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
+const checkIfDone = (req,res) => {
+	req.app.get('db').settles.check_if_done([req.params.id,req.session.user.user_id])
+	.then((response)=>console.log(response)||res.status(200).json(response))
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
@@ -120,5 +126,6 @@ module.exports = {
 	beginSettle,
 	doneSubmitting,
 	recordWinner,
-	deleteSuggestion
+	deleteSuggestion,
+	checkIfDone
 };

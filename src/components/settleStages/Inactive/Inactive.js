@@ -117,13 +117,12 @@ class Inactive extends Component {
 					suggestion1done: true
 				})
 			}
-			if(this.props.user.donesubmitting){
-				this.setState({
-					done: true
-				})
-			}
 		})
 		.catch(err=>console.log(err))
+		//checks if user is done submitting and sets state accordingly
+		axios.get(`/api/settle/${this.props.id}/donesubmitting`)
+			.then(response => this.setState({ done: response.data[0].done}))
+			.catch(err=>console.log(err))
 	}
 
 	componentDidUpdate(prevProps,prevState){

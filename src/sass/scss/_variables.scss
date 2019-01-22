@@ -6,3 +6,10 @@ $darkgreen: #509869;
 $red: #EE6352;
 $black: #040F0F;
 $yellow:#FED766;
+
+@mixin flex($direction) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: center;
+	align-items: center;
+}
