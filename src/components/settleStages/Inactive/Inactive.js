@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux'
 import axios from "axios";
-import Header from "../../Header";
-import Participants from '../Inactive/Participants';
-import List from '../Active/List';
+import bcrypt from "bcryptjs";
+import { toast } from 'react-toastify';
 import {getUser} from '../../../redux/reducers/userReducer';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
-import { toast } from 'react-toastify';
+import Header from "../../Header";
+import List from '../Active/List';
+import Participants from '../Inactive/Participants';
 
 class Inactive extends Component {
 	constructor(props) {
@@ -43,84 +44,97 @@ class Inactive extends Component {
 						settle: response.data
 					})
 				}
-				//gets user from session- used to verify if user is creator
+				//checks if there is a user on session and creates a guest user in db if no user. checks if user is creator of settle
 				this.props.getUser()
-				.then((response)=>{
+				.then((response) => {
 					console.log('gotuser', response)
-					if(response.value.data.user_id===this.state.settle.creator_id){
+					if (response.value.data.user_id === this.state.settle.creator_id) {
 						this.setState({
 							creator: true
 						})
 						console.log('creator', this.state.settle.creator_id)
 					}
-					else{
+					else {
 						this.setState({
 							creator: false
 						})
 					}
+					this.addUserToSettle()
 				})
-			
-			//adds user to user_settles
-			axios
-				.put(`/api/settle/${this.props.id}/adduser`)
-				.then(()=>{
-					this.setState({})
-					socket.emit('user_added', {room:this.props.id})
-					//gets participants from user_settles
-					this.props.getParticipants(this.props.id)
-					.then(()=>{
+				.catch(() => {
+					const guestemail = bcrypt.hashSync('email', 4)
+					axios.post('/auth/register', { email: guestemail, name: 'guest', password: 'doesntmatter' })
+						.then(()=>{
+							this.addUserToSettle()
+						})
+						.catch()
+				})
+		})
+		.catch(err=>console.log(err))
+	}
+
+	addUserToSettle = () => {
+		//adds user to user_settles
+		axios
+			.put(`/api/settle/${this.props.id}/adduser`)
+			.then(() => {
+				const {socket} = this.props
+				this.setState({})
+				socket && socket.emit('user_added', { room: this.props.id })
+				//gets participants from user_settles
+				this.props.getParticipants(this.props.id)
+					.then(() => {
 						this.setState({
 							participants: this.props.participants.length
 						})
 						//gets suggestions = used to verify if all users have submitted their suggestions
 						axios.get(`/api/settle/${this.props.id}/suggestions`)
-						.then(response=>{
-							this.setState({
-								numberofsuggestions: response.data.length
+							.then(response => {
+								this.setState({
+									numberofsuggestions: response.data.length
+								})
+								//gets user's suggestions for this settle- disables submission form on reloads
+								axios.get(`/api/settle/${this.props.id}/usersuggestions`)
+									.then(response => {
+										if (response.data.length === 3) {
+											this.setState({
+												suggestion1: response.data[0].suggestion,
+												suggestion2: response.data[1].suggestion,
+												suggestion3: response.data[2].suggestion,
+												suggestion1done: true,
+												suggestion2done: true,
+												suggestion3done: true,
+											})
+										} else if (response.data.length === 2) {
+											this.setState({
+												suggestion1: response.data[0].suggestion,
+												suggestion2: response.data[1].suggestion,
+												suggestion1done: true,
+												suggestion2done: true
+											})
+										} else if (response.data.length === 1) {
+											this.setState({
+												suggestion1: response.data[0].suggestion,
+												suggestion1done: true
+											})
+										}
+									})
+									.catch(err => console.log(err))
+								//checks if user is done submitting and sets state accordingly
+								axios.get(`/api/settle/${this.props.id}/donesubmitting`)
+									.then(response => {
+										response.data[0] && this.setState({ done: response.data[0].done })
+									})
+									.catch(err => console.log(err))
 							})
-						})
-						.catch(err=>{
-							this.setState({})
-							console.log(err)
-						})
+							.catch(err => {
+								this.setState({})
+								console.log(err)
+							})
 					})
-					.catch(err=>console.log(err))
-				})
-				.catch(err => console.log(err));
-		})
-		.catch(err=>console.log(err))
-		
-		//gets user's suggestions for this settle- disables submission form on reloads
-		axios.get(`/api/settle/${this.props.id}/usersuggestions`)
-		.then(response=>{
-			if(response.data.length===3){
-				this.setState({
-					suggestion1: response.data[0].suggestion,
-					suggestion2: response.data[1].suggestion,
-					suggestion3: response.data[2].suggestion,
-					suggestion1done: true,
-					suggestion2done: true,
-					suggestion3done: true,
-				})
-			}else if (response.data.length===2){
-				this.setState({
-					suggestion1: response.data[0].suggestion,
-					suggestion2: response.data[1].suggestion,
-					suggestion1done: true,
-					suggestion2done: true
-				})
-			}else if (response.data.length===1){
-				this.setState({ 
-					suggestion1: response.data[0].suggestion,
-					suggestion1done: true
-				})
-			}
-		})
-		.catch(err=>console.log(err))
-		//checks if user is done submitting and sets state accordingly
-		axios.get(`/api/settle/${this.props.id}/donesubmitting`)
-			.then(response => this.setState({ done: response.data[0].done}))
-			.catch(err=>console.log(err))
+					.catch(err => console.log(err))
+			})
+			.catch(err => console.log(err));
 	}
 
 	componentDidUpdate(prevProps,prevState){

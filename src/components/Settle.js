@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
 import {connect} from 'react-redux';
 import New from './settleStages/New';
 import Inactive from './settleStages/Inactive/Inactive';
@@ -22,15 +21,6 @@ class Settle extends Component {
 	componentDidMount(){ 
 		//joins the socket room with the settle id
 		socket.emit('join', { room: this.props.match.params.id })
-		//checks if there is a user on session and creates a guest user in db if not
-		this.props.getUser()
-			.then()
-			.catch(() => {
-				const guestemail = bcrypt.hashSync('email', 4)
-				axios.post('/auth/register', { email: guestemail, name: 'guest', password: 'doesntmatter' })
-					.then()
-					.catch()
-			})
 		//retrieves the settle from db adds it to state- redirects to '/' if the settle doesnt exist in db
 		axios.get(`/api/settle/${this.props.match.params.id}`)
 		.then(response=>{
