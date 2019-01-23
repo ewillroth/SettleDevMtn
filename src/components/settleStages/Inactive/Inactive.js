@@ -25,12 +25,12 @@ class Inactive extends Component {
 			participants: 0,
 			numberofsuggestions: 0,
 			settle: {},
-			update: false
+			update: false,
+			loaded: false
 		};
 	}
 	componentDidMount() {
 		const {socket} = this.props
-
 		//socket listeners
 		socket && socket.on('user_added', ()=>{this.setState({update:!this.state.update})})
 		socket && socket.on('suggestion_added', ()=>{this.setState({update:!this.state.update})})
@@ -48,6 +48,7 @@ class Inactive extends Component {
 				this.props.getUser()
 				.then((response) => {
 					console.log('gotuser', response)
+					this.onceUserExists()
 					if (response.value.data.user_id === this.state.settle.creator_id) {
 						this.setState({
 							creator: true
@@ -59,21 +60,20 @@ class Inactive extends Component {
 							creator: false
 						})
 					}
-					this.addUserToSettle()
 				})
 				.catch(() => {
 					const guestemail = bcrypt.hashSync('email', 4)
 					axios.post('/auth/register', { email: guestemail, name: 'guest', password: 'doesntmatter' })
 						.then(()=>{
-							this.addUserToSettle()
+							this.onceUserExists()
 						})
-						.catch()
+						.catch(err=>console.log(err))
 				})
 		})
 		.catch(err=>console.log(err))
 	}
 
-	addUserToSettle = () => {
+	onceUserExists = () => {
 		//adds user to user_settles
 		axios
 			.put(`/api/settle/${this.props.id}/adduser`)
@@ -93,39 +93,6 @@ class Inactive extends Component {
 								this.setState({
 									numberofsuggestions: response.data.length
 								})
-								//gets user's suggestions for this settle- disables submission form on reloads
-								axios.get(`/api/settle/${this.props.id}/usersuggestions`)
-									.then(response => {
-										if (response.data.length === 3) {
-											this.setState({
-												suggestion1: response.data[0].suggestion,
-												suggestion2: response.data[1].suggestion,
-												suggestion3: response.data[2].suggestion,
-												suggestion1done: true,
-												suggestion2done: true,
-												suggestion3done: true,
-											})
-										} else if (response.data.length === 2) {
-											this.setState({
-												suggestion1: response.data[0].suggestion,
-												suggestion2: response.data[1].suggestion,
-												suggestion1done: true,
-												suggestion2done: true
-											})
-										} else if (response.data.length === 1) {
-											this.setState({
-												suggestion1: response.data[0].suggestion,
-												suggestion1done: true
-											})
-										}
-									})
-									.catch(err => console.log(err))
-								//checks if user is done submitting and sets state accordingly
-								axios.get(`/api/settle/${this.props.id}/donesubmitting`)
-									.then(response => {
-										response.data[0] && this.setState({ done: response.data[0].done })
-									})
-									.catch(err => console.log(err))
 							})
 							.catch(err => {
 								this.setState({})
@@ -135,6 +102,40 @@ class Inactive extends Component {
 					.catch(err => console.log(err))
 			})
 			.catch(err => console.log(err));
+		//gets user's suggestions for this settle- disables submission form on reloads
+		axios.get(`/api/settle/${this.props.id}/usersuggestions`)
+			.then(response => {
+				if (response.data.length === 3) {
+					this.setState({
+						suggestion1: response.data[0].suggestion,
+						suggestion2: response.data[1].suggestion,
+						suggestion3: response.data[2].suggestion,
+						suggestion1done: true,
+						suggestion2done: true,
+						suggestion3done: true,
+					})
+				} else if (response.data.length === 2) {
+					this.setState({
+						suggestion1: response.data[0].suggestion,
+						suggestion2: response.data[1].suggestion,
+						suggestion1done: true,
+						suggestion2done: true
+					})
+				} else if (response.data.length === 1) {
+					this.setState({
+						suggestion1: response.data[0].suggestion,
+						suggestion1done: true
+					})
+				}
+				this.setState({ loaded: true })
+			})
+			.catch(err => console.log(err))
+		//checks if user is done submitting and sets state accordingly
+		axios.get(`/api/settle/${this.props.id}/donesubmitting`)
+			.then(response => {
+				response.data[0] && this.setState({ done: response.data[0].done })
+			})
+			.catch(err => console.log(err))
 	}
 
 	componentDidUpdate(prevProps,prevState){
@@ -210,11 +211,12 @@ class Inactive extends Component {
 				suggestion:this.state.suggestion1
 			})
 			.then(()=>{
-				socket.emit('suggestion_added', {room:this.props.id})
+				socket && socket.emit('suggestion_added', {room:this.props.id})
 				this.setState({suggestion1done: true})
 			})
 			.catch(err=>{
 				this.setState({update: !this.state.update})
+				console.log(err)
 				toast.warn(err.response.request.response)
 			});
 	};
@@ -226,11 +228,12 @@ class Inactive extends Component {
 				suggestion:this.state.suggestion2
 			})
 			.then(()=>{
-				socket.emit('suggestion_added', {room:this.props.id})
+				socket && socket.emit('suggestion_added', {room:this.props.id})
 				this.setState({suggestion2done: true})
 			})
 			.catch(err=>{
 				this.setState({update: !this.state.update})
+				console.log(err)
 				toast.warn(err.response.request.response)
 			});
 	};
@@ -242,11 +245,12 @@ class Inactive extends Component {
 				suggestion:this.state.suggestion3
 			})
 			.then(()=>{
-				socket.emit('suggestion_added', {room:this.props.id})
+				socket && socket.emit('suggestion_added', {room:this.props.id})
 				this.setState({suggestion3done: true})
 			})
 			.catch(err=>{
 				this.setState({update: !this.state.update})
+				console.log(err)
 				toast.warn(err.response.request.response)
 			});
 	};
@@ -254,7 +258,7 @@ class Inactive extends Component {
 		const { socket } = this.props
 		axios.put(`/api/settle/${this.props.id}/delete`, {suggestion: this.state.suggestion1})
 			.then(() => {
-				socket.emit('suggestion_removed', {room:this.props.id}) 
+				socket && socket.emit('suggestion_removed', {room:this.props.id}) 
 				this.setState({ suggestion1done: false })
 			})
 			.catch(err=>console.log(err))
@@ -263,7 +267,7 @@ class Inactive extends Component {
 		const { socket } = this.props
 		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion2 })
 			.then(() => {
-				socket.emit('suggestion_removed', {room:this.props.id}) 
+				socket && socket.emit('suggestion_removed', {room:this.props.id}) 
 				this.setState({ suggestion2done: false })
 			})
 			.catch(err=>console.log(err))
@@ -272,7 +276,7 @@ class Inactive extends Component {
 		const { socket } = this.props
 		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion3 })
 			.then(() => {
-				socket.emit('suggestion_removed', {room:this.props.id}) 
+				socket && socket.emit('suggestion_removed', {room:this.props.id}) 
 				this.setState({ suggestion3done: false })
 			})
 			.catch(err=>console.log(err))
@@ -284,7 +288,8 @@ class Inactive extends Component {
 	};
 
 	render() {
-		return <div className="inactive">
+		return (
+			<div className="inactive">
 				<Header />
 				<div className="inactivecontainer">
 					<Participants number={this.state.participants} stage="inactive" id={this.props.id} />
@@ -351,7 +356,8 @@ class Inactive extends Component {
 				:
 				<></>
 				}
-			</div>;
+			</div>
+		)
 	}
 };
 

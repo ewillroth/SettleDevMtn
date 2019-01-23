@@ -87,6 +87,11 @@ io.on('connection', socket=> {
 		console.log('Socket: suggestion removed')
 		socket.broadcast.to(data.room).emit('suggestion_removed')
 	})
+	//sends message when settle stage changes
+	socket.on('change_stage', (data)=>{
+		console.log('Socket: change stage')
+		socket.broadcast.to(data.room).emit('change_stage')
+	})
 	//when a user joins a settle returns a message to given room so clients will update
 	socket.on('user_added', (data) => {
 		console.log('Socket: user added to settle')

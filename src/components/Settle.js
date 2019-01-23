@@ -36,6 +36,7 @@ class Settle extends Component {
 	}
 
 	changeStage = (stage) =>{
+		socket.emit('change_stage', { room: this.props.match.params.id })
 		this.setState({
 			settle: {...this.state.settle, stage}
 		})
