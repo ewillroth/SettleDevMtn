@@ -7,7 +7,7 @@ class Participants extends Component {
 	constructor(){
 		super()
 		this.state={
-			update: true,
+			update: false
 		}
 	}
 	//triggers rerender after participants are updated
@@ -18,6 +18,12 @@ class Participants extends Component {
 			update: !this.state.update
 		})})
 		.catch(err=>console.log(err))
+	}
+
+	componentDidUpdate(prevProps){
+		if(this.props.number!==prevProps.number){
+			this.setState({update:!this.state.update})
+		}
 	}
 
 	render() {

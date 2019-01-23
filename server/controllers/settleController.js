@@ -113,6 +113,12 @@ const checkIfDone = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
+const notDoneSubmitting = (req,res) => {
+	req.app.get('db').settles.not_done_submitting([req.session.user.user_id, req.params.id])
+	.then(() => res.sendStatus(200))
+	.catch(err => console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
@@ -127,5 +133,6 @@ module.exports = {
 	doneSubmitting,
 	recordWinner,
 	deleteSuggestion,
-	checkIfDone
+	checkIfDone,
+	notDoneSubmitting
 };

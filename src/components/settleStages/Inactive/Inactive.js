@@ -7,9 +7,6 @@ import List from '../Active/List';
 import {getUser} from '../../../redux/reducers/userReducer';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
 import { toast } from 'react-toastify';
-import socketIOClient from 'socket.io-client';
-
-const socket = socketIOClient('http://localhost:3333')
 
 class Inactive extends Component {
 	constructor(props) {
@@ -31,12 +28,13 @@ class Inactive extends Component {
 		};
 	}
 	componentDidMount() {
-		//joins the socket room with the settle id
-		socket.emit('join', {room:this.props.id})
+		const {socket} = this.props
+
 		//socket listeners
-		socket.on('user_added', ()=>{this.setState({update:!this.state.update})})
-		socket.on('suggestion_added', ()=>{this.setState({update:!this.state.update})})
-		socket.on('suggestion_removed', ()=>{this.setState({update:!this.state.update})})
+		socket && socket.on('user_added', ()=>{this.setState({update:!this.state.update})})
+		socket && socket.on('suggestion_added', ()=>{this.setState({update:!this.state.update})})
+		socket && socket.on('suggestion_removed', ()=>{this.setState({update:!this.state.update})})
+		socket && socket.on('user_ready', ()=>{this.setState({update:!this.state.update})})
 		//gets the settle from db and adds it to state
 		axios.get(`/api/settle/${this.props.id}`)
 			.then(response => {
@@ -126,20 +124,22 @@ class Inactive extends Component {
 	}
 
 	componentDidUpdate(prevProps,prevState){
+		const { socket } = this.props
+		const { id } = this.props
 		if(prevState.suggestion1done !== this.state.suggestion1done 
 		|| prevState.suggestion2done !== this.state.suggestion2done 
 		|| prevState.suggestion3done !== this.state.suggestion3done 
-		|| prevState.done !== this.state.done
+		// || prevState.done !== this.state.done
 		|| prevState.update !== this.state.update){
 			console.log('componentDidUpdate')
-			this.props.getParticipants(this.props.id)
+			this.props.getParticipants(id)
 				.then(() => {
 					console.log('got participants', this.props.participants.length)
 					this.setState({
 						participants: this.props.participants.length
 					})
 					//gets suggestions = used to verify if all users have submitted their suggestions
-					axios.get(`/api/settle/${this.props.id}/suggestions`)
+					axios.get(`/api/settle/${id}/suggestions`)
 						.then(response => {
 							console.log('got suggestions', response.data.length)
 							this.setState({
@@ -149,11 +149,37 @@ class Inactive extends Component {
 						.catch(err => console.log(err))
 				})
 				.catch(err => console.log(err))
+			//checks if all three suggestions have been submitted and sets user to ready if so
+			if(this.state.done === false && this.state.suggestion1done && this.state.suggestion2done && this.state.suggestion3done){
+				console.log('done?', this.state.done, this.state.suggestion1done,this.state.suggestion2done, this.state.suggestion3done)
+				axios.post(`/api/settle/${id}/donesubmitting`)
+					.then(() => {
+						socket.emit('user_ready', { room: id })
+						this.props.getParticipants(id)
+						.then(()=>this.setState({
+							participants: this.props.participants.length,
+							done: true
+						}))
+						.catch(err=>console.log(err))
+					})
+					.catch(err => console.log(err))
+			}else if(!this.state.suggestion1done || !this.state.suggestion2done || !this.state.suggestion3done){
+				if(prevState.done === true){
+					console.log('was done and now is not done')
+					axios.put(`/api/settle/${id}/donesubmitting`)
+						.then(()=>{
+							socket.emit('user_ready', {room: id})
+							this.props.getParticipants(id)
+							.then(()=>this.setState({
+								participants: this.props.participants.length,
+								done: false
+							}))
+							.catch(err=>console.log(err))
+						})
+						.catch(err=>console.log(err))
+				}
+			}
 		}
-	}
-
-	componentWillUnmount(){
-		socket.emit('leave', {room:this.props.id})
 	}
 
 	onChange = e => {
@@ -163,6 +189,7 @@ class Inactive extends Component {
 	};
 
 	submitOne = (e) => {
+		const { socket } = this.props
 		e.preventDefault()
 		axios
 			.put(`/api/settle/${this.props.id}/submit`, {
@@ -178,6 +205,7 @@ class Inactive extends Component {
 			});
 	};
 	submitTwo = (e) => {
+		const { socket } = this.props
 		e.preventDefault()
 		axios
 			.put(`/api/settle/${this.props.id}/submit`, {
@@ -193,6 +221,7 @@ class Inactive extends Component {
 			});
 	};
 	submitThree = (e) => {
+		const { socket } = this.props
 		e.preventDefault()
 		axios
 			.put(`/api/settle/${this.props.id}/submit`, {
@@ -208,6 +237,7 @@ class Inactive extends Component {
 			});
 	};
 	editOne = () => {
+		const { socket } = this.props
 		axios.put(`/api/settle/${this.props.id}/delete`, {suggestion: this.state.suggestion1})
 			.then(() => {
 				socket.emit('suggestion_removed', {room:this.props.id}) 
@@ -216,6 +246,7 @@ class Inactive extends Component {
 			.catch(err=>console.log(err))
 	}
 	editTwo = () => {
+		const { socket } = this.props
 		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion2 })
 			.then(() => {
 				socket.emit('suggestion_removed', {room:this.props.id}) 
@@ -224,18 +255,13 @@ class Inactive extends Component {
 			.catch(err=>console.log(err))
 	}
 	editThree = () => {
+		const { socket } = this.props
 		axios.put(`/api/settle/${this.props.id}/delete`, { suggestion: this.state.suggestion3 })
 			.then(() => {
 				socket.emit('suggestion_removed', {room:this.props.id}) 
 				this.setState({ suggestion3done: false })
 			})
 			.catch(err=>console.log(err))
-	}
-
-	doneSubmitting = () => {
-		axios.post(`/api/settle/${this.props.id}/donesubmitting`)
-		.then(()=>{this.setState({done: true})})
-		.catch(err => console.log(err))
 	}
 
 	onClick = e => {
@@ -254,7 +280,7 @@ class Inactive extends Component {
 						?
 						<div>
 							<p>{this.state.suggestion1}</p>
-							{this.state.done?<></>:<button onClick={this.editOne}>Edit</button>}
+							<button onClick={this.editOne}>Edit</button>
 						</div>
 						:
 						<form className="submitlist" onSubmit={this.submitOne}>
@@ -266,7 +292,7 @@ class Inactive extends Component {
 						?
 						<div>
 							<p>{this.state.suggestion2}</p>
-							{this.state.done?<></>:<button onClick={this.editTwo}>Edit</button>}
+							<button onClick={this.editTwo}>Edit</button>
 						</div>
 						:
 						<form className="submitlist" onSubmit={this.submitTwo}>
@@ -278,7 +304,7 @@ class Inactive extends Component {
 						?
 						<div>
 							<p>{this.state.suggestion3}</p>
-							{this.state.done?<></>:<button onClick={this.editThree}>Edit</button>}
+							<button onClick={this.editThree}>Edit</button>
 						</div>
 						:
 						<form className="submitlist" onSubmit={this.submitThree}>
@@ -292,10 +318,6 @@ class Inactive extends Component {
 				!this.state.suggestion1done || !this.state.suggestion2done || !this.state.suggestion3done
 				?
 				<></>
-				:
-				this.state.suggestion1done && this.state.suggestion2done && this.state.suggestion3done && !this.state.done
-				?
-				<button onClick={this.doneSubmitting}>Ready</button>
 				:
 				this.state.creator && this.state.numberofsuggestions / this.state.participants === 3
 				? 

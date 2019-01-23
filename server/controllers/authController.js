@@ -66,7 +66,7 @@ const deleteUser = (req, res) => {
 }
 
 const updatePicture = (req,res) => {
-	req.app.get('db').users.update_picture([req.body.picture, req.session.user.user_id]).then(response=>{res.status(200).json(response[0])}).catch(err=>console.log('updateerror',err))
+	req.app.get('db').users.update_picture([req.body.picture, req.session.user.user_id]).then(response=>{console.log(response[0])||res.status(200).json(response[0])}).catch(err=>console.log('updateerror',err))
 }
 
 module.exports = {

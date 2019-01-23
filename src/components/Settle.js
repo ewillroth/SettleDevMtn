@@ -7,6 +7,10 @@ import Inactive from './settleStages/Inactive/Inactive';
 import Active from './settleStages/Active/Active';
 import Completed from './settleStages/Completed';
 import {getUser} from '../redux/reducers/userReducer';
+import socketIOClient from "socket.io-client";
+
+const socket = socketIOClient("http://172.31.98.72:3333");
+
 
 class Settle extends Component {
 	constructor(){
@@ -15,7 +19,9 @@ class Settle extends Component {
 			settle: {},
 		}
 	}
-	componentDidMount(){
+	componentDidMount(){ 
+		//joins the socket room with the settle id
+		socket.emit('join', { room: this.props.match.params.id })
 		//checks if there is a user on session and creates a guest user in db if not
 		this.props.getUser()
 			.then()
@@ -57,13 +63,13 @@ class Settle extends Component {
 			stage === 'new' && this.props.user.user_id !== this.state.settle.creator_id 
 			? <Inactive id={id} changeStage={this.changeStage} /> 
 			//new component is where the creator invites others to the settle
-			: stage === 'new' ? <New id={id} url={url} changeStage={this.changeStage}/> 
+			: stage === 'new' ? <New socket={socket} id={id} url={url} changeStage={this.changeStage}/> 
 			//inactive component allows users to submit their suggestions
-			: stage === 'inactive' ? <Inactive creator={creator} id={id} changeStage={this.changeStage}/> 
+			: stage === 'inactive' ? <Inactive socket={socket} creator={creator} id={id} changeStage={this.changeStage}/> 
 			//active component is where users settle
-			: stage === 'active' ? <Active id={id} changeStage={this.changeStage}/> 
+			: stage === 'active' ? <Active id={id} socket={socket} changeStage={this.changeStage}/> 
 			//completed displays the winning suggestion
-			: stage === 'completed' ? <Completed id={id}/> 
+			: stage === 'completed' ? <Completed socket={socket} id={id}/> 
 			: <></> }
 			</div>
 		)

@@ -53,6 +53,7 @@ app.get('/api/settle/:id/usersuggestions', settle.getUserSuggestions)
 app.get('/api/settle/:id/start', settle.beginSettle)
 app.post('/api/settle/:id/donesubmitting', settle.doneSubmitting)
 app.get('/api/settle/:id/donesubmitting', settle.checkIfDone)
+app.put('/api/settle/:id/donesubmitting', settle.notDoneSubmitting)
 app.put('/api/settle/:id/recordwinner', settle.recordWinner)
 app.put('/api/settle/:id/delete', settle.deleteSuggestion)
 
@@ -79,17 +80,22 @@ io.on('connection', socket=> {
 	})
 	//when a user adds a suggestion returns a message to given room so clients will update
 	socket.on('suggestion_added', (data)=>{
-		console.log('Socket: suggestion added')
-		socket.to(data.room).broadcast.emit('suggestion_added')
+		console.log(`Socket: suggestion added`)
+		socket.broadcast.to(data.room).emit("suggestion_added");
 	})
 	socket.on('suggestion_removed', (data)=>{
 		console.log('Socket: suggestion removed')
-		socket.to(data.room).broadcast.emit('suggestion_removed')
+		socket.broadcast.to(data.room).emit('suggestion_removed')
 	})
 	//when a user joins a settle returns a message to given room so clients will update
 	socket.on('user_added', (data) => {
 		console.log('Socket: user added to settle')
-		socket.to(data.room).broadcast.emit('user_added') 
+		socket.broadcast.to(data.room).emit('user_added') 
+	})
+	//when a user is ready returns a message to given room so clients will update
+	socket.on('user_ready', data=>{
+		console.log('Socket: user ready')
+		socket.broadcast.to(data.room).emit('user_ready')
 	})
 })
 

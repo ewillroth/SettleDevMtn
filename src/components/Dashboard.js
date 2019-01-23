@@ -32,6 +32,7 @@ class Dashboard extends Component {
 			if(response.action.payload.data.name === 'guest'){
 				this.props.history.push('/')
 			}
+			console.log(this.props.user.profilepic)
 			this.setState({
 				url: this.props.user.profilepic
 			})
@@ -68,7 +69,7 @@ class Dashboard extends Component {
 		upload.on('state_changed', () => this.setState({edit:false}), (err) => console.log("upload error",err), () => {
 			//.on accepts 4 params, ???, progress, error, complete
 			console.log('doneuploading')
-			storage.ref(`images/profile/${this.props.user.user_id}`).getDownloadURL().then(url => this.props.updatePicture(url).then(response=>this.setState({url:response.value.data.profilepic})).catch(err=>console.log('cant update picture')))
+			storage.ref(`images/profile/${this.props.user.user_id}`).getDownloadURL().then(url => console.log(url)||this.props.updatePicture(url).then(response=>this.setState({url:response.value.data.profilepic})).catch(err=>console.log('cant update picture')))
 			//getDownloadURL returns a promise with the video URL to be used in your img src
 		})
 	}

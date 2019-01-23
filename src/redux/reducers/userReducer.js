@@ -93,11 +93,12 @@ export default function userReducer(state = initialState, action) {
 		case `${UPDATE_PICTURE}_FULFILLED`:
 			return {
 				...state,
-				user: {...state.user, profilepic:action.payload}
+				user: {...state.user, profilepic:action.payload.data.profilepic}
 			}
 		case `${UPDATE_PICTURE}_REJECTED`:
 			return {
-				...state
+				...state,
+				user: {...state, profilepic: null}
 			}
 		case RESET_FORM:
 			return {
