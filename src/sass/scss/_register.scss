@@ -7,8 +7,11 @@
 		margin: 10px 0px;
 		padding: 0px 14px;
 	}
-	img {
-		width: 80px;
-		height: 80px;
+}
+
+@media(max-width: 763px) {
+	.register {
+		margin-top: 50px;
+		align-self: center;
 	}
 }

@@ -1,11 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Header = () => {
-	return (
-		<div className='header'>
-			<h1>Settle</h1>
-		</div>
-	)
+	return <div className="header">
+			<Link to="/">
+				<h1>Settle</h1>
+			</Link>
+		</div>;
 }
 
 export default Header;

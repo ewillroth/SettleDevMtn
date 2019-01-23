@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {toast} from 'react-toastify';
 import {Redirect} from 'react-router-dom';
-import {updateEmail, updatePassword, resetForm, addUser, getUser} from '../redux/reducers/userReducer';
+import axios from 'axios';
 import Header from './Header';
+import {updateEmail, updatePassword, resetForm, addUser, getUser} from '../redux/reducers/userReducer';
 
 class Login extends Component {
 	constructor(){

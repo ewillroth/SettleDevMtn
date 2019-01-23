@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 import Header from './Header';
 import {updateName, updateEmail, updatePassword, addUser, resetForm, getUser} from '../redux/reducers/userReducer';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 
 class Register extends Component {
 	constructor(){
