@@ -88,8 +88,8 @@ class Dashboard extends Component {
 			<div className="userpanel">
 				<img src={this.state.url} alt="profile"></img>
 				<div className="userinfo">
-					<p>Name: {this.props.user.name}</p>
-					<p>Email: {this.props.user.email}</p>
+					<p>{this.props.user.name}</p>
+					<p>{this.props.user.email}</p>
 				</div>
 				<button onClick={this.onClick}>Edit profile picture</button>
 				<button onClick={() => { axios.delete('/auth/me').then(() => { this.props.history.push('/') }).catch(err => console.log(err)) }}>Delete account</button>

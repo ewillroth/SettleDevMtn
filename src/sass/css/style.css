@@ -115,9 +115,10 @@ nobr {
   margin: 30px;
   padding: 8px 10px;
   border-radius: 10%;
-  font-family: serif;
+  font-family: inconsolata;
   font-size: 20px;
   background: #57A773;
+  color: #FFF;
   cursor: pointer;
 }
 
@@ -131,9 +132,10 @@ nobr {
   margin: 30px;
   padding: 8px 10px;
   border-radius: 10%;
-  font-family: serif;
+  font-family: inconsolata;
   font-size: 20px;
   background: #57A773;
+  color: #FFF;
   cursor: pointer;
 }
 
@@ -147,9 +149,10 @@ nobr {
   margin: 30px;
   padding: 8px 10px;
   border-radius: 10%;
-  font-family: serif;
+  font-family: inconsolata;
   font-size: 20px;
   background: #57A773;
+  color: #FFF;
   cursor: pointer;
 }
 
@@ -199,13 +202,12 @@ nobr {
   margin: 30px;
   padding: 8px 10px;
   border-radius: 10%;
-  font-family: serif;
+  font-family: inconsolata;
   font-size: 20px;
-  background: #57A773;
   cursor: pointer;
 }
 .splash-main a:hover {
-  background: #509869;
+  background: #57A773;
 }
 
 .splash-line {
@@ -226,9 +228,10 @@ nobr {
   margin: 30px;
   padding: 8px 10px;
   border-radius: 10%;
-  font-family: serif;
+  font-family: inconsolata;
   font-size: 20px;
   background: #57A773;
+  color: #FFF;
   cursor: pointer;
 }
 .splash-nav a:hover {
@@ -435,6 +438,7 @@ nobr {
   font-size: 20px;
   background: #57A773;
   cursor: pointer;
+  color: #FFF;
 }
 .userpanel button:hover {
   background: #509869;
@@ -448,6 +452,9 @@ nobr {
 .userpanel .userinfo {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .userpanel p {
   font-size: 24px;
