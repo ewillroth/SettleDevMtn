@@ -71,7 +71,6 @@ class New extends Component{
 			hideProgressBar: true
 		});
 	}
-	
 
 	render(){
 		const displayemails = this.state.emails.map((e,i)=> (<li key={i}>{e}<button onClick={()=>{

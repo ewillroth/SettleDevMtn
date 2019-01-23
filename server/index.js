@@ -63,7 +63,8 @@ app.post('/api/twilio', twilio.sendInvite)
 app.post('/api/nodemailer', nodemlr.sendInvite)
 
 io.on('connection', socket=> {
-	console.log('Socket: user connected'),
+	console.log(`Socket: user connected`),
+	socket.emit('connection')
 	//console logs when a user disconnects from the server
 	socket.on('disconnect', ()=>{
 		console.log('Socket: user disconnected')
@@ -79,28 +80,28 @@ io.on('connection', socket=> {
 		socket.leave(data.room)
 	})
 	//when a user adds a suggestion returns a message to given room so clients will update
-	socket.on('suggestion_added', (data)=>{
+	socket.on('suggestion_added', (room)=>{
 		console.log(`Socket: suggestion added`)
-		socket.broadcast.to(data.room).emit("suggestion_added");
+		io.sockets.in(room).emit("suggestion_added")
 	})
 	socket.on('suggestion_removed', (data)=>{
 		console.log('Socket: suggestion removed')
-		socket.broadcast.to(data.room).emit('suggestion_removed')
+		io.sockets.in(data.room).emit('suggestion_removed')
 	})
 	//sends message when settle stage changes
-	socket.on('change_stage', (data)=>{
+	socket.on('change_stage', room=>{
 		console.log('Socket: change stage')
-		socket.broadcast.to(data.room).emit('change_stage')
+		io.sockets.in(room).emit('change_stage')
 	})
 	//when a user joins a settle returns a message to given room so clients will update
 	socket.on('user_added', (data) => {
 		console.log('Socket: user added to settle')
-		socket.broadcast.to(data.room).emit('user_added') 
+		io.sockets.in(data.room).emit('user_added') 
 	})
 	//when a user is ready returns a message to given room so clients will update
 	socket.on('user_ready', data=>{
 		console.log('Socket: user ready')
-		socket.broadcast.to(data.room).emit('user_ready')
+		io.sockets.in(data.room).emit('user_ready')
 	})
 })
 

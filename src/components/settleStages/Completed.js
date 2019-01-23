@@ -50,7 +50,7 @@ class Completed extends Component{
 			<div className="completed">
 				<Header />
 				<div className="winner">
-					{this.state.winner?this.state.winner:null}
+					The winning suggestion is {this.state.winner?this.state.winner:null}
 				</div>
 				<div className="sharing">
 

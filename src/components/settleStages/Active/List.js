@@ -23,7 +23,7 @@ class List extends Component {
 
 	componentDidUpdate(prevProps, prevState){
 		if(this.props.suggestions !== prevProps.suggestions){
-			console.log('updating')
+			//updates the list when parent updates number of suggestions
 			axios.get(`/api/settle/${this.props.id}/suggestions`)
 				.then(response => {
 					let arr = response.data

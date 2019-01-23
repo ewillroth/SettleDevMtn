@@ -13,10 +13,16 @@ class Active extends Component{
 			suggestions: [],
 			activeuser: '',
 			redirect: false,
-			loaded: false
+			loaded: false,
+			update: false
 		}
 	}
 	componentDidMount(){
+		const {socket} = this.props
+		socket && socket.on('suggestion_removed', ()=>{
+			console.log("Socket: suggestion removed")
+			this.setState({update:this.state.update})
+		})
 		//gets user from session
 		this.props.getUser()
 		.then(()=>{
@@ -61,9 +67,10 @@ class Active extends Component{
 	}
 
 	removeSuggestion = (e) => {
+		const {socket} = this.props
 		axios.put(`/api/settle/${this.props.id}/remove`, {suggestion: e, activeuser: this.state.activeuser})
 		.then(response=>{
-			console.log('suggestion removed')
+			socket.emit('suggestion_removed', {room:this.props.id})
 			axios.get(`/api/settle/${this.props.id}/suggestions`)
 				.then(response => {
 					//changes stage to complete if there is only one suggestion remaining

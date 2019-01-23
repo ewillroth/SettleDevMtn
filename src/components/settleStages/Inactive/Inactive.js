@@ -32,10 +32,10 @@ class Inactive extends Component {
 	componentDidMount() {
 		const {socket} = this.props
 		//socket listeners
-		socket && socket.on('user_added', ()=>{this.setState({update:!this.state.update})})
-		socket && socket.on('suggestion_added', ()=>{this.setState({update:!this.state.update})})
-		socket && socket.on('suggestion_removed', ()=>{this.setState({update:!this.state.update})})
-		socket && socket.on('user_ready', ()=>{this.setState({update:!this.state.update})})
+		socket && socket.on('user_added', ()=>{console.log("socket:user_added")||this.setState({update:!this.state.update})})
+		socket && socket.on('suggestion_added', ()=>{console.log("socket:suggestion_added")||this.setState({update:!this.state.update})})
+		socket && socket.on('suggestion_removed', ()=>{console.log("socket:suggestion_removed")||this.setState({update:!this.state.update})})
+		socket && socket.on('user_ready', ()=>{console.log("socket:user_ready")||this.setState({update:!this.state.update})})
 		//gets the settle from db and adds it to state
 		axios.get(`/api/settle/${this.props.id}`)
 			.then(response => {
@@ -47,13 +47,12 @@ class Inactive extends Component {
 				//checks if there is a user on session and creates a guest user in db if no user. checks if user is creator of settle
 				this.props.getUser()
 				.then((response) => {
-					console.log('gotuser', response)
+					console.log('gotuser', response.value.data)
 					this.onceUserExists()
 					if (response.value.data.user_id === this.state.settle.creator_id) {
 						this.setState({
 							creator: true
 						})
-						console.log('creator', this.state.settle.creator_id)
 					}
 					else {
 						this.setState({
@@ -133,7 +132,7 @@ class Inactive extends Component {
 		//checks if user is done submitting and sets state accordingly
 		axios.get(`/api/settle/${this.props.id}/donesubmitting`)
 			.then(response => {
-				response.data[0] && this.setState({ done: response.data[0].done })
+				this.setState({ done: response.data[0].done })
 			})
 			.catch(err => console.log(err))
 	}
@@ -141,58 +140,54 @@ class Inactive extends Component {
 	componentDidUpdate(prevProps,prevState){
 		const { socket } = this.props
 		const { id } = this.props
-		if(prevState.suggestion1done !== this.state.suggestion1done 
-		|| prevState.suggestion2done !== this.state.suggestion2done 
-		|| prevState.suggestion3done !== this.state.suggestion3done 
-		// || prevState.done !== this.state.done
-		|| prevState.update !== this.state.update){
-			console.log('componentDidUpdate')
+		if ( prevState.update !== this.state.update){
+			console.log('componentDidUpdate- update triggered')
+			//get participants length
 			this.props.getParticipants(id)
-				.then(() => {
-					console.log('got participants', this.props.participants.length)
-					this.setState({
-						participants: this.props.participants.length
-					})
-					//gets suggestions = used to verify if all users have submitted their suggestions
-					axios.get(`/api/settle/${id}/suggestions`)
-						.then(response => {
-							console.log('got suggestions', response.data.length)
-							this.setState({
-								numberofsuggestions: response.data.length
-							})
-						})
-						.catch(err => console.log(err))
+			.then(() => {
+				// console.log('got participants', this.props.participants.length)
+				this.setState({
+					participants: this.props.participants.length
 				})
-				.catch(err => console.log(err))
-			//checks if all three suggestions have been submitted and sets user to ready if so
-			if(this.state.done === false && this.state.suggestion1done && this.state.suggestion2done && this.state.suggestion3done){
-				console.log('done?', this.state.done, this.state.suggestion1done,this.state.suggestion2done, this.state.suggestion3done)
-				axios.post(`/api/settle/${id}/donesubmitting`)
-					.then(() => {
-						socket.emit('user_ready', { room: id })
-						this.props.getParticipants(id)
-						.then(()=>this.setState({
-							participants: this.props.participants.length,
-							done: true
-						}))
-						.catch(err=>console.log(err))
+				//get suggestions length
+				axios.get(`/api/settle/${id}/suggestions`)
+					.then(response => {
+						// console.log('got suggestions', response.data.length)
+						this.setState({
+							numberofsuggestions: response.data.length
+						})
 					})
 					.catch(err => console.log(err))
-			}else if(!this.state.suggestion1done || !this.state.suggestion2done || !this.state.suggestion3done){
-				if(prevState.done === true){
-					console.log('was done and now is not done')
-					axios.put(`/api/settle/${id}/donesubmitting`)
-						.then(()=>{
-							socket.emit('user_ready', {room: id})
-							this.props.getParticipants(id)
-							.then(()=>this.setState({
-								participants: this.props.participants.length,
-								done: false
-							}))
-							.catch(err=>console.log(err))
+			})
+			.catch(err => console.log(err))
+		}
+			//verifies if user has submitted all three suggestions and sets them to ready
+		if( this.state.done === false && this.state.suggestion1done && this.state.suggestion2done && this.state.suggestion3done){
+			console.log('ComponentDidUpdate: IsDoneSubmitting?')
+			//updates user done submitting to true in db
+			axios.post(`/api/settle/${id}/donesubmitting`)
+				.then(() => {
+					socket.emit('user_ready', { room: id })
+					this.setState({
+						done: true,
+						update: !this.state.update
+					})
+				})
+				.catch(err => console.log(err))
+		}//if user was done but edits one of their suggestions update
+		else if(!this.state.suggestion1done || !this.state.suggestion2done || !this.state.suggestion3done){
+			if(prevState.done === true){
+				console.log('ComponentDidUpdate:was done and now is not done')
+				//update user done submitting to false in db
+				axios.put(`/api/settle/${id}/donesubmitting`)
+					.then(()=>{
+						socket.emit('user_ready', {room: id})
+						this.setState({
+							done: false,
+							update: !this.state.update
 						})
-						.catch(err=>console.log(err))
-				}
+					})
+					.catch(err=>console.log(err))
 			}
 		}
 	}
@@ -211,7 +206,7 @@ class Inactive extends Component {
 				suggestion:this.state.suggestion1
 			})
 			.then(()=>{
-				socket && socket.emit('suggestion_added', {room:this.props.id})
+				socket && socket.emit('suggestion_added', this.props.id)
 				this.setState({suggestion1done: true})
 			})
 			.catch(err=>{
@@ -228,7 +223,7 @@ class Inactive extends Component {
 				suggestion:this.state.suggestion2
 			})
 			.then(()=>{
-				socket && socket.emit('suggestion_added', {room:this.props.id})
+				socket && socket.emit('suggestion_added', this.props.id)
 				this.setState({suggestion2done: true})
 			})
 			.catch(err=>{
@@ -245,7 +240,7 @@ class Inactive extends Component {
 				suggestion:this.state.suggestion3
 			})
 			.then(()=>{
-				socket && socket.emit('suggestion_added', {room:this.props.id})
+				socket && socket.emit('suggestion_added', this.props.id)
 				this.setState({suggestion3done: true})
 			})
 			.catch(err=>{

@@ -10,17 +10,22 @@ import socketIOClient from "socket.io-client";
 
 const socket = socketIOClient("http://172.31.98.72:3333");
 
-
 class Settle extends Component {
 	constructor(){
 		super()
 		this.state={
 			settle: {},
+			update: false
 		}
 	}
 	componentDidMount(){ 
 		//joins the socket room with the settle id
 		socket.emit('join', { room: this.props.match.params.id })
+		socket.on('connection', ()=>{console.log('Socket:connected')})
+		socket.on('change_stage', ()=>{
+			console.log("Socket: changing stage")
+			this.setState({update:!this.state.update})
+		})
 		//retrieves the settle from db adds it to state- redirects to '/' if the settle doesnt exist in db
 		axios.get(`/api/settle/${this.props.match.params.id}`)
 		.then(response=>{
@@ -35,8 +40,26 @@ class Settle extends Component {
 		.catch(()=>this.props.history.push('/'))
 	}
 
+	componentDidUpdate(prevProps, prevState){
+		if(this.state.update !== prevState.update){
+			axios.get(`/api/settle/${this.props.match.params.id}`)
+				.then(response => {
+					if (response.data) {
+						this.setState({
+							settle: response.data
+						})
+					} else {
+						this.props.history.push('/')
+					}
+				})
+				.catch(() => this.props.history.push('/'))
+		}
+	}
+
 	changeStage = (stage) =>{
-		socket.emit('change_stage', { room: this.props.match.params.id })
+		if(stage!=='inactive'){
+			socket.emit('change_stage', this.props.match.params.id)
+		}
 		this.setState({
 			settle: {...this.state.settle, stage}
 		})
