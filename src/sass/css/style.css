@@ -232,12 +232,14 @@ a {
 
 .header {
   position: fixed;
+  height: 10vh;
   top: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
+  background: white;
 }
 .header h1 {
   font-family: SignPainter;
@@ -438,66 +440,39 @@ a {
 }
 .settlecontainer {
   width: 100%;
-  display: flex;
+  position: relative;
+  top: 10vh;
 }
 .settlecontainer .new {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 800px;
   width: 100%;
 }
 .settlecontainer .new .settlelink input {
   width: 220px;
 }
-.settlecontainer .new .inviteboxes {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.settlecontainer .new .inviteboxes .emailcontainer {
-  width: 400px;
-  height: 400px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.settlecontainer .new .inviteboxes .emailcontainer .invitelist {
-  border: 1px solid black;
-  width: 300px;
-  height: 300px;
-}
-.settlecontainer .new .inviteboxes .numbercontainer {
-  width: 400px;
-  height: 400px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.settlecontainer .new .inviteboxes .numbercontainer .invitelist {
-  border: 1px solid black;
-  width: 300px;
-  height: 300px;
-}
-.settlecontainer .new .inviteboxes button {
-  width: 22px;
-  height: 22px;
-}
-.settlecontainer .new .inviteboxes p {
-  width: 400px;
-}
-.settlecontainer .new button {
-  width: 100px;
-  height: 30px;
-}
-.settlecontainer .new .copybutton {
+.settlecontainer .new .settlelink .copybutton {
   width: 40px;
-  height: 22px;
+}
+.settlecontainer .new .emailcontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.settlecontainer .new .emailcontainer .inviteform input {
+  width: 220px;
+}
+.settlecontainer .new .numbercontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.settlecontainer .new .numbercontainer .inviteform input {
+  width: 200px;
 }
 .settlecontainer .inactive {
   display: flex;

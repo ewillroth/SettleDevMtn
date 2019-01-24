@@ -91,27 +91,25 @@ class New extends Component{
 					<input id="settlelink" readOnly value={`http://localhost:3334${this.props.url}`}></input>
 					<button onClick={this.copy} className="copybutton">copy</button>
 				</div>
-				<div className="inviteboxes">
-					<div className="emailcontainer">
-						<p>Invite friends via email:</p>
-						<form onSubmit={this.addEmail}>
-							<input type="email" name="email" value={this.state.email} onChange={this.onChange}></input>
-							<button>+</button>
-						</form>
-						<ul className="invitelist">
-							{displayemails}
-						</ul>
-					</div>
-					<div className="numbercontainer">
-						<p>Invite friends via text:</p>
-						<form onSubmit={this.addNumber}>
-							<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
-							<button>+</button>
-						</form>
-						<ul className="invitelist">
-							{displaynumbers}
-						</ul>
-					</div>
+				<div className="emailcontainer">
+					<p>Invite friends via email:</p>
+					<form className="inviteform" onSubmit={this.addEmail}>
+						<input type="email" name="email" value={this.state.email} onChange={this.onChange}></input>
+						<button>+</button>
+					</form>
+					<ul className="invitelist">
+						{displayemails}
+					</ul>
+				</div>
+				<div className="numbercontainer">
+					<p>Invite friends via text:</p>
+					<form className="inviteform" onSubmit={this.addNumber}>
+						<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
+						<button>+</button>
+					</form>
+					<ul className="invitelist">
+						{displaynumbers}
+					</ul>
 				</div>
 				<button onClick={this.onClick}>Submit</button>
 			</div>

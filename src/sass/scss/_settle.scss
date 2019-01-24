@@ -1,60 +1,36 @@
 .settlecontainer {
 	width: 100%;
-	display: flex;
+	position: relative;
+	top: 10vh;
 	//page where settle creator sends invitations
-	.new{
+	.new {
 		@include flex(column);
-		height: 800px;
 		width: 100%;
 		.settlelink {
 			input{
 				width: 220px;
 			}
+			.copybutton {
+				width: 40px;
+			}
 		}
-		.inviteboxes {
-			width: 100%;
-			display: flex;
-			justify-content: center;
+		.emailcontainer {
+			@include flex(column);
 
-			.emailcontainer {
-				width: 400px;
-				height: 400px;
-				@include flex(row);
-				flex-wrap: wrap;
-
-				.invitelist{
-					border: 1px solid black;
-					width: 300px;
-					height: 300px;
+			.inviteform {
+				input {
+					width: 220px;
 				}
 			}
-			.numbercontainer {
-				width: 400px;
-				height: 400px;
-				@include flex(row);
-				flex-wrap: wrap;
+		}
+		.numbercontainer {
+			@include flex(column);
 
-				.invitelist{
-					border: 1px solid black;
-					width: 300px;
-					height: 300px;
+			.inviteform {
+				input {
+					width: 200px;
 				}
 			}
-			button {
-				width: 22px;
-				height: 22px
-			}
-			p {
-				width: 400px;
-			}
-		}
-		button {
-			width: 100px;
-			height: 30px;
-		}
-		.copybutton {
-			width: 40px;
-			height: 22px;
 		}
 	}
 	//page where users submit their suggestions
@@ -129,4 +105,8 @@
 		height: 100%;
 		@include flex(column);
 	}
+}
+
+@media(max-width: 763px) {
+
 }

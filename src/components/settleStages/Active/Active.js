@@ -21,7 +21,7 @@ class Active extends Component{
 		const {socket} = this.props
 		socket && socket.on('suggestion_removed', ()=>{
 			console.log("Socket: suggestion removed")
-			this.setState({update:this.state.update})
+			this.setState({update:!this.state.update})
 		})
 		//gets user from session
 		this.props.getUser()
@@ -61,8 +61,20 @@ class Active extends Component{
 	}
 
 	componentDidUpdate(prevProps, prevState){
-		if(this.state.activeuser!==prevState.activeuser){
-			this.setState({})
+		if(this.state.update!==prevState.update){
+			axios.get(`/api/settle/${this.props.id}/suggestions`)
+				.then(response => {
+					let arr = response.data
+					let suggestions = []
+					arr.forEach((e, i) => { suggestions.push(e.suggestion) })
+					this.setState({ suggestions })
+				})
+				.catch(err => console.log(err))
+			axios.get(`/api/settle/${this.props.id}`)
+				.then(response => {
+					this.setState({ activeuser: response.data.active_user })
+				})
+				.catch(err => console.log(err))
 		}
 	}
 
