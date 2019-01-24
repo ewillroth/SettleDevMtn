@@ -1,41 +1,28 @@
 .settlecontainer {
-	height: 100vh;
-	width: 100vw;
 	//page where settle creator sends invitations
 	.new {
-		@include flex(column);
-		justify-content: space-evenly;
-		position: fixed;
-		top: 12vh;
-		height: 80vh;
-		width: 100%;
+
 		.settlelink {
-			@include flex(column);
 			input{
 				width: 220px;
-				margin: 10px 10px 0 0;
 			}
 			.copybutton {
 				width: 40px;
 			}
 		}
 		.emailcontainer {
-			@include flex(column);
 
 			.inviteform {
 				input {
 					width: 220px;
-					margin: 10px 10px 0 0;
 				}
 			}
 		}
 		.numbercontainer {
-			@include flex(column);
 
 			.inviteform {
 				input {
-					width: 220px;
-					margin: 10px 10px 0 0;
+					width: 200px;
 				}
 			}
 		}
@@ -43,35 +30,46 @@
 	//page where users submit their suggestions
 	.inactive{
 		@include flex(column);
-		justify-content: space-evenly;
 		position: fixed;
-		top: 12vh;
-		height: 80vh;
+		justify-content: space-evenly;
+		top: 14vh;
+		height: 84vh;
 		width: 100%;
 
 		.inactivecontainer {
-			width: 100%;
 			height: 100%;
-			@include flex(row);
-			justify-content: space-evenly;
-
+			width: 100%;
+			@include flex(column);
+			align-content: space-between;
+			
 			.participants {
+				height: 33%;
+				width: 100vw;
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
 				.participant{
 					img {
-						width: 80px;
-						height: 80px;
+						width: 40px;
+						height: 40px;
 					}
 				}
 			}
+
 			.List {
 				height: 33%;
+				justify-content: space-evenly;
 			}
+
 			.usersuggestions {
+				height: 33%;
 				display: flex;
 				flex-direction: column;
 
 				.editablesuggestion {
+					width: 100%;
 					display: flex;
+					justify-content: space-between;
 				}
 
 				.submitlist {
@@ -85,26 +83,23 @@
 		}
 	}
 	.active {
-		@include flex(row);
+		@include flex(column);
 		justify-content: space-evenly;
+		height: 98vh;
 		position: fixed;
-		top: 12vh;
-		height: 80vh;
-		width: 100%;
+		top: 2vh;
 
 		.participants {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+			@include flex(row);
 			.participant{
 				img {
-					width: 80px;
-					height: 80px;
+					width: 40px;
+					height: 40px;
 				}
 			}
 		}
 		.activenav {
-			@include flex(column);
+			@include flex(row);
 			z-index: 1;
 			img {
 				width: 100px;
@@ -116,6 +111,7 @@
 			z-index: 2;
 		}
 	}
+
 	.completed {
 		@include flex(column);
 		justify-content: space-evenly;

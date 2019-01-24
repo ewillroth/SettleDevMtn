@@ -67,7 +67,7 @@ class New extends Component{
 		copyText.select();
 		document.execCommand("copy");
 		toast.info("Copied!", {
-			autoClose: 1300,
+			autoClose: 900,
 			hideProgressBar: true
 		});
 	}
@@ -84,35 +84,39 @@ class New extends Component{
 			this.setState({numbers})
 			}}>X</button></li>)
 		return (
-			<div className="new">
+			<>
 				<Header/>
-				<div className="settlelink" >
-					<p>Invite friends via link:</p>
-					<input id="settlelink" readOnly value={`http://localhost:3334${this.props.url}`}></input>
-					<button onClick={this.copy} className="copybutton">copy</button>
+				<div className="new">
+					<div className="settlelink" >
+						<p>Invite friends via link:</p>
+						<div>
+							<input id="settlelink" readOnly value={`http://localhost:3334${this.props.url}`}></input>
+							<button onClick={this.copy} className="copybutton">copy</button>
+						</div>
+					</div>
+					<div className="emailcontainer">
+						<p>Invite friends via email:</p>
+						<form className="inviteform" onSubmit={this.addEmail}>
+							<input type="email" name="email" value={this.state.email} onChange={this.onChange}></input>
+							<button> + </button>
+						</form>
+						<ul className="invitelist">
+							{displayemails}
+						</ul>
+					</div>
+					<div className="numbercontainer">
+						<p>Invite friends via text:</p>
+						<form className="inviteform" onSubmit={this.addNumber}>
+							<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
+							<button> + </button>
+						</form>
+						<ul className="invitelist">
+							{displaynumbers}
+						</ul>
+					</div>
+					<button onClick={this.onClick}>Submit</button>
 				</div>
-				<div className="emailcontainer">
-					<p>Invite friends via email:</p>
-					<form className="inviteform" onSubmit={this.addEmail}>
-						<input type="email" name="email" value={this.state.email} onChange={this.onChange}></input>
-						<button>+</button>
-					</form>
-					<ul className="invitelist">
-						{displayemails}
-					</ul>
-				</div>
-				<div className="numbercontainer">
-					<p>Invite friends via text:</p>
-					<form className="inviteform" onSubmit={this.addNumber}>
-						<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
-						<button>+</button>
-					</form>
-					<ul className="invitelist">
-						{displaynumbers}
-					</ul>
-				</div>
-				<button onClick={this.onClick}>Submit</button>
-			</div>
+			</>
 		)
 	}
 };

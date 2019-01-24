@@ -4,7 +4,10 @@
 	@include flex(column);
 	align-self: flex-start;
 	button {
-		margin: 10px 0px;
+		margin: 10px 0px;;
+	}
+	a {
+		background: #fff;
 	}
 }
 

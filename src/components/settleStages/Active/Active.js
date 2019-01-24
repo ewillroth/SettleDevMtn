@@ -118,19 +118,25 @@ class Active extends Component{
 			this.state.redirect ? <Redirect to="/" /> :
 			!this.state.loaded?<></>:
 			<div className="active">
-				<div className="userpanel">
+				<div className="activenav">
 					<h1 className="logo">Settle!</h1>
-					<img src={this.props.user.profilepic} alt="profile"></img>
-					<p>{this.props.user.name}</p>
+					<div>
+						{this.props.user.name !== 'guest'
+						?
+						<>
+							<img src={this.props.user.profilepic} alt="profile"></img>
+							<p>{this.props.user.name}</p>
+						</>
+						:
+						<></>
+						}
+					</div>
 					{this.props.user.name!=="guest"?<Link to="/dashboard">Dashboard</Link>:<></>}
-					<Participants stage="active" id={this.props.id}/>
 				</div>
 				<div className="thelist">
 						{list}
 				</div>
-				<div className="chat">
-
-				</div>
+				<Participants stage="active" id={this.props.id}/>
 			</div>
 		)
 	}

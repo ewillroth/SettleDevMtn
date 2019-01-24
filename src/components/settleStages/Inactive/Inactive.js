@@ -296,75 +296,79 @@ class Inactive extends Component {
 	};
 
 	render() {
+		const suggestions = this.state.numberofsuggestions
+		const participants = this.state.participants
 		return (
-			<div className="inactive">
+			<>
 				<Header />
-				<div className="inactivecontainer">
-					<Participants number={this.state.participants} stage="inactive" id={this.props.id} />
-					<List id={this.props.id} suggestions={this.state.numberofsuggestions}/>
-					<div>
-						{this.state.suggestion1done
-						?
-						<div>
-							<p>{this.state.suggestion1}</p>
-							<button onClick={this.editOne}>Edit</button>
+				<div className="inactive">
+					<div className="inactivecontainer">
+						<Participants number={this.state.participants} stage="inactive" id={this.props.id} />
+						<List id={this.props.id} suggestions={this.state.numberofsuggestions}/>
+						<div className="usersuggestions">
+							{this.state.suggestion1done
+							?
+							<div className="editablesuggestion">
+								<p>{this.state.suggestion1}</p>
+								<button onClick={this.editOne}>Edit</button>
+							</div>
+							:
+							<form className="submitlist" onSubmit={this.submitOne}>
+								<input autocomplete="off" tabindex="1" onChange={this.onChange}  name="suggestion1" value={this.state.suggestion1} required/>
+								<button>+</button>
+							</form>
+							}
+							{this.state.suggestion2done
+							?
+							<div className="editablesuggestion">
+								<p>{this.state.suggestion2}</p>
+								<button onClick={this.editTwo}>Edit</button>
+							</div>
+							:
+							<form className="submitlist" onSubmit={this.submitTwo}>
+								<input autocomplete="off" tabindex="2" onChange={this.onChange}  name="suggestion2" value={this.state.suggestion2} required/>
+								<button>+</button>
+							</form>
+							}
+							{this.state.suggestion3done
+							?
+							<div className="editablesuggestion">
+								<p>{this.state.suggestion3}</p>
+								<button onClick={this.editThree}>Edit</button>
+							</div>
+							:
+							<form className="submitlist" onSubmit={this.submitThree}>
+								<input autocomplete="off" tabindex="3" onChange={this.onChange}  name="suggestion3" value={this.state.suggestion3} required/>
+								<button>+</button>
+							</form>
+							}
 						</div>
-						:
-						<form className="submitlist" onSubmit={this.submitOne}>
-							<input onChange={this.onChange}  name="suggestion1" value={this.state.suggestion1} required/>
-							<button>+</button>
-						</form>
-						}
-						{this.state.suggestion2done
-						?
-						<div>
-							<p>{this.state.suggestion2}</p>
-							<button onClick={this.editTwo}>Edit</button>
-						</div>
-						:
-						<form className="submitlist" onSubmit={this.submitTwo}>
-							<input onChange={this.onChange}  name="suggestion2" value={this.state.suggestion2} required/>
-							<button>+</button>
-						</form>
-						}
-						{this.state.suggestion3done
-						?
-						<div>
-							<p>{this.state.suggestion3}</p>
-							<button onClick={this.editThree}>Edit</button>
-						</div>
-						:
-						<form className="submitlist" onSubmit={this.submitThree}>
-							<input onChange={this.onChange}  name="suggestion3" value={this.state.suggestion3} required/>
-							<button>+</button>
-						</form>
-						}
 					</div>
+					{//only displays the Start Settle button for the creator && if all participants have submitted their suggestions
+					!this.state.suggestion1done || !this.state.suggestion2done || !this.state.suggestion3done
+					?
+					<></>
+					:
+					this.state.creator && suggestions / participants === 3
+					? 
+					<button onClick={this.onClick}> Start Settle </button> 
+					: 
+					this.state.creator && suggestions / participants !== 3
+					?
+					<p>Waiting until everyone is ready</p>
+					:
+					suggestions / participants !== 3
+					?
+					<p>Waiting for all participants to submit suggestions</p>
+					:
+					suggestions / participants === 3
+					?
+					<p>Waiting for the creator to begin the settle</p>
+					:
+					<></>
+					}
 				</div>
-				{//only displays the Start Settle button for the creator && if all participants have submitted their suggestions
-				!this.state.suggestion1done || !this.state.suggestion2done || !this.state.suggestion3done
-				?
-				<></>
-				:
-				this.state.creator && this.state.numberofsuggestions / this.state.participants === 3
-				? 
-				<button onClick={this.onClick}> Start Settle </button> 
-				: 
-				this.state.creator && this.state.numberofsuggestions / this.state.participants !== 3
-				?
-				<p>Waiting until everyone is ready</p>
-				:
-				this.state.numberofsuggestions / this.state.participants !== 3
-				?
-				<p>Waiting for all participants to submit suggestions</p>
-				:
-				this.state.numberofsuggestions / this.state.participants === 3
-				?
-				<p>Waiting for the creator to begin the settle</p>
-				:
-				<></>
-				}
-			</div>
+			</>
 		)
 	}
 };

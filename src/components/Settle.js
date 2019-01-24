@@ -80,9 +80,8 @@ class Settle extends Component {
 			<div className="settlecontainer">{
 			//new component is where the creator invites others to the settle
 			isnew && this.props.user.user_id === this.state.settle.creator_id ? <New socket={socket} id={id} url={url} changeStage={this.changeStage}/> 
-			:
 			//only allows creator of the settle to see the New component
-			isnew && this.props.user.user_id !== this.state.settle.creator_id 
+			:isnew && this.props.user.user_id !== this.state.settle.creator_id 
 			? <Inactive socket={socket} id={id} changeStage={this.changeStage} /> 
 			//inactive component allows users to submit their suggestions
 			: stage === 'inactive' ? <Inactive socket={socket} creator={creator} id={id} changeStage={this.changeStage}/> 

@@ -2,7 +2,7 @@
 .header {
 	position: fixed;
 	height: 10vh;
-	top: 0;
+	top: 2vh;
 	@include flex(row);
 	width: 100%;
 	background: white;

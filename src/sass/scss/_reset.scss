@@ -1,199 +1,66 @@
-* {
-	text-decoration: none;
-	font-size: 1em;
+/* 
+ * https://github.com/jtrost/Complete-CSS-Reset
+*/
+
+/* Displays for HTML 5 */
+article, aside, audio, command, datagrid, details, dialog, embed, 
+figcaption, figure, footer, header, hgroup, menu, nav, section, summary,
+video, wbr {
+	display: block;
+}
+
+bdi, figcaption, keygen, mark, meter, progress, rp, rt, ruby, time {
+	display: inline;
+}
+
+/* Deprecated tags */
+acronym, applet, big, center, dir, font, frame, frameset, noframes, s,
+strike, tt, u, xmp {
+	display: none;
+}
+
+/* Reset styles for all structural tags */
+a, abbr, area, article, aside, audio, b, bdo, blockquote, body, button, 
+canvas, caption, cite, code, col, colgroup, command, datalist, dd, del, 
+details, dialog, dfn, div, dl, dt, em, embed, fieldset, figure, form,
+h1, h2, h3, h4, h5, h6, head, header, hgroup, hr, html, i, iframe, img, 
+input, ins, keygen, kbd, label, legend, li, map, mark, menu, meter, nav,
+noscript, object, ol, optgroup, option, output, p, param, pre, progress,
+q, rp, rt, ruby, samp, section, select, small, span, strong, sub, sup, 
+table, tbody, td, textarea, tfoot, th, thead, time, tr, ul, var, video {
+	background: transparent;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	margin: 0;
 	outline: none;
 	padding: 0;
-	margin: 0;
-	}
-code, kbd, samp, pre, tt, var, textarea, 
-input, select, isindex, listing, xmp, plaintext {
-	white-space: normal;
-	font-size: 1em;
-	font: inherit;
-	}
-dfn, i, cite, var, address, em { 
-	font-style: normal; 
-	}
-th, b, strong, h1, h2, h3, h4, h5, h6 { 
-	font-weight: normal; 
-	}
-a, img, a img, iframe, form, fieldset, 
-abbr, acronym, object, applet, table {
-	border: none; 
-	}
+	text-align: left;
+	text-decoration: none;
+	vertical-align: baseline;
+	z-index: 1;
+}
+
+/* Miscellaneous resets */
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	}
-caption, th, td, center { 
-	vertical-align: top;
-	text-align: left;
-	}
-body { 
-	background: white; 
-	line-height: 1; 
-	color: black; 
-	}
-q { 
-	quotes: "" ""; 
-	}
-ul, ol, dir, menu { 
-	list-style: none; 
-	}
-sub, sup { 
-	vertical-align: baseline; 
-	}
-a { 
-	color: inherit; 
-	}
-hr { 
-	display: none; 
-	}
-font { 
-	color: inherit !important; 
-	font: inherit !important; 
-	color: inherit !important; 
-	}
-marquee {
-	overflow: inherit !important;
-	-moz-binding: none;
-	}
-blink { 
-	text-decoration: none; 
-	}
-nobr { 
-	white-space: normal; 
-	}
-
-//mobile reset
-
-html {
-	color: #000;
-	background: #fff;
-	overflow-y: scroll;
-	-webkit-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%
-}
-html * {
-	outline: 0;
-	-webkit-text-size-adjust: none;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-}
-html,
-body {
-	font-family: sans-serif
-}
-body,
-div,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-pre,
-code,
-form,
-fieldset,
-legend,
-input,
-textarea,
-p,
-blockquote,
-th,
-td,
-hr,
-button,
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-	margin: 0;
-	padding: 0
-}
-input,
-select,
-textarea {
-	font-size: 100%
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0
-}
-fieldset,
-img {
-	border: 0
-}
-abbr,
-acronym {
-	border: 0;
-	font-variant: normal
-}
-del {
-	text-decoration: line-through
-}
-address,
-caption,
-cite,
-code,
-dfn,
-em,
-th,
-var {
-	font-style: normal;
-	font-weight: 500
-}
-ol,
-ul {
-	list-style: none
-}
-caption,
-th {
-	text-align: left
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-size: 100%;
-	font-weight: 500
-}
-q:before,
-q:after {
-    content: ''
-}
-sub,
-sup {
-	font-size: 75%;
-	line-height: 0;
-	position: relative;
-	vertical-align: baseline
-}
-sup {
-	top: -.5em
-}
-sub {
-	bottom: -.25em
-}
-a:hover {
-	text-decoration: underline
-}
-ins,
-a {
-	text-decoration: none
 }

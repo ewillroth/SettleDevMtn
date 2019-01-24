@@ -1,14 +1,45 @@
+.splash-nav, .splash-main{
+	a {
+		width: 85px;
+		margin: 30px;
+		padding: 8px 10px;
+		border-radius: 10%;
+		font-family: $font;
+		font-size: 18px;
+		text-align: center;
+		background: $green;
+		color: #FFF;
+		cursor: pointer;
+	}
+
+	a:hover {
+		background: $darkgreen;
+	}
+}
+.splash-nav, .splash-main, .login, .register{
+	button {
+		width: 85px;
+		margin: 30px;
+		padding: 8px 10px;
+		border-radius: 10%;
+		font-family: $font;
+		font-size: 18px;
+		text-align: center;
+		background: $green;
+		color: #FFF;
+		cursor: pointer;
+	}
+}
+	button:hover {
+		background: $darkgreen;
+	}
+
 .newsettle {
-width: 190px;
+width: 155px;
 height: 50px;
 margin: 30px;
 padding: 8px 10px;
-border-radius: 10%;
-font-family: $font;
-font-size: 20px;
-background: $green;
-color: #FFF;
-cursor: pointer;
+font-size: 18px;
 }
 
 .newsettle:hover {
@@ -20,16 +51,7 @@ width: 190px;
 height: 50px;
 margin: 30px;
 padding: 8px 10px;
-border-radius: 10%;
-font-family: $font;
 font-size: 20px;
-background: $green;
-color: #FFF;
-cursor: pointer;
-}
-
-.logoutbutton:hover {
-	background: $darkgreen;
 }
 
 .activesettles {
@@ -37,14 +59,5 @@ width: 190px;
 height: 50px;
 margin: 30px;
 padding: 8px 10px;
-border-radius: 10%;
-font-family: $font;
 font-size: 20px;
-background: $green;
-color: #FFF;
-cursor: pointer;
-}
-
-.activesettles:hover {
-	background: $darkgreen;
 }

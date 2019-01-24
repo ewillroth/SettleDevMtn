@@ -36,8 +36,8 @@ class Participants extends Component {
 						<span key={e.user_id}></span>
 						:
 						<div className="participant" key={e.user_id}>
-							<p>{e.name!=='guest'?e.name:null}</p>
 							<img src={e.profilepic} alt="user"/>
+							<p>{e.name!=='guest'?e.name:null}</p>
 							{this.props.stage==="inactive"
 							?//only display submission status if settle stage is inactive
 							<img className="donesubmitting" src={e.done ? "https://image.flaticon.com/icons/svg/291/291201.svg" :"https://image.flaticon.com/icons/svg/291/291202.svg"} alt="user status"/>

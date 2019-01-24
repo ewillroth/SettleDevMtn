@@ -42,7 +42,7 @@ class List extends Component {
 			)
 		})
 		return (
-			<div>
+			<div className="List">
 				{list}
 			</div>
 		)

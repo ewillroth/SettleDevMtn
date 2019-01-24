@@ -1,239 +1,72 @@
-* {
-  text-decoration: none;
-  font-size: 1em;
-  outline: none;
-  padding: 0;
-  margin: 0;
+/* 
+ * https://github.com/jtrost/Complete-CSS-Reset
+*/
+/* Displays for HTML 5 */
+article, aside, audio, command, datagrid, details, dialog, embed,
+figcaption, figure, footer, header, hgroup, menu, nav, section, summary,
+video, wbr {
+  display: block;
 }
 
-code, kbd, samp, pre, tt, var, textarea,
-input, select, isindex, listing, xmp, plaintext {
-  white-space: normal;
-  font-size: 1em;
-  font: inherit;
+bdi, figcaption, keygen, mark, meter, progress, rp, rt, ruby, time {
+  display: inline;
 }
 
-dfn, i, cite, var, address, em {
-  font-style: normal;
-}
-
-th, b, strong, h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
-}
-
-a, img, a img, iframe, form, fieldset,
-abbr, acronym, object, applet, table {
-  border: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-caption, th, td, center {
-  vertical-align: top;
-  text-align: left;
-}
-
-body {
-  background: white;
-  line-height: 1;
-  color: black;
-}
-
-q {
-  quotes: "" "";
-}
-
-ul, ol, dir, menu {
-  list-style: none;
-}
-
-sub, sup {
-  vertical-align: baseline;
-}
-
-a {
-  color: inherit;
-}
-
-hr {
+/* Deprecated tags */
+acronym, applet, big, center, dir, font, frame, frameset, noframes, s,
+strike, tt, u, xmp {
   display: none;
 }
 
-font {
-  color: inherit !important;
-  font: inherit !important;
-  color: inherit !important;
-}
-
-marquee {
-  overflow: inherit !important;
-  -moz-binding: none;
-}
-
-blink {
-  text-decoration: none;
-}
-
-nobr {
-  white-space: normal;
-}
-
-html {
-  color: #000;
-  background: #fff;
-  overflow-y: scroll;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-}
-
-html * {
-  outline: 0;
-  -webkit-text-size-adjust: none;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-html,
-body {
-  font-family: sans-serif;
-}
-
-body,
-div,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-pre,
-code,
-form,
-fieldset,
-legend,
-input,
-textarea,
-p,
-blockquote,
-th,
-td,
-hr,
-button,
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  margin: 0;
-  padding: 0;
-}
-
-input,
-select,
-textarea {
+/* Reset styles for all structural tags */
+a, abbr, area, article, aside, audio, b, bdo, blockquote, body, button,
+canvas, caption, cite, code, col, colgroup, command, datalist, dd, del,
+details, dialog, dfn, div, dl, dt, em, embed, fieldset, figure, form,
+h1, h2, h3, h4, h5, h6, head, header, hgroup, hr, html, i, iframe, img,
+input, ins, keygen, kbd, label, legend, li, map, mark, menu, meter, nav,
+noscript, object, ol, optgroup, option, output, p, param, pre, progress,
+q, rp, rt, ruby, samp, section, select, small, span, strong, sub, sup,
+table, tbody, td, textarea, tfoot, th, thead, time, tr, ul, var, video {
+  background: transparent;
+  border: 0;
   font-size: 100%;
+  font: inherit;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  vertical-align: baseline;
+  z-index: 1;
+}
+
+/* Miscellaneous resets */
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
 }
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
-}
-
-fieldset,
-img {
-  border: 0;
-}
-
-abbr,
-acronym {
-  border: 0;
-  font-variant: normal;
-}
-
-del {
-  text-decoration: line-through;
-}
-
-address,
-caption,
-cite,
-code,
-dfn,
-em,
-th,
-var {
-  font-style: normal;
-  font-weight: 500;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-caption,
-th {
-  text-align: left;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: 100%;
-  font-weight: 500;
-}
-
-q:before,
-q:after {
-  content: "";
-}
-
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sup {
-  top: -0.5em;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-ins,
-a {
-  text-decoration: none;
 }
 
 .header {
   position: fixed;
   height: 10vh;
-  top: 0;
+  top: 2vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -259,6 +92,9 @@ a {
 .login button {
   margin: 10px 0px;
 }
+.login a {
+  background: #fff;
+}
 
 @media (max-width: 763px) {
   .login {
@@ -266,17 +102,45 @@ a {
     align-self: center;
   }
 }
-.newsettle {
-  width: 190px;
-  height: 50px;
+.splash-nav a, .splash-main a {
+  width: 85px;
   margin: 30px;
   padding: 8px 10px;
   border-radius: 10%;
   font-family: inconsolata;
-  font-size: 20px;
+  font-size: 18px;
+  text-align: center;
   background: #57A773;
   color: #FFF;
   cursor: pointer;
+}
+.splash-nav a:hover, .splash-main a:hover {
+  background: #509869;
+}
+
+.splash-nav button, .splash-main button, .login button, .register button {
+  width: 85px;
+  margin: 30px;
+  padding: 8px 10px;
+  border-radius: 10%;
+  font-family: inconsolata;
+  font-size: 18px;
+  text-align: center;
+  background: #57A773;
+  color: #FFF;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #509869;
+}
+
+.newsettle {
+  width: 155px;
+  height: 50px;
+  margin: 30px;
+  padding: 8px 10px;
+  font-size: 18px;
 }
 
 .newsettle:hover {
@@ -288,16 +152,7 @@ a {
   height: 50px;
   margin: 30px;
   padding: 8px 10px;
-  border-radius: 10%;
-  font-family: inconsolata;
   font-size: 20px;
-  background: #57A773;
-  color: #FFF;
-  cursor: pointer;
-}
-
-.logoutbutton:hover {
-  background: #509869;
 }
 
 .activesettles {
@@ -305,16 +160,7 @@ a {
   height: 50px;
   margin: 30px;
   padding: 8px 10px;
-  border-radius: 10%;
-  font-family: inconsolata;
   font-size: 20px;
-  background: #57A773;
-  color: #FFF;
-  cursor: pointer;
-}
-
-.activesettles:hover {
-  background: #509869;
 }
 
 .register {
@@ -329,6 +175,9 @@ a {
 .register button {
   margin: 10px 0px;
   padding: 0px 14px;
+}
+.register a {
+  background: #FFF;
 }
 
 @media (max-width: 763px) {
@@ -382,20 +231,6 @@ a {
   align-items: center;
   width: 200px;
 }
-.splash-nav a {
-  width: 85px;
-  margin: 30px;
-  padding: 8px 10px;
-  border-radius: 10%;
-  font-family: inconsolata;
-  font-size: 20px;
-  background: #57A773;
-  color: #FFF;
-  cursor: pointer;
-}
-.splash-nav a:hover {
-  background: #509869;
-}
 
 @media (max-width: 763px) {
   .splash-line {
@@ -439,19 +274,29 @@ a {
   }
 }
 .settlecontainer {
-  width: 100%;
-  position: relative;
-  top: 10vh;
+  height: 100vh;
+  width: 100vw;
 }
 .settlecontainer .new {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
+  position: fixed;
+  top: 12vh;
+  height: 80vh;
   width: 100%;
+}
+.settlecontainer .new .settlelink {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .settlecontainer .new .settlelink input {
   width: 220px;
+  margin: 10px 10px 0 0;
 }
 .settlecontainer .new .settlelink .copybutton {
   width: 40px;
@@ -464,6 +309,7 @@ a {
 }
 .settlecontainer .new .emailcontainer .inviteform input {
   width: 220px;
+  margin: 10px 10px 0 0;
 }
 .settlecontainer .new .numbercontainer {
   display: flex;
@@ -472,46 +318,59 @@ a {
   align-items: center;
 }
 .settlecontainer .new .numbercontainer .inviteform input {
-  width: 200px;
+  width: 220px;
+  margin: 10px 10px 0 0;
 }
 .settlecontainer .inactive {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 800px;
+  justify-content: space-evenly;
+  position: fixed;
+  top: 12vh;
+  height: 80vh;
   width: 100%;
 }
 .settlecontainer .inactive .inactivecontainer {
   width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-}
-.settlecontainer .inactive .inactivecontainer .usersuggestions {
-  display: flex;
-  flex-direction: column;
-}
-.settlecontainer .inactive .inactivecontainer .submitlist {
-  display: flex;
-}
-.settlecontainer .inactive .inactivecontainer .submitlist button {
-  width: 20px;
-}
-.settlecontainer .inactive .inactivecontainer ul {
-  display: flex;
-  flex-direction: column;
+  justify-content: space-evenly;
 }
 .settlecontainer .inactive .inactivecontainer .participants .participant img {
   width: 80px;
   height: 80px;
 }
-.settlecontainer .active {
-  width: 100%;
-  height: 800px;
+.settlecontainer .inactive .inactivecontainer .List {
+  height: 33%;
+}
+.settlecontainer .inactive .inactivecontainer .usersuggestions {
   display: flex;
+  flex-direction: column;
+}
+.settlecontainer .inactive .inactivecontainer .usersuggestions .editablesuggestion {
+  display: flex;
+}
+.settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist {
+  display: flex;
+}
+.settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist button {
+  width: 20px;
+}
+.settlecontainer .active {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   justify-content: space-evenly;
+  position: fixed;
+  top: 12vh;
+  height: 80vh;
+  width: 100%;
 }
 .settlecontainer .active .participants {
   display: flex;
@@ -522,14 +381,14 @@ a {
   width: 80px;
   height: 80px;
 }
-.settlecontainer .active .userpanel {
+.settlecontainer .active .activenav {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
 }
-.settlecontainer .active .userpanel img {
+.settlecontainer .active .activenav img {
   width: 100px;
   height: 100px;
 }
@@ -541,111 +400,28 @@ a {
   z-index: 2;
 }
 .settlecontainer .completed {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.userpanel {
-  position: fixed;
-  left: 0;
-  height: 100vh;
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  justify-content: flex-start;
-}
-.userpanel button {
-  width: 190px;
-  height: 50px;
-  margin: 30px;
-  padding: 8px 10px;
-  border-radius: 10%;
-  font-family: serif;
-  font-size: 20px;
-  background: #57A773;
-  cursor: pointer;
-  color: #FFF;
-}
-.userpanel button:hover {
-  background: #509869;
-}
-.userpanel img {
-  width: 200px;
-  border: 0.5px solid black;
-  border-radius: 50%;
-  margin: 20px 0;
-}
-.userpanel .userinfo {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.userpanel p {
-  font-size: 24px;
-  margin: 10px 0;
-  text-align: left;
-}
-
-.dashpanel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  left: 300px;
-  width: 800px;
-  height: 750px;
-}
-.dashpanel .dashnav {
-  display: flex;
-  justify-content: space-between;
-  height: 100px;
-  width: 100%;
-}
-.dashpanel .dashnav .logo {
-  font-family: SignPainter;
-  font-size: 100px;
-  color: #08B2E3;
-}
-.dashpanel .dashmain {
-  width: 100%;
-  height: 800px;
-  display: flex;
   justify-content: space-evenly;
-  align-items: center;
-}
-.dashpanel .dashmain .friends {
-  width: 340px;
-  height: 500px;
-  border: 1px solid black;
-}
-.dashpanel .dashmain .stats {
-  width: 340px;
-  height: 500px;
-  border: 1px solid black;
+  position: fixed;
+  top: 12vh;
+  height: 80vh;
+  width: 100%;
 }
 
-.activebox {
-  background: #08B2E3;
-  width: 300px;
-  position: fixed;
-  top: 81px;
-  left: 585px;
+.dashboard {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.activebox a {
-  margin-top: 10px;
+.dashboard .userpanel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .App {
@@ -664,6 +440,119 @@ a {
     width: 100vw;
     height: 100vh;
   }
+
+  .settlecontainer .new .settlelink input {
+    width: 220px;
+  }
+  .settlecontainer .new .settlelink .copybutton {
+    width: 40px;
+  }
+  .settlecontainer .new .emailcontainer .inviteform input {
+    width: 220px;
+  }
+  .settlecontainer .new .numbercontainer .inviteform input {
+    width: 200px;
+  }
+  .settlecontainer .inactive {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    justify-content: space-evenly;
+    top: 14vh;
+    height: 84vh;
+    width: 100%;
+  }
+  .settlecontainer .inactive .inactivecontainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+  }
+  .settlecontainer .inactive .inactivecontainer .participants {
+    height: 33%;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .settlecontainer .inactive .inactivecontainer .participants .participant img {
+    width: 40px;
+    height: 40px;
+  }
+  .settlecontainer .inactive .inactivecontainer .List {
+    height: 33%;
+    justify-content: space-evenly;
+  }
+  .settlecontainer .inactive .inactivecontainer .usersuggestions {
+    height: 33%;
+    display: flex;
+    flex-direction: column;
+  }
+  .settlecontainer .inactive .inactivecontainer .usersuggestions .editablesuggestion {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist {
+    display: flex;
+  }
+  .settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist button {
+    width: 20px;
+  }
+  .settlecontainer .active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 98vh;
+    position: fixed;
+    top: 2vh;
+  }
+  .settlecontainer .active .participants {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .settlecontainer .active .participants .participant img {
+    width: 40px;
+    height: 40px;
+  }
+  .settlecontainer .active .activenav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  .settlecontainer .active .activenav img {
+    width: 100px;
+    height: 100px;
+  }
+  .settlecontainer .active .thelist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+  }
+  .settlecontainer .completed {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 12vh;
+    height: 80vh;
+    width: 100%;
+  }
 }
 .logo {
   color: #08B2E3;
@@ -673,6 +562,11 @@ a {
 
 .hide {
   display: none;
+}
+
+input {
+  border: #acacac solid 1px;
+  margin: 10px 10px 0 0;
 }
 
 /*# sourceMappingURL=style.css.map */

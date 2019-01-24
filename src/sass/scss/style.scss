@@ -26,6 +26,9 @@
 		width: 100vw;
 		height: 100vh;
 	}
+
+	@import 'settle763';
+	@import 'dashboard763';
 }
 
 .logo {
@@ -36,4 +39,9 @@
 
 .hide {
 	display: none;
+}
+
+input {
+	border: rgb(172, 172, 172) solid 1px;
+	margin: 10px 10px 0 0;
 }

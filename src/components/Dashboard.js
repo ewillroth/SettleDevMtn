@@ -82,48 +82,48 @@ class Dashboard extends Component {
 			!this.state.loaded?
 			<></>
 			:
-			<>
-			{//change user info panel view when updating profile picture
-			!this.state.edit
-			?//user panel standard view
-			<div className="userpanel">
-				<img src={this.state.url} alt="profile"></img>
-				<div className="userinfo">
-					<p>{this.props.user.name}</p>
-					<p>{this.props.user.email}</p>
-				</div>
-				<button onClick={this.onClick}>Edit profile picture</button>
-				<button onClick={() => { axios.delete('/auth/me').then(() => { this.props.history.push('/') }).catch(err => console.log(err)) }}>Delete account</button>
-			<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
-			</div>
-			://user panel view when editing profile picture
-			<div className="userpanel">
-				<img src={this.state.url} alt="profile"></img>
-				<div>
-					<input type="file" onChange={this.onChange}></input>
-					<button onClick={this.uploadFile}>Submit</button>
-				</div>
-				<button onClick={this.onClick}>Cancel</button>
-				<button onClick={()=>{axios.delete('/auth/me').then(()=>{this.props.history.push('/')}).catch(err=>console.log(err))}}>Delete account</button>
-				<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
-			</div>
-			}
-			<div className="dashpanel">
-				<div className="dashnav">
-					<NewSettleButton reroute={(str)=>this.props.history.push(str)}/>
-					<button className="activesettles" onClick={()=>{this.setState({active:!this.state.active})}}>Active Settles</button>
+			<div className="dashboard">
+				{//change user info panel view when updating profile picture
+				!this.state.edit
+				?//user panel standard view
+				<div className="userpanel">
 					<h1 className="logo">Settle</h1>
+					<img className="profilepic" src={this.state.url} alt="profile"></img>
+					<div className="userinfo">
+						<p>{this.props.user.name}</p>
+						<p>{this.props.user.email}</p>
+					</div>
+					<button onClick={this.onClick}>Edit profile picture</button>
+					<button onClick={() => { axios.delete('/auth/me').then(() => { this.props.history.push('/') }).catch(err => console.log(err)) }}>Delete account</button>
+					<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 				</div>
-				<div className="dashmain">
-					<Stats/>
-					<Friends/>
+				://user panel view when editing profile picture
+				<div className="userpanel">
+					<img className="profilepic" src={this.state.url} alt="profile"></img>
+					<form onSubmit={this.uploadFile}>
+						<input type="file" onChange={this.onChange} required></input>
+						<button>Submit</button>
+					</form>
+					<button onClick={this.onClick}>Cancel</button>
+					<button onClick={()=>{axios.delete('/auth/me').then(()=>{this.props.history.push('/')}).catch(err=>console.log(err))}}>Delete account</button>
+					<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 				</div>
+				}
+				<div className="dashpanel">
+					<div className="dashnav">
+						<button className="activesettles" onClick={()=>{this.setState({active:!this.state.active})}}>Active Settles</button>
+						<NewSettleButton reroute={(str)=>this.props.history.push(str)}/>
+					</div>
+					<div className="dashmain">
+						<Stats/>
+						<Friends/>
+					</div>
+				</div>
+				<div className={this.state.active?'activebox':'hide'}>
+					{activesettles}
+				</div>
+				{this.props.user.name === 'guest'?<Redirect to='/'/>:null}
 			</div>
-			<div className={this.state.active?'activebox':'hide'}>
-				{activesettles}
-			</div>
-			{this.props.user.name === 'guest'?<Redirect to='/'/>:null}
-			</>
 		)
 	}
 }
