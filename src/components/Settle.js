@@ -8,14 +8,15 @@ import Completed from './settleStages/Completed';
 import {getUser} from '../redux/reducers/userReducer';
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("http://192.168.1.68:3334");
+const socket = socketIOClient("http://172.31.98.72:3334/");
 
 class Settle extends Component {
 	constructor(){
 		super()
 		this.state={
 			settle: {},
-			update: false
+			update: false,
+			new: false
 		}
 	}
 	componentDidMount(){ 
@@ -24,6 +25,10 @@ class Settle extends Component {
 		socket.on('connection', ()=>{console.log('Socket:connected')})
 		socket.on('change_stage', ()=>{
 			console.log("Socket: changing stage")
+			this.setState({update:!this.state.update})
+		})
+		socket.on('not_new', ()=>{
+			console.log('socket:not new')
 			this.setState({update:!this.state.update})
 		})
 		//retrieves the settle from db adds it to state- redirects to '/' if the settle doesnt exist in db
@@ -59,13 +64,13 @@ class Settle extends Component {
 	changeStage = (stage) =>{
 		if(stage!=='inactive'){
 			socket.emit('change_stage', this.props.match.params.id)
+		}else{
+			socket.emit('not_new')
 		}
-		this.setState({
-			settle: {...this.state.settle, stage}
-		})
 	}
 
 	render() {
+		const isnew = this.state.settle.new
 		const stage = this.state.settle.stage
 		const url = this.props.match.url
 		const id = this.props.match.params.id
@@ -73,11 +78,12 @@ class Settle extends Component {
 		//return a different component depending on the stage of the current settle
 		return (
 			<div className="settlecontainer">{
-			//only allows creator of the settle to see the New component
-			stage === 'new' && this.props.user.user_id !== this.state.settle.creator_id 
-			? <Inactive id={id} changeStage={this.changeStage} /> 
 			//new component is where the creator invites others to the settle
-			: stage === 'new' ? <New socket={socket} id={id} url={url} changeStage={this.changeStage}/> 
+			isnew && this.props.user.user_id === this.state.settle.creator_id ? <New socket={socket} id={id} url={url} changeStage={this.changeStage}/> 
+			:
+			//only allows creator of the settle to see the New component
+			isnew && this.props.user.user_id !== this.state.settle.creator_id 
+			? <Inactive socket={socket} id={id} changeStage={this.changeStage} /> 
 			//inactive component allows users to submit their suggestions
 			: stage === 'inactive' ? <Inactive socket={socket} creator={creator} id={id} changeStage={this.changeStage}/> 
 			//active component is where users settle

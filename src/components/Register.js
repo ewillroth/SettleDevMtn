@@ -58,18 +58,18 @@ class Register extends Component {
 					<input
 						onChange={e => this.props.updateName(e.target.value)}
 						value={this.props.name}
-					/>
+					required/>
 					<p>Email</p>
 					<input
 						onChange={e => this.props.updateEmail(e.target.value)}
 						value={this.props.email}
-					/>
+					required/>
 					<p>Password</p>
 					<input
 						onChange={e => this.props.updatePassword(e.target.value)}
 						value={this.props.password}
 						type="password"
-					/>
+					required/>
 					<button>Submit</button>
 				</form>
 			</>

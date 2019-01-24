@@ -44,9 +44,10 @@ app.put('/auth/picture', auth.updatePicture)
 app.post('/api/settle', settle.create)
 app.get('/api/settle/:id', settle.getSettle)
 app.put('/api/settle/:id/stage', settle.updateStage)
+app.put('/api/settle/:id/removenew', settle.removeNew)
 app.put('/api/settle/:id/adduser', settle.addUser)
 app.get('/api/settle/:id/participants', settle.getParticipants)
-app.put('/api/settle/:id/submit', settle.addSuggestions)
+app.put('/api/settle/:id/submit', settle.addSuggestion)
 app.put('/api/settle/:id/remove', settle.removeSuggestion)
 app.get('/api/settle/:id/suggestions', settle.getSuggestions)
 app.get('/api/settle/:id/usersuggestions', settle.getUserSuggestions)
@@ -65,6 +66,11 @@ app.post('/api/nodemailer', nodemlr.sendInvite)
 io.on('connection', socket=> {
 	console.log(`Socket: user connected`),
 	socket.emit('connection')
+
+	socket.on('not_new', ()=>{
+		console.log('Socket: not_new')
+		socket.emit('not_new')
+	})
 	//console logs when a user disconnects from the server
 	socket.on('disconnect', ()=>{
 		console.log('Socket: user disconnected')

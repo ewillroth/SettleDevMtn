@@ -33,10 +33,9 @@ const getParticipants = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
-const addSuggestions = (req,res) => {
+const addSuggestion = (req,res) => {
 	req.app.get("db").settles.add_suggestions([req.session.user.user_id, req.params.id, req.body.suggestion])
 		.then(()=>{
-			req.session.user.donesubmitting=true
 			res.status(200).json(req.session.user)
 		})
 		.catch(err => res.status(403).json("Someone else has already submitted the same suggestion. No duplicates!"));
@@ -119,13 +118,19 @@ const notDoneSubmitting = (req,res) => {
 	.catch(err => console.log(err))
 }
 
+const removeNew = (req,res) => {
+	req.app.get('db').settles.remove_new([req.params.id])
+	.then(()=>res.sendStatus(200))
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	create,
 	getSettle,
 	updateStage,
 	addUser,
 	getParticipants,
-	addSuggestions,
+	addSuggestion,
 	removeSuggestion,
 	getSuggestions,
 	getUserSuggestions,
@@ -134,5 +139,6 @@ module.exports = {
 	recordWinner,
 	deleteSuggestion,
 	checkIfDone,
-	notDoneSubmitting
+	notDoneSubmitting,
+	removeNew
 };

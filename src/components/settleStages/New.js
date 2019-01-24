@@ -44,9 +44,9 @@ class New extends Component{
 				.catch(err=>console.log(err))
 			})
 		}
-		//change stage of settle to inactive in db and parent state
-		axios.put(`/api/settle/${this.props.id}/stage`, {status:'inactive'})
-		.then(()=>{
+		//set new to false in db and isnew to false in state
+		axios.put(`/api/settle/${this.props.id}/removenew`)
+		.then((response)=>{
 			this.props.changeStage('inactive')
 		})
 		.catch(err=>console.log(err))
