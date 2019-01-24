@@ -296,7 +296,6 @@ button:hover {
 }
 .settlecontainer .new .settlelink input {
   width: 220px;
-  margin: 10px 10px 0 0;
 }
 .settlecontainer .new .settlelink .copybutton {
   width: 40px;
@@ -309,7 +308,6 @@ button:hover {
 }
 .settlecontainer .new .emailcontainer .inviteform input {
   width: 220px;
-  margin: 10px 10px 0 0;
 }
 .settlecontainer .new .numbercontainer {
   display: flex;
@@ -319,7 +317,6 @@ button:hover {
 }
 .settlecontainer .new .numbercontainer .inviteform input {
   width: 220px;
-  margin: 10px 10px 0 0;
 }
 .settlecontainer .inactive {
   display: flex;
