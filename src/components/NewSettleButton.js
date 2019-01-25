@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {createSettle} from '../redux/reducers/settleReducer'
+import {createSettle} from '../redux/reducers/settleReducer';
+
 
 class NewSettleButton extends Component {
 	render(){
@@ -11,7 +12,7 @@ class NewSettleButton extends Component {
 				this.props.createSettle()
 				.then(response => this.props.reroute(`/settle/${response.value.data.settle_id}`))
 				.catch(err=>console.log(err))}}
-			>Create Settle</button>
+			>create settle</button>
 		)
 	}
 }

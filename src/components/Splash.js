@@ -38,8 +38,8 @@ class Splash extends Component{
 			!this.state.loaded?<></>:
 			<>
 			<div className="splash-nav">
-				<Link to="/login">Login</Link>
-				<Link to="/register">Register</Link>
+				<Link to="/login">login</Link>
+				<Link to="/register">register</Link>
 			</div>
 			<div className="splash-line"></div>
 			<div className="splash-main">

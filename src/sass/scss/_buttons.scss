@@ -1,45 +1,34 @@
 .splash-nav, .splash-main{
 	a {
-		width: 85px;
 		margin: 30px;
 		padding: 8px 10px;
-		border-radius: 10%;
 		font-family: $font;
 		font-size: 18px;
 		text-align: center;
 		background: $green;
-		color: #FFF;
+		color: $white;
 		cursor: pointer;
 	}
 
-	a:hover {
-		background: $darkgreen;
-	}
 }
 .splash-nav, .splash-main, .login, .register{
 	button {
-		width: 85px;
 		margin: 30px;
 		padding: 8px 10px;
-		border-radius: 10%;
 		font-family: $font;
 		font-size: 18px;
 		text-align: center;
 		background: $green;
-		color: #FFF;
+		color: $white;
 		cursor: pointer;
 	}
 }
-	button:hover {
-		background: $darkgreen;
-	}
 
 .newsettle {
-width: 155px;
-height: 50px;
 margin: 30px;
 padding: 8px 10px;
 font-size: 18px;
+text-align: center;
 }
 
 .newsettle:hover {

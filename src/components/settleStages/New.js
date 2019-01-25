@@ -73,51 +73,47 @@ class New extends Component{
 	}
 
 	render(){
-		const displayemails = this.state.emails.map((e,i)=> (<li key={i}>{e}<button onClick={()=>{
+		const displayemails = this.state.emails.map((e,i)=> (<li className="inviteform" key={i}>{e}<button onClick={()=>{
 			let emails = this.state.emails.slice()
 			emails.splice(i,1)
 			this.setState({emails})
-			}}>X</button></li>))
-		const displaynumbers = this.state.numbers.map((e,i)=><li key={i}>{e}<button onClick={()=>{
+			}}><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2Fbackspace-arrow.png?alt=media&token=55eb66ee-6b56-48bf-b866-ac04bedb077d" alt="delete"></img></button></li>))
+		const displaynumbers = this.state.numbers.map((e,i)=><li className="inviteform" key={i}>{e}<button onClick={()=>{
 			let numbers = this.state.numbers.slice()
 			numbers.splice(i,1)
 			this.setState({numbers})
-			}}>X</button></li>)
-		return (
-			<>
-				<Header/>
+			}}><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2Fbackspace-arrow.png?alt=media&token=55eb66ee-6b56-48bf-b866-ac04bedb077d" alt="delete"></img></button></li>)
+		return <>
+				<Header />
 				<div className="new">
-					<div className="settlelink" >
+					<div className="settlelink">
 						<p>Invite friends via link:</p>
-						<div>
-							<input id="settlelink" readOnly value={`http://localhost:3334${this.props.url}`}></input>
-							<button onClick={this.copy} className="copybutton">copy</button>
+						<div className="inviteform">
+							<input id="settlelink" readOnly value={`http://localhost:3334${this.props.url}`} />
+							<button onClick={this.copy} className="copybutton"><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F001-copy-file.png?alt=media&token=6ade3f9b-06c0-46aa-82b4-6d69f7265d36" alt="copy"></img></button>
 						</div>
 					</div>
 					<div className="emailcontainer">
 						<p>Invite friends via email:</p>
 						<form className="inviteform" onSubmit={this.addEmail}>
-							<input type="email" name="email" value={this.state.email} onChange={this.onChange}></input>
-							<button> + </button>
+							<input type="email" name="email" value={this.state.email} onChange={this.onChange} />
+							<button><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F003-rounded-add-button.png?alt=media&token=1a0a79f4-c459-4811-aec1-73530173c95c" alt="add"></img></button>
 						</form>
-						<ul className="invitelist">
-							{displayemails}
-						</ul>
+						<ul className="invitelist">{displayemails}</ul>
 					</div>
 					<div className="numbercontainer">
 						<p>Invite friends via text:</p>
 						<form className="inviteform" onSubmit={this.addNumber}>
-							<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange}></input>
-							<button> + </button>
+							<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange} />
+							<button><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F003-rounded-add-button.png?alt=media&token=1a0a79f4-c459-4811-aec1-73530173c95c" alt="add"></img></button>
 						</form>
-						<ul className="invitelist">
-							{displaynumbers}
-						</ul>
+						<ul className="invitelist">{displaynumbers}</ul>
 					</div>
-					<button onClick={this.onClick}>Submit</button>
+					<button className="nextbutton" onClick={this.onClick}>
+						Submit <img alt="submit arrow" src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F006-right-arrow.png?alt=media&token=4e005751-6488-4415-85e8-25c00fae8cdf" />
+					</button>
 				</div>
-			</>
-		)
+			</>;
 	}
 };
 

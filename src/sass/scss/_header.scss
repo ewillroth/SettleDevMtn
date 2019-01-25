@@ -2,10 +2,10 @@
 .header {
 	position: fixed;
 	height: 10vh;
-	top: 2vh;
+	top: 5vh;
 	@include flex(row);
 	width: 100%;
-	background: white;
+	background: $gray;
 	h1 {
 		font-family: $logo-font;
 		font-size: 100px;

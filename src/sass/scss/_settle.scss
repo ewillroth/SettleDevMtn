@@ -9,10 +9,37 @@
 		top: 12vh;
 		height: 80vh;
 		width: 100%;
+		.nextbutton {
+			background: $green;
+			@include flex(row);
+			align-items: center;
+			padding: 8px 10px;
+			font-family: $font;
+			font-size: 18px;
+			text-align: center;
+			color: $white;
+			cursor: pointer;
+			img {
+				width: 20px;
+				margin-left: 5px;
+			}
+		}
+		button {
+			padding: 8px 10px;
+			font-family: $font;
+			font-size: 18px;
+			text-align: center;
+			color: $white;
+			cursor: pointer;
+			img {
+				width: 24px;
+			}
+
+		}
 		.settlelink {
 			@include flex(column);
 			input{
-				width: 220px;
+				width: 250px;
 			}
 			.copybutton {
 				width: 40px;
@@ -22,8 +49,10 @@
 			@include flex(column);
 
 			.inviteform {
+				@include flex(row);
+				align-items: center;
 				input {
-					width: 220px;
+					width: 250px;
 				}
 			}
 		}
@@ -31,8 +60,10 @@
 			@include flex(column);
 
 			.inviteform {
+				@include flex(row);
+				align-items: center;
 				input {
-					width: 220px;
+					width: 250px;
 				}
 			}
 		}

@@ -314,7 +314,7 @@ class Inactive extends Component {
 							</div>
 							:
 							<form className="submitlist" onSubmit={this.submitOne}>
-								<input autocomplete="off" tabindex="1" onChange={this.onChange}  name="suggestion1" value={this.state.suggestion1} required/>
+								<input autoComplete="off" tabIndex="1" onChange={this.onChange}  name="suggestion1" value={this.state.suggestion1} required/>
 								<button>+</button>
 							</form>
 							}
@@ -326,7 +326,7 @@ class Inactive extends Component {
 							</div>
 							:
 							<form className="submitlist" onSubmit={this.submitTwo}>
-								<input autocomplete="off" tabindex="2" onChange={this.onChange}  name="suggestion2" value={this.state.suggestion2} required/>
+								<input autoComplete="off" tabIndex="2" onChange={this.onChange}  name="suggestion2" value={this.state.suggestion2} required/>
 								<button>+</button>
 							</form>
 							}
@@ -338,7 +338,7 @@ class Inactive extends Component {
 							</div>
 							:
 							<form className="submitlist" onSubmit={this.submitThree}>
-								<input autocomplete="off" tabindex="3" onChange={this.onChange}  name="suggestion3" value={this.state.suggestion3} required/>
+								<input autoComplete="off" tabIndex="3" onChange={this.onChange}  name="suggestion3" value={this.state.suggestion3} required/>
 								<button>+</button>
 							</form>
 							}

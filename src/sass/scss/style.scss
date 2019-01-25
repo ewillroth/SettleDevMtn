@@ -1,10 +1,10 @@
-
+// sass --watch ./src/sass/scss:./src/sass/css
 // partials
 @import 'reset';
 @import 'variables';
+@import 'buttons';
 @import 'header';
 @import 'login';
-@import 'buttons';
 @import 'register';
 @import 'splash';
 @import 'settle';
@@ -12,11 +12,11 @@
 
 .App {
 	text-align: center;
-	display: flex;
-	justify-content: center;
+	@include flex(row);
 	height: 100vh;
 	width: 100vw;
 	flex-wrap: wrap;
+	background: $gray;
 }
 
 @media(max-width: 763px) {
@@ -43,5 +43,12 @@
 
 input {
 	border: rgb(172, 172, 172) solid 1px;
-	margin: 10px 10px 0 0;
+	margin: 10px 10px;
+	padding: 2px;
+}
+input, select, textarea{
+    color: $white;
+}
+textarea:focus, input:focus {
+	color: $white;
 }

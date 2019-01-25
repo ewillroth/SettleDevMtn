@@ -1,18 +1,22 @@
 .login {
 	position: relative;
-	top: 100px;
+	top: 200px;
 	@include flex(column);
 	align-self: flex-start;
+	p {
+		color: $white;
+	}
 	button {
 		margin: 10px 0px;;
 	}
 	a {
-		background: #fff;
+		background: $white;
 	}
 }
 
 @media(max-width: 763px) {
 	.login {
+		top: 100px;
 		margin-top: 50px;
 		align-self: center;
 	}

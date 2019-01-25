@@ -49,11 +49,11 @@ class Login extends Component {
 			<>
 			<Header/>
 			<form className="login" onSubmit={this.onSubmit}>
-				<p>Email:</p>
+				<p>email:</p>
 				<input name="email" value={this.props.email} onChange={(e)=>this.props.updateEmail(e.target.value)} required></input>
-				<p>Password:</p>
+				<p>password:</p>
 				<input name="password" type="password" value={this.props.password} onChange={(e)=>this.props.updatePassword(e.target.value)} required></input>
-				<button>Submit</button>
+				<button>submit</button>
 				{this.props.user.name!=='guest'?<Redirect to="/"/>:<></>}
 			</form>
 			</>

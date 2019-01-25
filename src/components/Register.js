@@ -54,23 +54,23 @@ class Register extends Component {
 			<>
 				<Header />
 				<form className="register" onSubmit={this.onSubmit}>
-					<p>Name</p>
+					<p>name</p>
 					<input
 						onChange={e => this.props.updateName(e.target.value)}
 						value={this.props.name}
 					required/>
-					<p>Email</p>
+					<p>email</p>
 					<input
 						onChange={e => this.props.updateEmail(e.target.value)}
 						value={this.props.email}
 					required/>
-					<p>Password</p>
+					<p>password</p>
 					<input
 						onChange={e => this.props.updatePassword(e.target.value)}
 						value={this.props.password}
 						type="password"
 					required/>
-					<button>Submit</button>
+					<button>submit</button>
 				</form>
 			</>
 		);
