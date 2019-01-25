@@ -59,6 +59,8 @@ app.put('/api/settle/:id/recordwinner', settle.recordWinner)
 app.put('/api/settle/:id/delete', settle.deleteSuggestion)
 
 app.get('/api/user/settles', user.getSettles)
+app.put('/api/user/name', user.updateName)
+app.put('/api/user/email', user.updateEmail)
 
 app.post('/api/twilio', twilio.sendInvite)
 app.post('/api/nodemailer', nodemlr.sendInvite)

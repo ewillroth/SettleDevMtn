@@ -87,8 +87,12 @@ table {
 .newsettle {
   margin: 30px;
   padding: 8px 10px;
+  font-family: inconsolata;
   font-size: 18px;
   text-align: center;
+  background: #57A773;
+  color: #FFFFFF;
+  cursor: pointer;
 }
 
 .newsettle:hover {
@@ -96,19 +100,25 @@ table {
 }
 
 .logoutbutton {
-  width: 190px;
-  height: 50px;
   margin: 30px;
   padding: 8px 10px;
-  font-size: 20px;
+  font-family: inconsolata;
+  font-size: 18px;
+  text-align: center;
+  background: #57A773;
+  color: #FFFFFF;
+  cursor: pointer;
 }
 
 .activesettles {
-  width: 190px;
-  height: 50px;
   margin: 30px;
   padding: 8px 10px;
-  font-size: 20px;
+  font-family: inconsolata;
+  font-size: 18px;
+  text-align: center;
+  background: #57A773;
+  color: #FFFFFF;
+  cursor: pointer;
 }
 
 .header {
@@ -380,6 +390,8 @@ table {
 .settlecontainer .inactive .inactivecontainer .participants .participant img {
   width: 80px;
   height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .settlecontainer .inactive .inactivecontainer .List {
   height: 33%;
@@ -416,6 +428,8 @@ table {
 .settlecontainer .active .participants .participant img {
   width: 80px;
   height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .settlecontainer .active .activenav {
   display: flex;
@@ -448,16 +462,42 @@ table {
 }
 
 .dashboard {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+}
+.dashboard .userpanel {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.dashboard .userpanel {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.dashboard .userpanel p {
+  color: #FFFFFF;
+  text-align: center;
+}
+.dashboard .userpanel .deleteaccount {
+  background: #EE6352;
+}
+.dashboard .userpanel button {
+  margin: 10px;
+  padding: 8px 10px;
+  font-family: inconsolata;
+  font-size: 18px;
+  text-align: center;
+  background: #57A773;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+.dashboard .userpanel img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
 .App {
