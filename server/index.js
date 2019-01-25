@@ -18,6 +18,7 @@ const server = require('http').createServer(app)
 const io = require('socket.io')(server);
 
 app.use(json())
+app.use(express.static(`${__dirname}/../build`));
 
 massive(process.env.CONNECTION_STRING).then(db=>{
 	app.set('db', db)
