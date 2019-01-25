@@ -8,6 +8,7 @@ const settle = require('./controllers/settleController');
 const user = require('./controllers/userController');
 const twilio = require('./controllers/twilioController');
 const nodemlr = require('./controllers/nodemailerController');
+const path = require("path");
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -112,5 +113,9 @@ io.on('connection', socket=> {
 		io.sockets.in(data.room).emit('user_ready')
 	})
 })
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 server.listen(port, ()=>console.log(`listening on ${port}`))
