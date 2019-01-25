@@ -10,7 +10,7 @@ const LogoutButton = (props) => {
 			props.reroute('/')
 			}}
 		>
-			Logout
+			logout
 		</button>
 	)
 }

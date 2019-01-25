@@ -378,6 +378,9 @@ table {
   height: 80vh;
   width: 100%;
 }
+.settlecontainer .inactive p {
+  color: #FFFFFF;
+}
 .settlecontainer .inactive .inactivecontainer {
   width: 100%;
   height: 100%;

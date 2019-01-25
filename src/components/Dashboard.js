@@ -140,37 +140,37 @@ class Dashboard extends Component {
 				<div className="userpanel">
 					<img className="profilepic" src={this.state.url} alt="profile"></img>
 					<div className="userinfo">
-						<p>Name: {this.props.user.name}</p>
-						<p>Email: {this.props.user.email}</p>
+						<p>Name:  {this.props.user.name}</p>
+						<p>Email:  {this.props.user.email}</p>
 					</div>
-					<button onClick={this.onClick}>Edit Account</button>
+					<button onClick={this.onClick}>edit account</button>
 					<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 				</div>
 				://user panel view when edit options are available
 				<div className="userpanel">
 					<img className="profilepic" src={this.state.url} alt="profile"></img>
 					<form onSubmit={this.uploadFile}>
-						<p>Upload a new profile picture</p>
+						<p>upload a new profile picture</p>
 						<input type="file" onChange={this.onChange} required></input>
-						<button>Submit</button>
+						<button>submit</button>
 					</form>
 					<form onSubmit={this.updateName}>
-						<p>Change your name:</p>
+						<p>change your name:</p>
 						<input name="name" onChange={this.captureTyping} required></input>
-						<button>Submit</button>
+						<button>submit</button>
 					</form>
 					<form onSubmit={this.updateEmail}>
-						<p>Change your email:</p>
+						<p>change your email:</p>
 						<input type="email" name="email" onChange={this.captureTyping} required></input>
-						<button>Submit</button>
+						<button>submit</button>
 					</form>
-					<button className="deleteaccount" onClick={() => { axios.delete('/auth/me').then(() => { this.props.history.push('/') }).catch(err => console.log(err)) }}>Delete account</button>
-					<button onClick={this.onClick}>Done Editing</button>
+					<button className="deleteaccount" onClick={() => { axios.delete('/auth/me').then(() => { this.props.history.push('/') }).catch(err => console.log(err)) }}>delete account</button>
+					<button onClick={this.onClick}>done editing</button>
 				</div>
 				}
 				<div className="dashpanel">
 					<div className="dashnav">
-						<button className="activesettles" onClick={()=>{this.setState({active:!this.state.active})}}>Active Settles</button>
+						<button className="activesettles" onClick={()=>{this.setState({active:!this.state.active})}}>active Settles</button>
 						<NewSettleButton reroute={(str)=>this.props.history.push(str)}/>
 					</div>
 					<div className="dashmain">
