@@ -31,17 +31,25 @@ class New extends Component{
 		//send email invites
 		if(this.state.emails.length>0){
 			this.state.emails.forEach((e,i)=>{
-				axios.post('/api/nodemailer', { link: `http://localhost:3334${this.props.url}`, email: e })
+				axios
+					.post("/api/nodemailer", {
+						link: `http://68.183.140.112:3333${this.props.url}`,
+						email: e
+					})
 					.then(response => console.log(response))
-					.catch(err => console.log(err))
+					.catch(err => console.log(err));
 			})
 		}
 		//send text invites
 		if(this.state.numbers.length>0){
 			this.state.numbers.forEach((e,i)=>{
-				axios.post('/api/twilio', { link: `http://localhost:3334${this.props.url}`, number: '+1' + e})
-				.then(response=>console.log(response))
-				.catch(err=>console.log(err))
+				axios
+					.post("/api/twilio", {
+						link: `http://68.183.140.112:3333${this.props.url}`,
+						number: "+1" + e
+					})
+					.then(response => console.log(response))
+					.catch(err => console.log(err));
 			})
 		}
 		//set new to false in db and isnew to false in state
@@ -89,7 +97,7 @@ class New extends Component{
 					<div className="settlelink">
 						<p>Invite friends via link:</p>
 						<div className="inviteform">
-							<input id="settlelink" readOnly value={`http://localhost:3334${this.props.url}`} />
+						<input id="settlelink" readOnly value={`http://68.183.140.112:3333${this.props.url}`} />
 							<button onClick={this.copy} className="copybutton"><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F001-copy-file.png?alt=media&token=6ade3f9b-06c0-46aa-82b4-6d69f7265d36" alt="copy"></img></button>
 						</div>
 					</div>
