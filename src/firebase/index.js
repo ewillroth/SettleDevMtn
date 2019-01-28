@@ -2,8 +2,6 @@ import 'firebase/storage'
 
 var firebase = require('firebase/app')
 
-console.log(process.env.REACT_APP_FIREBASE_API)
-
 var config = {
 	apiKey: process.env.REACT_APP_FIREBASE_API,
 	authDomain: "tacotracker2019.firebaseapp.com",
