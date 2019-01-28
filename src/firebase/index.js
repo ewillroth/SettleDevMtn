@@ -1,10 +1,11 @@
 import 'firebase/storage'
-import {FIREBASE_API} from './apikey'
 
 var firebase = require('firebase/app')
 
+console.log(process.env.REACT_APP_FIREBASE_API)
+
 var config = {
-	apiKey: FIREBASE_API,
+	apiKey: process.env.REACT_APP_FIREBASE_API,
 	authDomain: "tacotracker2019.firebaseapp.com",
 	databaseURL: "https://tacotracker2019.firebaseio.com",
 	projectId: "tacotracker2019",

@@ -8,7 +8,7 @@ import Completed from './settleStages/Completed';
 import {getUser} from '../redux/reducers/userReducer';
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient("http://68.183.140.112:3333/");
+const socket = socketIOClient(process.env.REACT_APP_URL);
 
 class Settle extends Component {
 	constructor(){
