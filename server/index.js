@@ -1,4 +1,5 @@
 require('dotenv').config()
+const fs = require("fs");
 const express = require('express');
 const massive = require('massive');
 const { json } = require('body-parser');
@@ -13,8 +14,27 @@ const path = require("path");
 const app = express()
 const port = process.env.PORT || 3001
 
+const privateKey = fs.readFileSync(
+	process.env.SSL_PRIVATE_KEY,
+	"utf8"
+);
+const certificate = fs.readFileSync(
+	process.env.SSL_CERTIFICATE,
+	"utf8"
+);
+const ca = fs.readFileSync(
+	process.env.SSL_CA,
+	"utf8"
+);
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
+
 //Socket.io
-const server = require('http').createServer(app)
+const server = require('https').createServer(credentials, app)
 const io = require('socket.io')(server);
 
 app.use(json())
