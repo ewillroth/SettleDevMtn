@@ -14,7 +14,7 @@ const app = express()
 const port = process.env.PORT || 3001
 
 //Socket.io
-const server = require('http').createServer(app)
+const server = require('https').createServer(app)
 const io = require('socket.io')(server);
 
 app.use(json())
