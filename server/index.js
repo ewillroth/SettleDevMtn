@@ -10,34 +10,17 @@ const user = require('./controllers/userController');
 const twilio = require('./controllers/twilioController');
 const nodemlr = require('./controllers/nodemailerController');
 const path = require("path");
+const cors = require('cors');
 
 const app = express()
 const port = process.env.PORT || 3001
-
-// const privateKey = fs.readFileSync(
-// 	process.env.SSL_PRIVATE_KEY,
-// 	"utf8"
-// );
-// const certificate = fs.readFileSync(
-// 	process.env.SSL_CERTIFICATE,
-// 	"utf8"
-// );
-// const ca = fs.readFileSync(
-// 	process.env.SSL_CA,
-// 	"utf8"
-// );
-
-// const credentials = {
-// 	key: privateKey,
-// 	cert: certificate,
-// 	ca: ca
-// };
 
 //Socket.io
 const server = require('http').createServer(app)
 const io = require('socket.io')(server);
 
 app.use(json())
+app.use(cors())
 app.use(express.static(`${__dirname}/../build`));
 
 massive(process.env.CONNECTION_STRING).then(db=>{
