@@ -17,7 +17,7 @@ class New extends Component{
 	componentDidMount(){
 		//adds user to user_settles
 		axios.put(`/api/settle/${this.props.id}/adduser`)
-		.then()
+		.then(()=>console.log('user added to settle'))
 		.catch(err=>console.log(err))
 	}
 

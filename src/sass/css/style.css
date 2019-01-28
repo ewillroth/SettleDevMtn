@@ -294,6 +294,9 @@ table {
   height: 80vh;
   width: 100%;
 }
+.settlecontainer .new p {
+  color: #FFFFFF;
+}
 .settlecontainer .new .nextbutton {
   background: #57A773;
   display: flex;

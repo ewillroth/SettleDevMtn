@@ -9,6 +9,9 @@
 		top: 12vh;
 		height: 80vh;
 		width: 100%;
+		p {
+			color: $white;
+		}
 		.nextbutton {
 			background: $green;
 			@include flex(row);

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {getParticipants} from '../../../redux/reducers/settleReducer';
 import {getUser} from '../../../redux/reducers/userReducer';
 
@@ -67,3 +68,9 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {getParticipants, getUser})(Participants);
+
+Participants.propTypes = {
+	number: PropTypes.number.isRequired,
+	stage: PropTypes.string.isRequired,
+	id: PropTypes.string.isRequired
+}

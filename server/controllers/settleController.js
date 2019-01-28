@@ -22,7 +22,7 @@ const updateStage = (req,res) => {
 const addUser = (req,res) => {
 	req.app.get('db').settles.add_user_to_settle([req.session.user.user_id,req.params.id])
 	.then(response=>res.status(200).json(response))
-	.catch(err=>console.log('user already added to settle'))
+	.catch(err=>console.log('user already added to settle')||res.sendStatus(400))
 }
 
 const getParticipants = (req,res) => {
