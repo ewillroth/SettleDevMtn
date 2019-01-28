@@ -33,7 +33,7 @@ class New extends Component{
 			this.state.emails.forEach((e,i)=>{
 				axios
 					.post("/api/nodemailer", {
-						link: `http://68.183.140.112:3333${this.props.url}`,
+						link: `https://settleit.app${this.props.url}`,
 						email: e
 					})
 					.then(response => console.log(response))
@@ -45,7 +45,7 @@ class New extends Component{
 			this.state.numbers.forEach((e,i)=>{
 				axios
 					.post("/api/twilio", {
-						link: `http://68.183.140.112:3333${this.props.url}`,
+						link: `https://settleit.app${this.props.url}`,
 						number: "+1" + e
 					})
 					.then(response => console.log(response))
@@ -97,7 +97,7 @@ class New extends Component{
 					<div className="settlelink">
 						<p>Invite friends via link:</p>
 						<div className="inviteform">
-						<input id="settlelink" readOnly value={`http://68.183.140.112:3333${this.props.url}`} />
+						<input id="settlelink" readOnly value={`https://settleit.app${this.props.url}`} />
 							<button onClick={this.copy} className="copybutton"><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F001-copy-file.png?alt=media&token=6ade3f9b-06c0-46aa-82b4-6d69f7265d36" alt="copy"></img></button>
 						</div>
 					</div>
