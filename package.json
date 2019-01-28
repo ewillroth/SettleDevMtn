@@ -40,5 +40,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:3333"
+  "proxy": "https://localhost:3333"
 }
