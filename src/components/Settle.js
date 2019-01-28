@@ -20,6 +20,7 @@ class Settle extends Component {
 		}
 	}
 	componentDidMount(){ 
+		console.log(process.env.REACT_APP_URL)
 		//joins the socket room with the settle id
 		socket.emit('join', { room: this.props.match.params.id })
 		socket.on('connection', ()=>{console.log('Socket:connected')})
