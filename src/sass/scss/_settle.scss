@@ -110,7 +110,7 @@
 
 			.participants {
 				.participant{
-					@include flex(row);
+					@include flex(column);
 					img {
 						width: 80px;
 						height: 80px;
