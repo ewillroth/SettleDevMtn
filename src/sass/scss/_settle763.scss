@@ -47,9 +47,7 @@
 			
 			.participants {
 				width: 100vw;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
+				@include flex(column);
 				.participant{
 					img {
 						width: 40px;

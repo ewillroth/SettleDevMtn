@@ -649,8 +649,9 @@ table {
   .settlecontainer .inactive .inactivecontainer .participants {
     width: 100vw;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
   .settlecontainer .inactive .inactivecontainer .participants .participant img {
     width: 40px;
