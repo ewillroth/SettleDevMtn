@@ -41,11 +41,14 @@
 		}
 		.settlelink {
 			@include flex(column);
-			input{
-				width: 250px;
-			}
-			.copybutton {
-				width: 40px;
+			align-items: center;
+
+			.inviteform {
+				@include flex(row);
+				align-items: center;
+				input{
+					width: 250px;
+				}
 			}
 		}
 		.emailcontainer {

@@ -331,12 +331,17 @@ table {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  align-items: center;
 }
-.settlecontainer .new .settlelink input {
+.settlecontainer .new .settlelink .inviteform {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+}
+.settlecontainer .new .settlelink .inviteform input {
   width: 250px;
-}
-.settlecontainer .new .settlelink .copybutton {
-  width: 40px;
 }
 .settlecontainer .new .emailcontainer {
   display: flex;
@@ -537,6 +542,9 @@ table {
   color: #FFFFFF;
   text-align: center;
 }
+.dashboard .userpanel .edituserinfo input {
+  width: 240px;
+}
 .dashboard .userpanel .deleteaccount {
   background: #EE6352;
 }
@@ -578,6 +586,11 @@ table {
     height: 100vh;
   }
 
+  .settlecontainer .new {
+    top: 14vh;
+    height: 74vh;
+    width: 100%;
+  }
   .settlecontainer .inactive {
     display: flex;
     flex-direction: column;
@@ -585,7 +598,7 @@ table {
     align-items: center;
     position: fixed;
     top: 14vh;
-    height: 84vh;
+    height: 74vh;
     width: 100%;
   }
   .settlecontainer .inactive .inactivecontainer {
@@ -631,9 +644,9 @@ table {
     justify-content: center;
     align-items: center;
     justify-content: space-evenly;
-    height: 98vh;
+    height: 74vh;
     position: fixed;
-    top: 2vh;
+    top: 14vh;
   }
   .settlecontainer .active .participants {
     display: flex;
@@ -697,6 +710,10 @@ input, select, textarea {
 
 textarea:focus, input:focus {
   color: #FFFFFF;
+}
+
+p {
+  font-family: inconsolata;
 }
 
 /*# sourceMappingURL=style.css.map */

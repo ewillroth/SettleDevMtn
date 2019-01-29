@@ -51,3 +51,7 @@ input, select, textarea{
 textarea:focus, input:focus {
 	color: $white;
 }
+
+p {
+	font-family: $font
+}

@@ -70,7 +70,8 @@ class New extends Component{
 		this.setState({ numbers: [...this.state.numbers, this.state.number] }, this.setState({ number: '' }))
 	}
 
-	copy = () => {
+	copy = (e) => {;
+		e.preventDefault()
 		var copyText = document.getElementById("settlelink");
 		copyText.select();
 		document.execCommand("copy");
@@ -96,10 +97,10 @@ class New extends Component{
 				<div className="new">
 					<div className="settlelink">
 						<p>Invite friends via link:</p>
-						<div className="inviteform">
+						<form className="inviteform">
 						<input id="settlelink" readOnly value={`https://settleit.app${this.props.url}`} />
 							<button onClick={this.copy} className="copybutton"><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F001-copy-file.png?alt=media&token=6ade3f9b-06c0-46aa-82b4-6d69f7265d36" alt="copy"></img></button>
-						</div>
+						</form>
 					</div>
 					<div className="emailcontainer">
 						<p>Invite friends via email:</p>

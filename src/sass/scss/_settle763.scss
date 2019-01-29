@@ -1,7 +1,9 @@
 .settlecontainer {
 	//page where settle creator sends invitations
 	.new {
-
+		top: 14vh;
+		height: 74vh;
+		width: 100%;
 		.settlelink {
 			input{
 
@@ -35,7 +37,7 @@
 		@include flex(column);
 		position: fixed;
 		top: 14vh;
-		height: 84vh;
+		height: 74vh;
 		width: 100%;
 
 		.inactivecontainer {
@@ -84,9 +86,9 @@
 	.active {
 		@include flex(column);
 		justify-content: space-evenly;
-		height: 98vh;
+		height: 74vh;
 		position: fixed;
-		top: 2vh;
+		top: 14vh;
 
 		.participants {
 			@include flex(row);

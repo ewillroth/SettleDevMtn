@@ -9,6 +9,12 @@
 			text-align: center;
 		}
 
+		.edituserinfo {
+			input {
+				width: 240px;
+			}
+		}
+
 		.deleteaccount {
 			background: $red;
 		}

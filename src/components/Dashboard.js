@@ -149,17 +149,17 @@ class Dashboard extends Component {
 				://user panel view when edit options are available
 				<div className="userpanel">
 					<img className="profilepic" src={this.state.url} alt="profile"></img>
-					<form onSubmit={this.uploadFile}>
+					<form className="edituserinfo" onSubmit={this.uploadFile}>
 						<p>upload a new profile picture</p>
 						<input type="file" onChange={this.onChange} required></input>
 						<button>submit</button>
 					</form>
-					<form onSubmit={this.updateName}>
+					<form className="edituserinfo" onSubmit={this.updateName}>
 						<p>change your name:</p>
 						<input name="name" onChange={this.captureTyping} required></input>
 						<button>submit</button>
 					</form>
-					<form onSubmit={this.updateEmail}>
+					<form className="edituserinfo" onSubmit={this.updateEmail}>
 						<p>change your email:</p>
 						<input type="email" name="email" onChange={this.captureTyping} required></input>
 						<button>submit</button>
