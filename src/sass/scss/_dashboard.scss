@@ -1,9 +1,11 @@
 .dashboard {
 	height: 100vh;
+	width: 90%;
 	@include flex(column);
 	justify-content: flex-start;
 	.userpanel {
 		@include flex(column);
+		align-self: flex-start;
 		p {
 			color: $white;
 			text-align: center;
@@ -28,6 +30,7 @@
 			background: $green;
 			color: $white;
 			cursor: pointer;
+			z-index: 30;
 		}
 
 		img {
@@ -37,5 +40,28 @@
 			border-radius: 50%;
 			margin-bottom: 10px;
 		}
+	}
+	.activebox {
+		@include flex(column);
+		position: fixed;
+		flex-wrap: wrap;
+		top: 50px;
+		left: 450px;
+		height: 80%;
+		z-index: 1;
+		p {
+			margin: 20px 0;
+		}
+		a {
+		margin: 15px;
+		padding: 8px 10px;
+		font-family: $font;
+		font-size: 18px;
+		text-align: center;
+		background: $green;
+		color: $white;
+		cursor: pointer;
+		z-index: 22;
+	}
 	}
 }

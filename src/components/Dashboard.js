@@ -8,8 +8,6 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import NewSettleButton from './NewSettleButton';
 import LogoutButton from './LogoutButton';
-import Stats from './dashboard/Stats';
-import Friends from './dashboard/Friends';
 
 class Dashboard extends Component {
 	constructor(){
@@ -23,7 +21,11 @@ class Dashboard extends Component {
 			active: false,
 			activesettles: [],
 			loaded: false,
-			update: false
+			update: false,
+			mostsuggested: '',
+			mostsuggestednumber: '',
+			winningnumber: '',
+			participated: ''
 		}
 	}
 	//checks if there is a user on session and redirects to '/' if there is not or user is a guest
@@ -50,6 +52,19 @@ class Dashboard extends Component {
 		axios.get(`/api/user/settles`)
 		.then(response=>{this.setState({activesettles: response.data})})
 		.catch(err=>console.log(err))
+
+		axios.get('api/user/stats/suggested')
+			.then(response => this.setState({ mostsuggested: response.data.suggestion, mostsuggestednumber: response.data.count}))
+			.catch(err => console.log(err))
+
+		axios.get('api/user/stats/winning')
+			.then(response => this.setState({winningnumber: response.data.count }))
+			.catch(err => console.log(err))
+
+		axios.get('api/user/stats/participated')
+			.then(response => this.setState({participated: response.data.count }))
+			.catch(err => console.log(err))
+
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -133,21 +148,24 @@ class Dashboard extends Component {
 			<></>
 			:
 			<div className="dashboard">
-				<h1 className="logo">Settle!</h1>
 				{//change user info panel view when updating profile picture
 				!this.state.edit
 				?//user panel standard view
 				<div className="userpanel">
+					<h1 className="logo">Settle!</h1>
 					<img className="profilepic" src={this.state.url} alt="profile"></img>
 					<div className="userinfo">
 						<p>Name:  {this.props.user.name}</p>
 						<p>Email:  {this.props.user.email}</p>
 					</div>
-					<button onClick={this.onClick}>edit account</button>
+					<NewSettleButton reroute={(str) => this.props.history.push(str)} />
+					<button className="activesettles" onClick={() => { this.setState({ active: !this.state.active }) }}>active Settles</button>
+					<button className="editaccountbutton" onClick={this.onClick}>edit account</button>
 					<LogoutButton reroute={(str)=>this.props.history.push(str)}/>
 				</div>
 				://user panel view when edit options are available
 				<div className="userpanel">
+					<h1 className="logo">Settle!</h1>
 					<img className="profilepic" src={this.state.url} alt="profile"></img>
 					<form className="edituserinfo" onSubmit={this.uploadFile}>
 						<p>upload a new profile picture</p>
@@ -168,18 +186,13 @@ class Dashboard extends Component {
 					<button onClick={this.onClick}>done editing</button>
 				</div>
 				}
-				<div className="dashpanel">
-					<div className="dashnav">
-						<button className="activesettles" onClick={()=>{this.setState({active:!this.state.active})}}>active Settles</button>
-						<NewSettleButton reroute={(str)=>this.props.history.push(str)}/>
-					</div>
-					<div className="dashmain">
-						<Stats/>
-						<Friends/>
-					</div>
-				</div>
 				<div className={this.state.active?'activebox':'hide'}>
 					{activesettles}
+				</div>
+				<div className={this.state.active?'hide':'activebox'}>
+					<p>{this.state.mostsuggested?`You have suggested ${this.state.mostsuggested} ${this.state.mostsuggestednumber} times.`:null}</p>
+					<p>{this.state.winningnumber?`Your suggestions have won ${this.state.winningnumber} times.`:null}</p>
+					<p>{this.state.participated?`You have participated in ${this.state.participated} settles.`:null}</p>
 				</div>
 				{this.props.user.name === 'guest'?<Redirect to='/'/>:null}
 			</div>

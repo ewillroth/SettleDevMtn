@@ -1,0 +1,42 @@
+.dashboard {
+	height: 90vh;
+
+	.userpanel {
+		margin-top: 100px;
+		align-self: center;
+		h1 {
+			font-size: 60px;
+		}
+
+		.editaccountbutton, .activesettles{
+			display: none;
+		}
+
+		button {
+			margin: 10px;
+			padding: 8px 10px;
+			font-size: 14px;
+		}
+
+		img {
+			width: 90px;
+			height: 90px;
+			object-fit: cover;
+			border-radius: 50%;
+			margin-bottom: 10px;
+		}
+	}
+	.activebox {
+		height: auto;
+		position: relative;
+		top: 0;
+		left: 0;
+		p {
+			font-size: 14px;
+			margin: 10px 0px;
+		}
+		a {
+			display: none;
+		}
+	}
+}

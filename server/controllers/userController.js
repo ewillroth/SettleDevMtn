@@ -26,8 +26,29 @@ const updateEmail = (req,res) => {
 	.catch(err=>console.log(err)||res.status(400).json(err))
 }
 
+const getStatsSuggested = (req,res) => {
+	req.app.get('db').users.get_most_suggested(req.session.user.user_id)
+	.then(response=>res.status(200).json(response[0]))
+	.catch(err=>console.log(err))
+}
+
+const getStatsWinning = (req,res) => {
+	req.app.get('db').users.get_most_winning(req.session.user.user_id)
+	.then(response=>res.status(200).json(response[0]))
+	.catch(err=>console.log(err))
+}
+
+const getStatsParticipated = (req,res) => {
+	req.app.get('db').users.get_participated(req.session.user.user_id)
+	.then(response=>res.status(200).json(response[0]))
+	.catch(err=>console.log(err))
+}
+
 module.exports = {
 	getSettles,
 	updateEmail,
-	updateName
+	updateName,
+	getStatsSuggested,
+	getStatsWinning,
+	getStatsParticipated
 }
