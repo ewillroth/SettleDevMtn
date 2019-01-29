@@ -62,7 +62,7 @@ table {
   border-spacing: 0;
 }
 
-.splash-nav a, .splash-main a {
+.splash-nav a, .splash-main a, .active .settlecontainer a {
   margin: 30px;
   padding: 8px 10px;
   font-family: inconsolata;
@@ -84,7 +84,7 @@ table {
   cursor: pointer;
 }
 
-.newsettle {
+.newsettle, .startsettle {
   margin: 30px;
   padding: 8px 10px;
   font-family: inconsolata;
@@ -381,8 +381,24 @@ table {
   height: 80vh;
   width: 100%;
 }
+.settlecontainer .inactive img {
+  width: 24px;
+}
 .settlecontainer .inactive p {
   color: #FFFFFF;
+}
+.settlecontainer .inactive .inactivestatus, .settlecontainer .inactive .startsettle {
+  margin-bottom: 50px;
+}
+.settlecontainer .inactive .startsettle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.settlecontainer .inactive .startsettle img {
+  width: 20px;
+  margin-left: 5px;
 }
 .settlecontainer .inactive .inactivecontainer {
   width: 100%;
@@ -393,6 +409,12 @@ table {
   align-items: center;
   justify-content: space-evenly;
 }
+.settlecontainer .inactive .inactivecontainer .participants .participant {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 .settlecontainer .inactive .inactivecontainer .participants .participant img {
   width: 80px;
   height: 80px;
@@ -400,14 +422,20 @@ table {
   border-radius: 50%;
 }
 .settlecontainer .inactive .inactivecontainer .List {
-  height: 33%;
+  margin: 30px 0px;
 }
 .settlecontainer .inactive .inactivecontainer .usersuggestions {
   display: flex;
   flex-direction: column;
 }
+.settlecontainer .inactive .inactivecontainer .usersuggestions p {
+  width: 220px;
+}
 .settlecontainer .inactive .inactivecontainer .usersuggestions .editablesuggestion {
   display: flex;
+}
+.settlecontainer .inactive .inactivecontainer .usersuggestions .editablesuggestion button {
+  width: 20px;
 }
 .settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist {
   display: flex;
@@ -425,6 +453,12 @@ table {
   top: 12vh;
   height: 80vh;
   width: 100%;
+}
+.settlecontainer .active .userimage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 .settlecontainer .active .participants {
   display: flex;
@@ -453,7 +487,22 @@ table {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  justify-content: left;
   z-index: 2;
+  text-align: left;
+}
+.settlecontainer .active .thelist .listitem {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.settlecontainer .active .thelist .listitem .removesuggestion img {
+  width: 20px;
+  margin-left: 5px;
+}
+.settlecontainer .active .thelist .listitem p {
+  color: #FFFFFF;
 }
 .settlecontainer .completed {
   display: flex;
@@ -465,6 +514,9 @@ table {
   top: 12vh;
   height: 80vh;
   width: 100%;
+}
+.settlecontainer .completed p {
+  color: #FFFFFF;
 }
 
 .dashboard {
@@ -532,7 +584,6 @@ table {
     justify-content: center;
     align-items: center;
     position: fixed;
-    justify-content: space-evenly;
     top: 14vh;
     height: 84vh;
     width: 100%;
@@ -544,10 +595,8 @@ table {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    align-content: space-between;
   }
   .settlecontainer .inactive .inactivecontainer .participants {
-    height: 33%;
     width: 100vw;
     display: flex;
     flex-direction: row;
@@ -558,11 +607,10 @@ table {
     height: 40px;
   }
   .settlecontainer .inactive .inactivecontainer .List {
-    height: 33%;
     justify-content: space-evenly;
+    margin: 30px 0px;
   }
   .settlecontainer .inactive .inactivecontainer .usersuggestions {
-    height: 33%;
     display: flex;
     flex-direction: column;
   }

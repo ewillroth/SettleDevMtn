@@ -80,8 +80,23 @@
 		height: 80vh;
 		width: 100%;
 
+		img {
+			width: 24px;
+		}
+
 		p {
 			color: $white;
+		}
+		.inactivestatus, .startsettle {
+			margin-bottom: 50px;
+		}
+
+		.startsettle {
+			@include flex(row);
+			img {
+				width: 20px;
+				margin-left: 5px;
+			}
 		}
 
 		.inactivecontainer {
@@ -92,6 +107,7 @@
 
 			.participants {
 				.participant{
+					@include flex(row);
 					img {
 						width: 80px;
 						height: 80px;
@@ -101,14 +117,20 @@
 				}
 			}
 			.List {
-				height: 33%;
+				margin: 30px 0px;
 			}
 			.usersuggestions {
 				display: flex;
 				flex-direction: column;
+				p {
+					width: 220px;
+				}
 
 				.editablesuggestion {
 					display: flex;
+					button {
+						width: 20px;
+					}
 				}
 
 				.submitlist {
@@ -128,6 +150,13 @@
 		top: 12vh;
 		height: 80vh;
 		width: 100%;
+
+		.userimage {
+			width: 80px;
+			height: 80px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
 
 		.participants {
 			display: flex;
@@ -152,7 +181,22 @@
 		}
 		.thelist {
 			@include flex(column);
+			justify-content: left;
 			z-index: 2;
+			text-align: left;
+
+			.listitem {
+				@include flex(row);
+				.removesuggestion {
+					img{
+						width: 20px;
+						margin-left: 5px;
+					}
+				}
+				p {
+					color: $white;
+				}
+			}
 		}
 	}
 	.completed {
@@ -162,5 +206,8 @@
 		top: 12vh;
 		height: 80vh;
 		width: 100%;
+		p {
+			color: $white;
+		}
 	}
 }

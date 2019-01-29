@@ -1,4 +1,4 @@
-.splash-nav, .splash-main{
+.splash-nav, .splash-main, .active .settlecontainer{
 	a {
 		margin: 30px;
 		padding: 8px 10px;
@@ -24,7 +24,7 @@
 	}
 }
 
-.newsettle {
+.newsettle, .startsettle {
 	margin: 30px;
 	padding: 8px 10px;
 	font-family: $font;

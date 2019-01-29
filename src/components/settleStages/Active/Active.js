@@ -5,6 +5,7 @@ import {Link, Redirect} from 'react-router-dom'
 import {getParticipants} from '../../../redux/reducers/settleReducer';
 import {getUser} from '../../../redux/reducers/userReducer';
 import Participants from '../Inactive/Participants';
+import Header from '../../Header';
 
 class Active extends Component{
 	constructor(props){
@@ -108,9 +109,9 @@ class Active extends Component{
 	render(){
 		const list = this.state.suggestions.map((e, i) => { 
 			return (
-				<div key={i}>
+				<div className="listitem" key={i}>
 					<p>{e}</p>
-					<button className={this.state.activeuser===this.props.user.user_id?'removesuggestion':'hide'} onClick={()=>this.removeSuggestion(e)}>X</button>
+					<button className={this.state.activeuser === this.props.user.user_id ? 'removesuggestion' : 'hide'} onClick={() => this.removeSuggestion(e)}><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2Fbackspace-arrow.png?alt=media&token=55eb66ee-6b56-48bf-b866-ac04bedb077d" alt="delete" /></button>
 				</div>
 			)
 		})
@@ -118,21 +119,19 @@ class Active extends Component{
 			this.state.redirect ? <Redirect to="/" /> :
 			!this.state.loaded?<></>:
 			<div className="active">
-				<div className="activenav">
-					<h1 className="logo">Settle!</h1>
+				<Header/>
 					<div>
 						{this.props.user.name !== 'guest'
 						?
 						<>
-							<img src={this.props.user.profilepic} alt="profile"></img>
+							<img className="userimage" src={this.props.user.profilepic} alt="profile"></img>
 							<p>{this.props.user.name}</p>
 						</>
 						:
 						<></>
 						}
 					</div>
-					{this.props.user.name!=="guest"?<Link to="/dashboard">Dashboard</Link>:<></>}
-				</div>
+				{this.props.user.name!=="guest"?<Link to="/dashboard">Dashboard</Link>:<></>}
 				<div className="thelist">
 						{list}
 				</div>

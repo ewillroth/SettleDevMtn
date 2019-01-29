@@ -49,12 +49,7 @@ class Completed extends Component{
 			!this.state.loaded ? <></> :
 			<div className="completed">
 				<Header />
-				<div className="winner">
-					The winning suggestion is {this.state.winner?this.state.winner:null}
-				</div>
-				<div className="sharing">
-
-				</div>
+				<p>The winning suggestion is {this.state.winner?this.state.winner:null}</p>
 			</div>
 		)
 	}

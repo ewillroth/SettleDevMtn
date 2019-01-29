@@ -34,7 +34,6 @@
 	.inactive{
 		@include flex(column);
 		position: fixed;
-		justify-content: space-evenly;
 		top: 14vh;
 		height: 84vh;
 		width: 100%;
@@ -43,10 +42,8 @@
 			height: 100%;
 			width: 100%;
 			@include flex(column);
-			align-content: space-between;
 			
 			.participants {
-				height: 33%;
 				width: 100vw;
 				display: flex;
 				flex-direction: row;
@@ -60,12 +57,11 @@
 			}
 
 			.List {
-				height: 33%;
 				justify-content: space-evenly;
+				margin: 30px 0px;
 			}
 
 			.usersuggestions {
-				height: 33%;
 				display: flex;
 				flex-direction: column;
 
