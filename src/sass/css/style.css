@@ -440,13 +440,13 @@ table {
   display: flex;
 }
 .settlecontainer .inactive .inactivecontainer .usersuggestions .editablesuggestion button {
-  width: 20px;
+  width: 30px;
 }
 .settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist {
   display: flex;
 }
 .settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist button {
-  width: 20px;
+  width: 30px;
 }
 .settlecontainer .active {
   display: flex;
@@ -591,6 +591,9 @@ table {
     height: 74vh;
     width: 100%;
   }
+  .settlecontainer .new .settlelink button {
+    z-index: 21;
+  }
   .settlecontainer .inactive {
     display: flex;
     flex-direction: column;
@@ -636,7 +639,7 @@ table {
     display: flex;
   }
   .settlecontainer .inactive .inactivecontainer .usersuggestions .submitlist button {
-    width: 20px;
+    width: 30px;
   }
   .settlecontainer .active {
     display: flex;
