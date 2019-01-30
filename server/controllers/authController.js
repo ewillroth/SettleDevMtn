@@ -12,7 +12,7 @@ const login = async (req, res) => {
 			res.status(401).json("Username or password is incorrect");
 		} else {
 			req.app.get('db').users.update_settles([user.email, req.session.user.user_id])
-				.then(response => res.sendStatus(200))
+				.then(response => console.log(response))
 				.catch(err => console.log(err))
 			req.session.user = {
 				user_id: user.user_id,
@@ -33,7 +33,7 @@ const register = async (req, res) => {
 		const user = response[0]
 		if(name !== 'guest'){
 			req.app.get('db').users.update_settles([user.email, req.session.user.user_id])
-				.then(response => res.sendStatus(200))
+				.then(response => console.log(response))
 				.catch(err => console.log(err))
 		}
 		req.session.user = {
