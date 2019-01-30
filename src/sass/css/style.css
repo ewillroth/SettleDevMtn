@@ -796,7 +796,7 @@ textarea:focus, input:focus {
   color: #FFFFFF;
 }
 
-p {
+p, li {
   font-family: inconsolata;
   color: #FFFFFF;
 }
