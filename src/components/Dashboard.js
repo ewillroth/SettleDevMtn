@@ -152,7 +152,7 @@ class Dashboard extends Component {
 				!this.state.edit
 				?//user panel standard view
 				<div className="userpanel">
-					<h1 className="logo">Settle!</h1>
+					<h1 className="logo">Settle</h1>
 					<img className="profilepic" src={this.state.url} alt="profile"></img>
 					<div className="userinfo">
 						<p>Name:  {this.props.user.name}</p>
