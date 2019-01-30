@@ -34,9 +34,6 @@ class Login extends Component {
 	onSubmit = (e) => {
 		e.preventDefault()
 		const {email, password} = this.props
-		axios.put('/api/user/settles', { email })
-			.then(response => console.log('guest settles added to user', response))
-			.catch(err => console.log(err))
 		axios.post('/auth/login', {email, password})
 		.then((response) => {
 			this.props.resetForm()

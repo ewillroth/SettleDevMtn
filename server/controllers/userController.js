@@ -44,18 +44,11 @@ const getStatsParticipated = (req,res) => {
 	.catch(err=>console.log(err))
 }
 
-const updateSettles = (req,res) => {
-	req.app.get('db').users.update_settles([req.body.email, req.session.user.user_id])
-	.then(response=>res.sendStatus(200))
-	.catch(err=>console.log(err))
-}
-
 module.exports = {
 	getSettles,
 	updateEmail,
 	updateName,
 	getStatsSuggested,
 	getStatsWinning,
-	getStatsParticipated,
-	updateSettles
+	getStatsParticipated
 }

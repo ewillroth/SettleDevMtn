@@ -11,6 +11,9 @@ const login = async (req, res) => {
 		if (!foundUser) {
 			res.status(401).json("Username or password is incorrect");
 		} else {
+			req.app.get('db').users.update_settles([user.email, req.session.user.user_id])
+				.then(response => res.sendStatus(200))
+				.catch(err => console.log(err))
 			req.session.user = {
 				user_id: user.user_id,
 				email: user.email,
@@ -28,6 +31,11 @@ const register = async (req, res) => {
 		const hash = await bcrypt.hash(password, 12)
 		const response = await req.app.get('db').users.create_user(email, name, hash)
 		const user = response[0]
+		if(name !== 'guest'){
+			req.app.get('db').users.update_settles([user.email, req.session.user.user_id])
+				.then(response => res.sendStatus(200))
+				.catch(err => console.log(err))
+		}
 		req.session.user = {
 			user_id: user.user_id,
 			email: user.email,
