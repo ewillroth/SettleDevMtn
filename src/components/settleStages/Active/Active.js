@@ -131,7 +131,6 @@ class Active extends Component{
 						<></>
 						}
 					</div>
-				{this.props.user.name!=="guest"?<Link to="/dashboard">Dashboard</Link>:<></>}
 				<div className="thelist">
 						{list}
 				</div>
