@@ -8,7 +8,7 @@ import Completed from './settleStages/Completed';
 import {getUser} from '../redux/reducers/userReducer';
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient(process.env.REACT_APP_URL, {secure: true});
+const socket = socketIOClient(process.env.REACT_APP_URL);
 
 class Settle extends Component {
 	constructor(){
