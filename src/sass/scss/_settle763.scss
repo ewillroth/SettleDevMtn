@@ -37,7 +37,7 @@
 		@include flex(column);
 		position: fixed;
 		top: 14vh;
-		height: 74vh;
+		height: 80vh;
 		width: 100%;
 
 		.inactivecontainer {
@@ -47,17 +47,20 @@
 			
 			.participants {
 				width: 100vw;
+				position: relative;
+				top: 15px;
 				@include flex(column);
+				flex-wrap: wrap;
 				.participant{
-					img {
-						width: 40px;
-						height: 40px;
+					.participantimagecontainer{
+						display: none;
 					}
 				}
 			}
 
 			.List {
 				justify-content: space-evenly;
+				flex-wrap: wrap;
 				margin: 30px 0px;
 			}
 
@@ -73,8 +76,12 @@
 
 				.submitlist {
 					display: flex;
+					min-height: 20px;
 					button {
 						width: 30px;
+					}
+					input {
+						min-height: 15px;
 					}
 				}
 			}
