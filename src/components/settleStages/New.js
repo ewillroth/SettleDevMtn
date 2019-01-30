@@ -10,7 +10,7 @@ class New extends Component{
 			emails: [],
 			email: '',
 			number: '',
-			numbers: [],
+			numbers: []
 		}
 	}
 

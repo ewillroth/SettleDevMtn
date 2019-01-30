@@ -69,6 +69,7 @@ app.put('/api/user/email', user.updateEmail)
 app.get('/api/user/stats/suggested', user.getStatsSuggested)
 app.get('/api/user/stats/winning', user.getStatsWinning)
 app.get('/api/user/stats/participated', user.getStatsParticipated)
+app.put('/api/user/settles', user.updateSettles)
 
 app.post('/api/twilio', twilio.sendInvite)
 app.post('/api/nodemailer', nodemlr.sendInvite)

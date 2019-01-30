@@ -32,6 +32,9 @@ class Register extends Component {
 	onSubmit = e => {
 		e.preventDefault();
 		const { email, name, password } = this.props;
+		axios.put('/api/user/settles', { email })
+			.then(response => console.log('guest settles added to user', response))
+			.catch(err => console.log(err))
 		axios
 			.post("/auth/register", { email, name, password })
 			.then(response => {
