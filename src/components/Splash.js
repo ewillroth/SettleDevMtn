@@ -43,7 +43,7 @@ class Splash extends Component{
 			</div>
 			<div className="splash-line"></div>
 			<div className="splash-main">
-				<h1 className="logo">Settle!</h1>
+				<h1 className="logo">Settle</h1>
 				<p>Settle is a tool to help groups make decisions. Each person writes down three unique suggestions, suggestions are crossed off one at a time, and the last suggestion remaining is the winner.</p>
 			<NewSettleButton reroute={(str) => this.props.history.push(str)} />
 			</div>
