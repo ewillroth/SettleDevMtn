@@ -25,7 +25,7 @@ Once all participants have submitted their suggestions, the creator of the settl
 <img Height="400" Width="600" src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/readme%2Fstart-settle.gif?alt=media&token=2525d722-da45-4c7f-b767-a02ae9168ae0" alt="demonstrating settle creation" />
 
 
-Participants will cross off one suggestion each, starting with a randomly selected participant, until only one suggestion remains. 
+Starting with a random participant, each person will cross off one suggestion until only one remains.
 
 ## Technology
 
