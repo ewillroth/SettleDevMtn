@@ -9,3 +9,5 @@ WHERE creator_id = $2;
 UPDATE suggestions
 SET user_id = (SELECT user_id FROM users WHERE email = $1)
 WHERE user_id = $2;
+
+DELETE FROM users WHERE user_id = $2;
