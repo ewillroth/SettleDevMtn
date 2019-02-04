@@ -8,17 +8,23 @@ Settle is a tool for groups to make decisions. Each person writes down three uni
 ## Functionality
 
 Guests and registered users both have the ability to create a settle. Once created, users can invite their friends via link, email, or text. 
-<br/>
+
+
 <img Height="400" Width="600" src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/readme%2Fcreate-and-invite.gif?alt=media&token=2b6d57d0-425e-43f7-917b-8632eb0ee6f1" alt="demonstrating settle creation" />
-<br/>
+
+
 Participants can add and edit suggestions. The list of suggestions and the list of participants are both updated in real time using Socket.io. 
-<br/>
+
+
 <img Height="400" Width="600" src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/readme%2Fadd-and-edit.gif?alt=media&token=964447c8-59d8-4ea7-b91d-ced2ab6dae12" alt="demonstrating settle creation" />
-<br/>
+
+
 Once all participants have submitted their suggestions, the creator of the settle is able to begin settling.
-<br/>
+
+
 <img Height="400" Width="600" src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/readme%2Fstart-settle.gif?alt=media&token=2525d722-da45-4c7f-b767-a02ae9168ae0" alt="demonstrating settle creation" />
-<br/>
+
+
 Participants will cross off one suggestion each, starting with a randomly selected participant, until only one suggestion remains. 
 
 ## Technology
