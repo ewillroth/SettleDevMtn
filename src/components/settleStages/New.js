@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Header from "../Header";
 import axios from 'axios';
 import { toast } from "react-toastify";
+import MaskedInput from 'react-text-mask'
 
 class New extends Component{
 	constructor(){
@@ -62,12 +63,16 @@ class New extends Component{
 
 	addEmail = (e) => {
 		e.preventDefault()
-		this.setState({ emails: [...this.state.emails, this.state.email] }, this.setState({ email: '' }))
+		if(this.state.email){
+			this.setState({ emails: [...this.state.emails, this.state.email] }, this.setState({ email: '' }))
+		}
 	}
 
 	addNumber = (e) => {
 		e.preventDefault()
-		this.setState({ numbers: [...this.state.numbers, this.state.number] }, this.setState({ number: '' }))
+		if(this.state.number){
+			this.setState({ numbers: [...this.state.numbers, this.state.number] }, this.setState({ number: '' }))
+		}
 	}
 
 	copy = (e) => {;
@@ -113,7 +118,12 @@ class New extends Component{
 					<div className="numbercontainer">
 						<p>Invite friends via text:</p>
 						<form className="inviteform" onSubmit={this.addNumber}>
-							<input type="tel" maxLength="10" minLength="10" name="number" value={this.state.number} onChange={this.onChange} />
+						<MaskedInput
+							mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+							name="number"
+							value={this.state.number}
+							onChange={this.onChange}
+						/>
 							<button><img src="https://firebasestorage.googleapis.com/v0/b/settle-io.appspot.com/o/images%2Ficons%2F003-rounded-add-button.png?alt=media&token=1a0a79f4-c459-4811-aec1-73530173c95c" alt="add"></img></button>
 						</form>
 						<ul className="invitelist">{displaynumbers}</ul>
