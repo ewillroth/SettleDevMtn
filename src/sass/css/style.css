@@ -72,6 +72,7 @@ table {
   color: #FFFFFF;
   cursor: pointer;
   z-index: 22;
+  border-radius: 10px;
 }
 
 .splash-nav button, .splash-main button, .login button, .register button {
@@ -84,6 +85,7 @@ table {
   color: #FFFFFF;
   cursor: pointer;
   z-index: 22;
+  border-radius: 10px;
 }
 
 .newsettle, .startsettle {
@@ -96,6 +98,7 @@ table {
   color: #FFFFFF;
   cursor: pointer;
   z-index: 22;
+  border-radius: 10px;
 }
 
 .newsettle:hover {
@@ -112,6 +115,7 @@ table {
   color: #FFFFFF;
   cursor: pointer;
   z-index: 22;
+  border-radius: 10px;
 }
 
 .activesettles {
@@ -124,6 +128,7 @@ table {
   color: #FFFFFF;
   cursor: pointer;
   z-index: 22;
+  border-radius: 10px;
 }
 
 .header {
@@ -180,10 +185,6 @@ table {
 }
 .register p {
   color: #FFFFFF;
-}
-.register button {
-  margin: 10px 0px;
-  padding: 0px 14px;
 }
 .register a {
   background: #FFFFFF;
@@ -327,6 +328,7 @@ table {
   text-align: center;
   color: #FFFFFF;
   cursor: pointer;
+  border-radius: 10px;
 }
 .settlecontainer .new button img {
   width: 24px;
@@ -434,6 +436,9 @@ table {
 .settlecontainer .inactive .inactivecontainer .List {
   margin: 30px 0px;
 }
+.settlecontainer .inactive .inactivecontainer .List p {
+  margin: 10px;
+}
 .settlecontainer .inactive .inactivecontainer .usersuggestions {
   display: flex;
   flex-direction: column;
@@ -513,6 +518,7 @@ table {
 }
 .settlecontainer .active .thelist .listitem p {
   color: #FFFFFF;
+  margin: 10px;
 }
 .settlecontainer .completed {
   display: flex;
