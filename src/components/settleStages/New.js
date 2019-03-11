@@ -41,6 +41,15 @@ class New extends Component{
 					.catch(err => console.log(err));
 			})
 		}
+		if(this.state.email.includes('@')){
+			axios
+				.post("/api/nodemailer", {
+					link: `https://settleit.app${this.props.url}`,
+					email: e
+				})
+				.then(response => console.log(response))
+				.catch(err => console.log(err));
+		}
 		//send text invites
 		if(this.state.numbers.length>0){
 			this.state.numbers.forEach((e,i)=>{
@@ -52,6 +61,15 @@ class New extends Component{
 					.then(response => console.log(response))
 					.catch(err => console.log(err));
 			})
+		}
+		if(this.state.email.length===10){
+			axios
+				.post("/api/twilio", {
+					link: `https://settleit.app${this.props.url}`,
+					number: "+1" + e
+				})
+				.then(response => console.log(response))
+				.catch(err => console.log(err));
 		}
 		//set new to false in db and isnew to false in state
 		axios.put(`/api/settle/${this.props.id}/removenew`)
