@@ -45,6 +45,8 @@
 		@include flex(column);
 		position: fixed;
 		flex-wrap: wrap;
+		color: $white;
+		font-family: $font;
 		top: 50px;
 		left: 450px;
 		height: 80%;
