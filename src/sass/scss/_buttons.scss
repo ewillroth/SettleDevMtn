@@ -9,7 +9,6 @@
 		color: $white;
 		cursor: pointer;
 		z-index: 22;
-		border-radius: 10px;
 	}
 
 }
@@ -24,7 +23,7 @@
 		color: $white;
 		cursor: pointer;
 		z-index: 22;
-		border-radius: 10px;
+		: 10px;
 	}
 }
 
@@ -38,7 +37,6 @@
 	color: $white;
 	cursor: pointer;
 	z-index: 22;
-	border-radius: 10px;
 }
 
 .newsettle:hover {
@@ -55,7 +53,6 @@
 	color: $white;
 	cursor: pointer;
 	z-index: 22;
-	border-radius: 10px;
 }
 
 .activesettles {
@@ -68,5 +65,4 @@
 	color: $white;
 	cursor: pointer;
 	z-index: 22;
-	border-radius: 10px;
 }
