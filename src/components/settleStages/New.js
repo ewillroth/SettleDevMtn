@@ -62,7 +62,7 @@ class New extends Component{
 					.catch(err => console.log(err));
 			})
 		}
-		if(this.state.email.length===10){
+		if(this.state.number.length===10){
 			axios
 				.post("/api/twilio", {
 					link: `https://settleit.app${this.props.url}`,
