@@ -41,11 +41,11 @@ class New extends Component{
 					.catch(err => console.log(err));
 			})
 		}
-		if(this.state.email.includes('@')){
+		if(this.state.email.includes('@') && this.state.email.includes('.')){
 			axios
 				.post("/api/nodemailer", {
 					link: `https://settleit.app${this.props.url}`,
-					email: e
+					email: this.state.email
 				})
 				.then(response => console.log(response))
 				.catch(err => console.log(err));
@@ -66,7 +66,7 @@ class New extends Component{
 			axios
 				.post("/api/twilio", {
 					link: `https://settleit.app${this.props.url}`,
-					number: "+1" + e
+					number: "+1" + this.state.number
 				})
 				.then(response => console.log(response))
 				.catch(err => console.log(err));
