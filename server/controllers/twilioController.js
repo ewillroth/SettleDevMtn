@@ -7,7 +7,7 @@ const client = require("twilio")(accountSid, authToken);
 const sendInvite = (req,res) => {
 	client.messages
 		.create({
-			body: `Someone has invited you to a Settle! ${req.body.link}`,
+			body: `${req.session.user.name || 'Someone'} has invited you to a Settle! ${req.body.link}`,
 			from: phoneNumber,
 			to: req.body.number
 		})

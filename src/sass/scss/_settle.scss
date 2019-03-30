@@ -121,6 +121,9 @@
 			}
 			.List {
 				margin: 30px 0px;
+				p {
+					margin: 10px;
+				}
 			}
 			.usersuggestions {
 				display: flex;
@@ -198,6 +201,7 @@
 				}
 				p {
 					color: $white;
+					margin: 10px;
 				}
 			}
 		}
