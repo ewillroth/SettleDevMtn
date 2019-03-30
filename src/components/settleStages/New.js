@@ -62,11 +62,13 @@ class New extends Component{
 					.catch(err => console.log(err));
 			})
 		}
-		if(this.state.number.length===10){
+		if(this.state.number.length===13){
+			let numberMask = this.state.number
+			let number = numberMask.replace(/\D/g, '');
 			axios
 				.post("/api/twilio", {
 					link: `https://settleit.app${this.props.url}`,
-					number: "+1" + this.state.number
+					number: "+1" + number
 				})
 				.then(response => console.log(response))
 				.catch(err => console.log(err));
