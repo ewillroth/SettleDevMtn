@@ -8,7 +8,7 @@ import Completed from './settleStages/Completed';
 import {getUser} from '../redux/reducers/userReducer';
 import socketIOClient from "socket.io-client";
 
-const socket = socketIOClient(process.env.REACT_APP_URL);
+const socket = socketIOClient(process.env.REACT_APP_URL, { transports: ['websocket'] });
 
 class Settle extends Component {
 	constructor(){
@@ -21,8 +21,8 @@ class Settle extends Component {
 	}
 	componentDidMount(){ 
 		//joins the socket room with the settle id
-		socket.emit('join', { room: this.props.match.params.id })
 		socket.on('connection', ()=>{console.log('Socket:connected')})
+		socket.emit('join', { room: this.props.match.params.id })
 		socket.on('change_stage', ()=>{
 			console.log("Socket: changing stage")
 			this.setState({update:!this.state.update})
