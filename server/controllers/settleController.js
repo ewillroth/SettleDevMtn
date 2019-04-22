@@ -59,7 +59,6 @@ const removeSuggestion = (req,res) => {
 		}).catch(err=>console.log(err))
 	})
 	.catch(err=>console.log(err))
-
 }
 
 const getSuggestions = (req,res) => {
@@ -85,7 +84,6 @@ const beginSettle = (req,res) => {
 			res.status(200).json(response[0].activeuser)
 		})
 	}).catch(err=>console.log(err))
-	
 }
 
 const doneSubmitting = (req,res) => {
