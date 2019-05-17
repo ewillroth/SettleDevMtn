@@ -62,9 +62,10 @@ class New extends Component{
 					.catch(err => console.log(err));
 			})
 		}
-		if(this.state.number.length===13){
+		if(this.state.number.length===14){
 			let numberMask = this.state.number
 			let number = numberMask.replace(/\D/g, '');
+			console.log(number, 'number demasked')
 			axios
 				.post("/api/twilio", {
 					link: `https://settleit.app${this.props.url}`,
