@@ -1,0 +1,55 @@
+{
+	"users": {
+		"ewillroth": {
+			"email": "person@example.com",
+			"password": "hash",
+			"settles": {
+				"se1": true,
+				"se2": true
+			}
+		},
+		"rachb11": {
+			"email": "person@example.com",
+			"password": "hash",
+			"settles": {
+				"se1": true,
+				"se2": true
+			}
+		}
+	},
+	"settles": {
+		"se1": {
+			"users": {
+				"ewillroth": true,
+				"rachb11": true
+			},
+			"suggestions": {
+				"su1": {
+					"user": "ewillroth",
+					"data": "suggestion1",
+					"active": true
+				},
+				"su2": {
+					"user": "ewillroth",
+					"data": "suggestion2",
+					"active": false
+				}
+			},
+			"stage": "inactive"
+		},
+		"se2": {
+			"users": {
+				"ewillroth": true,
+				"rachb11": true
+			},
+			"suggestions": {
+				"su1": {
+					"user": "ewillroth",
+					"data": "suggestion",
+					"active": true
+				}
+			},
+			"stage": "active"
+		}
+	}
+}
