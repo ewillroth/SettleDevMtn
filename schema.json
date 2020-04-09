@@ -3,6 +3,7 @@
 		"ewillroth": {
 			"email": "person@example.com",
 			"password": "hash",
+			"accountCreated": "dateTime",
 			"settles": {
 				"se1": true,
 				"se2": true
@@ -11,6 +12,7 @@
 		"rachb11": {
 			"email": "person@example.com",
 			"password": "hash",
+			"accountCreated": "dateTime",
 			"settles": {
 				"se1": true,
 				"se2": true
@@ -19,6 +21,7 @@
 	},
 	"settles": {
 		"se1": {
+			"created": "dateTime",
 			"users": {
 				"ewillroth": true,
 				"rachb11": true
@@ -38,6 +41,7 @@
 			"stage": "inactive"
 		},
 		"se2": {
+			"created": "dateTime",
 			"users": {
 				"ewillroth": true,
 				"rachb11": true
