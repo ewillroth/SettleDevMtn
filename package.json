@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@types/react": "^16.9.33",
+    "@types/react-redux": "^7.1.7",
     "@types/styled-components": "^5.0.1",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
@@ -13,6 +14,7 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "firebase": "^5.7.3",
+    "firebaseui": "^4.5.0",
     "massive": "^5.7.2",
     "nodemailer": "^5.1.1",
     "prop-types": "^15.6.2",
@@ -20,7 +22,7 @@
     "react-dom": "^16.13.1",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.5",
+    "react-scripts": "3.4.1",
     "react-text-mask": "^5.4.3",
     "react-toastify": "^4.5.2",
     "redux": "^4.0.1",
@@ -28,7 +30,8 @@
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "styled-components": "^5.1.0",
-    "twilio": "^3.27.1"
+    "twilio": "^3.27.1",
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "start": "PORT=3334 react-scripts start",
@@ -45,5 +48,6 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:3333"
+  "proxy": "http://localhost:3333",
+  "devDependencies": {}
 }

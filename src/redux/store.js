@@ -7,7 +7,6 @@ import settleReducer from './reducers/settleReducer';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(promiseMiddleware()));
 
-//combine reducers
 const combinedReducers = combineReducers({
 	userRdcr: userReducer,
 	settleRdcr: settleReducer

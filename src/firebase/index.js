@@ -1,19 +1,17 @@
-import 'firebase/storage'
+import firebase from "firebase";
 
-var firebase = require('firebase/app')
-
-var config = {
+const config = {
 	apiKey: process.env.REACT_APP_FIREBASE_API,
-	authDomain: "tacotracker2019.firebaseapp.com",
-	databaseURL: "https://tacotracker2019.firebaseio.com",
-	projectId: "tacotracker2019",
+	authDomain: "settle-io.firebaseapp.com",
+	databaseURL: "https://settle-io.firebaseio.com",
+	projectId: "settle-io",
 	storageBucket: "gs://settle-io.appspot.com/",
-	messagingSenderId: "985342258862"
+	messagingSenderId: "985342258862",
 };
 firebase.initializeApp(config);
 
-const storage = firebase.storage()
+const storage = firebase.storage();
+const database = firebase.database();
+const auth = firebase.auth();
 
-export {
-	storage, firebase as default
-}
+export { auth, storage, database, firebase as default };
