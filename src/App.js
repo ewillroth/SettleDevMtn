@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import routes from "./routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./reset.css";
 
 class App extends Component {
 	render() {

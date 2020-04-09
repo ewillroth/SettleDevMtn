@@ -1,7 +1,8 @@
 import React from "react";
 import * as firebaseui from "firebaseui";
 import firebase, { auth } from "../firebase";
-import SignOutButton from "./SignOutButton";
+import Title from "./Title";
+import Subtitle from "./Subtitle";
 import { firebaseLogin } from "../redux/reducers/userReducer";
 
 const Auth = () => {
@@ -127,7 +128,8 @@ const Auth = () => {
 
 	return (
 		<>
-			<SignOutButton></SignOutButton>
+			<Title />
+			<Subtitle />
 			<div id="firebaseui-auth-container"></div>
 		</>
 	);
