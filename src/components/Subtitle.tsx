@@ -4,9 +4,9 @@ import styled from "styled-components";
 const H2 = styled.h2`
 	font-family: Roboto;
 	font-size: 20px;
-	color: #040f0f;
+	color: #343f3e;
 	text-align: center;
-	margin: 0 10%;
+	margin: 20px 10%;
 `;
 
 const Subtitle = () => {
